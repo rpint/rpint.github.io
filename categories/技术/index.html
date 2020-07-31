@@ -1,0 +1,999 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="分类: 技术, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="description" content="自强不息，厚德载物">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>分类: 技术 | 唐瑞平</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/css/my.css">
+
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://noscos.nos-eastchina1.126.net/libs/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">唐瑞平</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags/" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories/" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/post/" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about/" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://noscos.nos-eastchina1.126.net/libs/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">唐瑞平</div>
+        <div class="logo-desc">
+            
+            自强不息，厚德载物
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/post/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    <div class="bg-cover pd-header about-cover">
+    <div class="container">
+    <div class="row">
+    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
+        <div class="brand">
+            <div class="title center-align">
+                
+                瑞平笔记
+                
+            </div>
+
+            <div class="description center-align">
+                
+                    自强不息，厚德载物
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // 每天切换 banner 图.  Switch banner image every day.
+    $('.bg-cover').css('background-image', 'url(https://noscos.nos-eastchina1.126.net/libs/medias/banner/4.jpg)');
+</script>
+
+
+    </div>
+</div>
+
+<main class="content">
+
+    
+
+<div id="category-cloud" class="container chip-container">
+    <div class="card">
+        <div class="card-content">
+            <div class="tag-title center-align">
+                <i class="fas fa-bookmark"></i>&nbsp;&nbsp;文章分类
+            </div>
+            <div class="tag-chips">
+                
+                
+                
+                <a href="/categories/%E6%8A%80%E6%9C%AF/" title="技术: 13">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-active " style="background-color: #F9EBEA;">技术
+                        <span class="tag-length">13</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/%E7%94%9F%E6%B4%BB/" title="生活: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default " style="background-color: #F5EEF8;">生活
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+
+    <article id="articles" class="container articles">
+        <div class="row tags-posts">
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/coding-ci-hexo.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-hexo.jpg" class="responsive-img" alt="Coding持续集成自动部署Hexo博客">
+                            
+                            <span class="card-title">Coding持续集成自动部署Hexo博客</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                流程介绍前面写了一篇文章《Github Actions自动部署Hexo博客》，是可以通过Github本身自带的持续集成功能来处理hexo项目，从而免去了在本地执行这项操作，只需要在Github上编写Markdown文档即可实现自动部署到he
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/github-coding-ci-cd-hexo-cdn.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg" class="responsive-img" alt="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速">
+                            
+                            <span class="card-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                网站优化国内和国外隔着一堵墙，无论如何你都没办法快速绕过它。对于我来说，在域名没有备案的情况下，本站算是差不多已经优化到极限了。
+但就在刚刚，我的移动数据流量打开加载十余秒，差不多算是超时了，要彻底解决这个问题，只有备案，无其他路可走。
+好
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/yque-serverless-github-actions-hexo.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/yque-serverless-github-actions-hexo.jpg" class="responsive-img" alt="语雀文章用Serverless自动部署到Hexo博客">
+                            
+                            <span class="card-title">语雀文章用Serverless自动部署到Hexo博客</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                流程和概述流程大概为： 语雀webhook→Serverless→Github Actions→Github Pages
+本身用 Github Actions→Github Pages 即可完成在线更新文章，或者说通过Github网页写文章
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-29
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/github-actions-hexo.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/github-actions-hexo.jpg" class="responsive-img" alt="Github Actions自动部署Hexo博客">
+                            
+                            <span class="card-title">Github Actions自动部署Hexo博客</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                
+阅读此篇文章之前，需具备hexo本地环境的搭建，并且通过git推送到github pages上使得你的静态网站可访这样的能力。
+
+同样，《Coding持续集成自动部署Hexo博客》还可以试试用coding-ci来做这个事情。
+ Githu
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/zeit-github-pages-hexo-sync.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/zeit-github.jpg" class="responsive-img" alt="Vercel Zeit now自动部署Github为hexo博客加速">
+                            
+                            <span class="card-title">Vercel Zeit now自动部署Github为hexo博客加速</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Zeit Github Cloudflare Netlify速度对比 Zeit now不知道什么时候改名为 Vercel了，又好像被收购了。今下午发现 zeit的访问速度不错，故此跃跃欲试，看看能不能再次为博客提速。
+毕竟在墙外，想要让博客
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-27
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/coding-sync-github.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/coding-sync.jpg" class="responsive-img" alt="Coding持续集成自动同步到GitHub">
+                            
+                            <span class="card-title">Coding持续集成自动同步到GitHub</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                Coding持续集成概述这篇还是需要在本地处理好静态网站推送到coding，如果不想在本地环境用hexo生成好静态网站，可以试试《Github Actions自动部署Hexo博客》
+如果Github访问总是不够稳定，可以试试《Coding持
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-26
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/cloudflare-cdn-github-pages.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/cloudflare-ssl.jpg" class="responsive-img" alt="CloudFlare CDN GitHub Pages">
+                            
+                            <span class="card-title">CloudFlare CDN GitHub Pages</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                如果觉得CloudFlare CDN对国内加速不够明显，推荐看看《Vercel Zeit now自动部署Github为hexo博客加速》
+托管在GitHub Pages为何要托管于 GitHub上，因为没有备案。在国内，域名不备案都无法解析
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-25
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/update-on-the-hexo-theme.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/hexo.jpg" class="responsive-img" alt="hexo主题更新和valine评论系统问题">
+                            
+                            <span class="card-title">hexo主题更新和valine评论系统问题</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                hexo建站程序hexo是一个静态网站生成器，可直接把网站内容以html页面生成好。不同于动态网站，在你访问的时候由服务器端生成好html页面然后发送到客户端。
+类似于hexo这样的网页生成器还有hugo，但hugo的效率可比hexo高多了
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-29
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/real-name-system-and-website-email-account-problems.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/Real-name-system.jpg" class="responsive-img" alt="实名制及网站邮箱账户问题">
+                            
+                            <span class="card-title">实名制及网站邮箱账户问题</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                互联网实名制问题话还得从2017年6月1号开始，中国互联网全面实行 实名制，当然也只是某种意义上的 实名制，采取的办法是验证手机号。因为现在手机号都是 实名制的，通过这样的认证方式，使得实名。
+之所以说是某种意义上的 实名制，是因为这样的认
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-12-10
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E7%BD%91%E7%AB%99/">
+                            <span class="chip bg-color">网站</span>
+                        </a>
+                        
+                        <a href="/tags/%E5%AE%89%E5%85%A8/">
+                            <span class="chip bg-color">安全</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/personal-website-icp-beian-faq.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/ICP-BeiAn.jpg" class="responsive-img" alt="个人网站ICP备案常见问题">
+                            
+                            <span class="card-title">个人网站ICP备案常见问题</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                工信部备案备案前
+什么是ICP备案
+只要你在的网站或者说业务使用的是大陆地区的云计算，云服务产品，那么就必须在工信部备案。就好比人出生了要去上口户口。
+
+
+为什么要备案
+因为不备案你就无法使用大陆地区的云服务业务。虽然可以使用非大陆地区的，
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-28
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E5%A4%87%E6%A1%88/">
+                            <span class="chip bg-color">备案</span>
+                        </a>
+                        
+                        <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                            <span class="chip bg-color">云计算</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/talk-about-baidu-cloud-computing.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/Baidu-cloud-computing.jpg" class="responsive-img" alt="说说百度云计算">
+                            
+                            <span class="card-title">说说百度云计算</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                百度云备案体验前两天百度客服打了两次电话给我。告诉我，我的证书到期了，问我要不要续费。毕竟申请的都是 免费证书，怎么可能续费呢？双方都心知肚明，只是借机找这个事情给我推销他们的产品罢了。说了不会续费之后，然后促销人员就接着说，那你有没有考虑
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-13
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                            <span class="chip bg-color">云计算</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="article tag-post col s12 m6 l4" data-aos="zoom-in">
+                <div class="card">
+                    <a href="/post/the-beginning-and-classification-of-cloud-computing.html">
+                        <div class="card-image tag-image">
+                            
+                            <img src="https://noscos.nos-eastchina1.126.net/trpic/cloud-computing.jpg" class="responsive-img" alt="云计算的开端和分类">
+                            
+                            <span class="card-title">云计算的开端和分类</span>
+                        </div>
+                    </a>
+                    <div class="card-content article-content">
+                        <div class="summary block-with-text">
+                            
+                                云计算的开端十年前，刚好是 阿里云的开端，也是中国云计算的开端，那时候化腾，彦宏都不看好云计算，两者都认为现在谈云计算还为时过早，但马云却说没有云就没有未来，还说自己不懂技术，但云计算对我们很重要。而且阿里的内部也是马云力挺王坚，才有今天国
+                            
+                        </div>
+                        <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-11-09
+                            </span>
+                            <span class="publish-author">
+                                
+                                <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                
+                                <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
+                                </a>
+                                
+                                
+                            </span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="card-action article-tags">
+                        
+                        <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/">
+                            <span class="chip bg-color">云计算</span>
+                        </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </article>
+</main>
+
+
+<div class="container paging">
+    <div class="row">
+        <div class="col s6 m4 l4">
+            
+            <a class="left btn-floating btn-large disabled">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            
+        </div>
+        <div class="page-info col m4 l4 hide-on-small-only">
+            <div class="center-align b-text-gray">1 / 2</div>
+        </div>
+        <div class="col s6 m4 l4">
+            
+            <a href="/categories/%E6%8A%80%E6%9C%AF/page/2/" class="right btn-floating btn-large waves-effect waves-light bg-color">
+                <i class="fas fa-angle-right"></i>
+            </a>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+
+            <a href="https://www.tangruiping.com" target="_blank">唐瑞平</a>
+						
+
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.7k</span>&nbsp;字
+            
+            <br>
+            &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
+
+
+            
+            
+            
+            
+            <br>
+
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+
+
+
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?c57098725b04d417968f7b139cd2b606";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/others/clicklove.js" async="async"></script>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

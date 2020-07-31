@@ -1,0 +1,4 @@
+User-agent: Baiduspider
+Sitemap: https://www.tangruiping.com/baidusitemap.xml
+User-agent: *
+Sitemap: https://www.tangruiping.com/sitemap.xml
