@@ -16,6 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
+    <link rel="canonical" href="https://www.tangruiping.com/post/coding-ci-hexo.html">
     <title>Coding持续集成自动部署Hexo博客 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
@@ -355,7 +356,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-30
+                    2020-07-31
                 </div>
                 
 
@@ -381,10 +382,10 @@
             <div id="articleContent">
                 <h3 id="流程介绍"><a href="#流程介绍" class="headerlink" title="流程介绍"></a>流程介绍</h3><p>前面写了一篇文章《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》，是可以通过Github本身自带的持续集成功能来处理hexo项目，从而免去了在本地执行这项操作，只需要在Github上编写Markdown文档即可实现自动部署到hexo博客。</p>
 <p>这篇文章也是这个思路，但用的是coding自带的持续集成功能，那么跟《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》有什么区别呢？</p>
-<p>区别还是有的，《Coding持续集成自动同步到GitHub》这篇文章用的还是需要在本地执行<code>hexo d</code>命令生成好后，再通过<code>git push</code>到<code>Coding Pages</code>仓库，从而触发coding的持续集成自动同步到<code>Github Pages</code>仓库。</p>
+<p>区别还是有的，《Coding持续集成自动同步到GitHub》这篇文章用的还是需要在本地执行<code>hexo g</code>命令生成好后，再通过<code>git push</code>到<code>Coding Pages</code>仓库，从而触发coding的持续集成自动同步到<code>Github Pages</code>仓库。</p>
 <p>这样，既可以通过coding的持续集成推送到coding pages仓库，再次触发coding pages的文件自动同步到github pages，就能做到一次更新完成两个<code>节点</code>的部署。</p>
 <h3 id="coding申请与创建"><a href="#coding申请与创建" class="headerlink" title="coding申请与创建"></a>coding申请与创建</h3><p>首先注册coding，需要验证你手机号，这点没有github方便。然后新建一个项目，选择项目模板为代码托管项目即可。</p>
-<p>项目名称随意，项目标志我这里命名为<code>hexo-blog</code>，这个用来存放<code>hexo d</code>后生成的静态网页文件，如果你已经有了，则不需要再创建。</p>
+<p>项目名称随意，项目标志我这里命名为<code>hexo-blog</code>，这个用来存放<code>hexo g</code>后生成的静态网页文件，如果你已经有了，则不需要再创建。</p>
 <p>然后点击代码仓库，快速初始化仓库，勾选<code>启用README.md文件初始化仓库</code>后进行初始化。点击<code>代码仓库</code>默认的就是你刚创建的这个仓库，点击右边靠上的<code>克隆</code>记下你的地址，后面repo的时候会用到。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/coding-create.jpg" alt="coding新建仓库"></p>
 <p>同样再次<code>新建代码仓库</code>，不需要新建项目了，仓库名称我这里为<code>hexo-source</code>，仓库类型为<code>GIT仓库</code>，勾选<code>启用 README.md 文件初始化项目</code>确认完成，这个是用来存放hexo的源文件，比如博客主题之类的hexo必须文件。</p>
@@ -443,55 +444,57 @@ stages {
       }
     }
   }
-}</code></pre><h3 id="配置coding持续集成-方案2"><a href="#配置coding持续集成-方案2" class="headerlink" title="配置coding持续集成-方案2"></a>配置coding持续集成-方案2</h3><p>在《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html#toc-heading-4">配置coding持续集成-方案1</a>》中，缺点是token以明文形式在日志中输出，而coding是支持提供环境变量保密配置的。</p>
+}</code></pre>
+<h3 id="配置coding持续集成-方案2"><a href="#配置coding持续集成-方案2" class="headerlink" title="配置coding持续集成-方案2"></a>配置coding持续集成-方案2</h3><p>在《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html#toc-heading-4">配置coding持续集成-方案1</a>》中，缺点是token以明文形式在日志中输出，而coding是支持提供环境变量保密配置的。</p>
 <p>过程如下，把下面代码替换上面中的代码，然后参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html#toc-heading-2">Coding持续集成自动同步到GitHub</a>》中的 <code>配置Coding-Ci</code>这一小节，即可完成配置。</p>
 <pre><code>pipeline {
-  agent {
-    docker {
-      image &#39;lenyuadmin/hexo&#39;
-    }
+ agent {
+   docker {
+     image &#39;lenyuadmin/hexo&#39;
+   }
 
-  }
-  stages {
-    stage(&#39;检出&#39;) {
-      steps {
-        checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]], userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
-      }
-    }
-    stage(&#39;环境&#39;) {
-      steps {
-        echo &#39;构建中...&#39;
-        sh &#39;npm config set registry http://mirrors.cloud.tencent.com/npm/&#39;
-        sh &#39;npm install&#39;
-        sh &#39;hexo -v&#39;
-        echo &#39;构建完成.&#39;
-      }
-    }
-    stage(&#39;生产&#39;) {
-      steps {
-        echo &#39;生产中...&#39;
-        sh &#39;hexo clean&#39;
-        sh &#39;hexo g&#39;
-        echo &#39;生产完成.&#39;
-      }
-    }
-    stage(&#39;部署&#39;) {
-      steps {
-        echo &#39;部署中...&#39;
-        dir(path: &#39;public&#39;) {
-          sh &#39;ls&#39;
-          sh &#39;git init&#39;
-          sh &#39;git config user.name $USER_NAME&#39;
-          sh &#39;git config user.email $USER_EMAIL&#39;
-          sh &#39;git add -A&#39;
-          sh &#39;git commit -m \&#39;init\&#39;&#39;
-          sh &#39;git push -u -f &quot;$USER_PROJECT&quot; master:master&#39;
-        }
-        echo &#39;部署完成&#39;
-      }
-    }
-  }
-}</code></pre><p>USER_NAME=填写你的名称；<br>USER_EMAIL=填写你的邮件；<br>USER_PROJECT=https://子账号名:子账号的密码@项目地址，其中就是方案1中<code>_config.yml</code>配置文件中的 <code>repo:</code>的地址 <code>https://令牌用户名:访问令牌@e.coding.net/coding用户名/hexo-blog/hexo-blog.git</code>,此时你还可以删除<code>_config.yml</code>配置中的repo等字段。</p>
+ }
+ stages {
+   stage(&#39;检出&#39;) {
+     steps {
+       checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]], userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
+     }
+   }
+   stage(&#39;环境&#39;) {
+     steps {
+       echo &#39;构建中...&#39;
+       sh &#39;npm config set registry http://mirrors.cloud.tencent.com/npm/&#39;
+       sh &#39;npm install&#39;
+       sh &#39;hexo -v&#39;
+       echo &#39;构建完成.&#39;
+     }
+   }
+   stage(&#39;生产&#39;) {
+     steps {
+       echo &#39;生产中...&#39;
+       sh &#39;hexo clean&#39;
+       sh &#39;hexo g&#39;
+       echo &#39;生产完成.&#39;
+     }
+   }
+   stage(&#39;部署&#39;) {
+     steps {
+       echo &#39;部署中...&#39;
+       dir(path: &#39;public&#39;) {
+         sh &#39;ls&#39;
+         sh &#39;git init&#39;
+         sh &#39;git config user.name $USER_NAME&#39;
+         sh &#39;git config user.email $USER_EMAIL&#39;
+         sh &#39;git add -A&#39;
+         sh &#39;git commit -m \&#39;init\&#39;&#39;
+         sh &#39;git push -u -f &quot;$USER_PROJECT&quot; master:master&#39;
+       }
+       echo &#39;部署完成&#39;
+     }
+   }
+ }
+}</code></pre>
+<p>USER_NAME=填写你的名称；<br>USER_EMAIL=填写你的邮件；<br>USER_PROJECT=https://子账号名:子账号的密码@项目地址，其中就是方案1中<code>_config.yml</code>配置文件中的 <code>repo:</code>的地址 <code>https://令牌用户名:访问令牌@e.coding.net/coding用户名/hexo-blog/hexo-blog.git</code>,此时你还可以删除<code>_config.yml</code>配置中的repo等字段。</p>
 
             </div>
             <hr>
@@ -868,9 +871,9 @@ stages {
                 <a href="/post/github-coding-ci-cd-hexo-cdn.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg" class="responsive-img" alt="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg" class="responsive-img" alt="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想">
                         
-                        <span class="card-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速</span>
+                        <span class="card-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -883,7 +886,7 @@ stages {
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
                         </span>
                         <span class="publish-author">
                             
@@ -1138,7 +1141,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.8k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

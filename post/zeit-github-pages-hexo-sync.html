@@ -16,6 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
+    <link rel="canonical" href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">
     <title>Vercel Zeit now自动部署Github为hexo博客加速 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
@@ -355,7 +356,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-30
+                    2020-07-31
                 </div>
                 
 
@@ -398,17 +399,18 @@
 <p>最终搞定后，发现有几个页面点击访问出现404，心里有点失落，电信路线极为优秀的 <code>zeit now</code>，为何会出现404，其他的倒也没有问题。</p>
 <p>我第一反应是缓存问题，但 <code>zeit now</code>尽管有 <code>CDN节点</code>，但缓存也不是我们可以控制的。因为有很多奇怪的问题，都是 <code>CDN缓存</code>引起的。</p>
 <p>最终还是解决了这个问题，问题出现在文件名的大小写问题上。我昨天为了优化 <code>hexo</code>博客，发现如果网址 URL中带有大写的名称，在访问的时候会进行一次301重定向，这无疑也增加了一点时间。</p>
-<p>于是我就把文件名改为小写，结果在 <code>Github</code> pages仓库中，文件名还是以如 <code>Cloudflare-CDN-</code>Github<code>-Pages.html</code>这样的形式存在，但其他的主页的 <code>index.html</code>文件中的路径显然是 <code>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</code>这样的链接存在的，结果点击此页面就出现404了。</p>
+<p>于是我就把文件名改为小写，结果在 <code>Github</code> pages仓库中，文件名还是以如 <code>Cloudflare-CDN- </code>Github<code>-Pages.html</code>这样的形式存在，但其他的主页的 <code>index.html</code>文件中的路径显然是 <code>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</code>这样的链接存在的，结果点击此页面就出现404了。</p>
 <p>前面我还以为是不是文件名路径太长所致，后面发现有更长的文件名都可以正常访问，自然就不存在这个问题。所以想到是不是 <code>Github</code>仓库的文件出现了什么问题，但 <code>netlify</code>也是用的 <code>Github pages</code>，后面发现居然是文件名大小写问题导致的404。</p>
 <h3 id="为Vercel和netlify自定义404页面"><a href="#为Vercel和netlify自定义404页面" class="headerlink" title="为Vercel和netlify自定义404页面"></a>为Vercel和netlify自定义404页面</h3><p>在主题文件夹下的 <code>\source</code>目录放置一个 <code>404.html</code>文件到此即可，最终执行 <code>hexo g</code>后在 <code>public</code>文件夹的根目录下存在 <code>404.html</code>文件即可。</p>
-<p>根据我自己的测试，现在的Vercel不需要 <code>vercel.json</code>文件，之前的办法还是在主题文件夹下的 <code>\source</code>目录新建一个 <code>vercel.json</code>文件，代码如下</p>
+<p>根据我自己的测试，现在的Vercel不需要 <code>vercel.json</code>文件，之前的办法还是在主题文件夹下的 <code>\source</code>目录新建一个 <code>vercel.json</code>文件，代码如下，官网文档说明 <code>https://vercel.com/docs/configuration#routes/advanced/custom-404</code></p>
 <pre><code>{
-  &quot;version&quot;: 2,
-  &quot;routes&quot;: [
-    { &quot;handle&quot;: &quot;filesystem&quot; },
-    { &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; }
-  ]
-}</code></pre><h3 id="Netlify跳转到网站主页"><a href="#Netlify跳转到网站主页" class="headerlink" title="Netlify跳转到网站主页"></a>Netlify跳转到网站主页</h3><p>Netlify默认给一个二级域名，如xxx..netlify.app，直接访问此域名并不会跳转到你自定义的域名，因此需要新建一个 <code>netlify.toml</code> 文件，写上如下内容，放到网站根目录，或者放到 <code>themes\这里是主题名称\source</code>即可。</p>
+ &quot;version&quot;: 2,
+ &quot;routes&quot;: [
+   { &quot;handle&quot;: &quot;filesystem&quot; },
+   { &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; }
+ ]
+}</code></pre>
+<h3 id="Netlify跳转到网站主页"><a href="#Netlify跳转到网站主页" class="headerlink" title="Netlify跳转到网站主页"></a>Netlify跳转到网站主页</h3><p>Netlify默认给一个二级域名，如xxx..netlify.app，直接访问此域名并不会跳转到你自定义的域名，因此需要新建一个 <code>netlify.toml</code> 文件，写上如下内容，放到网站根目录，或者放到 <code>themes\这里是主题名称\source</code>即可。</p>
 <pre><code>[[redirects]]
 from = &quot;https://xxx.netlify.app/*&quot;
 to = &quot;https://www.tangruiping.com/:splat&quot;
@@ -418,7 +420,8 @@ force = true
 from = &quot;http://www.tangruiping.com/*&quot;
 to = &quot;https://www.tangruiping.com/:splat&quot;
 status = 301
-force = true</code></pre><p>最后这里提供Hexo更多的玩法：<br>《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》<br>《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》<br>《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》<br>《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p>
+force = true</code></pre>
+<p>最后这里提供Hexo更多的玩法：<br>《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》<br>《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》<br>《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》<br>《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p>
 
             </div>
             <hr>
@@ -1067,7 +1070,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.8k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

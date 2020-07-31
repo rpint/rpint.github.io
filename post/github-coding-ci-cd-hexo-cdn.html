@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="keywords" content="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想, 唐瑞平,瑞平笔记,唐瑞平日志">
     <meta name="description" content="自强不息，厚德载物">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,8 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速 | 唐瑞平</title>
+    <link rel="canonical" href="https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html">
+    <title>Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/awesome/css/all.css">
@@ -206,7 +207,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速</h1>
+                    <h1 class="description center-align post-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</h1>
                 </div>
             </div>
         </div>
@@ -348,14 +349,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-30
+                    2020-07-31
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-30
+                    2020-07-31
                 </div>
                 
 
@@ -409,14 +410,14 @@
 </tr>
 <tr>
 <td>360</td>
-<td><a href="https://cdn.baomitu.com" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.baomitu.com</a></td>
+<td><a href="https://cdn.baomitu.com/" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.baomitu.com</a></td>
 </tr>
 <tr>
 <td>Bootcdn</td>
-<td><a href="https://cdn.bootcdn.net" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.bootcdn.net</a></td>
+<td><a href="https://cdn.bootcdn.net/" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.bootcdn.net</a></td>
 </tr>
 </tbody></table>
-<p>以上这几个前端库还是比较全的，推荐顺序也是从上到下。还有一个要单独拿出来说，那就是真正能做到全球都有节点的<a href="https://cdn.jsdelivr.net，我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.jsdelivr.net，我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。</a></p>
+<p>以上这几个前端库还是比较全的，推荐顺序也是从上到下。还有一个要单独拿出来说，那就是真正能做到全球都有节点的<a href="https://cdn.jsdelivr.net,我不知道如何给它排名,因为很多人有点滥用,比如用它给github加速./" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.jsdelivr.net，我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。</a></p>
 <p>还可以用它加速存储在Github上的图片，文件等。不知道今后会不会被墙，尽管在国内是有正规的ICP备案。当然它也有加载不了的时候，这个时候，怎么办？</p>
 <h3 id="coding持续集成github持续部署"><a href="#coding持续集成github持续部署" class="headerlink" title="coding持续集成github持续部署"></a>coding持续集成github持续部署</h3><p>对于网站的更新，我目前采用两个更新点，一个是Hexo本地处理好后通过git push到coding，让coding-ci到github pages上，再由Netlify和Vercel自动导入他们的站点进行多站点部署。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/website-process.jpg" alt="本站流程"></p>
@@ -431,7 +432,7 @@
 <p>要真折算成分钟，Coding每周200次，每次最大时长30分钟，折算下来一个月最高是24000分钟，但问题是hexo所需时长不多，按次数计算则不如<code>Github Actions</code>了。</p>
 <p>如果不用github做后台更新文章，或者也不想用coding为后台更新文章，就习惯语雀优良的Markdown书写体验，则可以试试《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
 <h3 id="多解析路线"><a href="#多解析路线" class="headerlink" title="多解析路线"></a>多解析路线</h3><p>不管从哪里做入口，最终都汇聚到<code>Github Pages</code>上，但有比Github访问速度更好的静态站点，肯定要试试咯。因此使用<code>Netlify</code>和<code>Vercel</code>做补充，然后顺带也把<code>CloudFlare</code>上。Netlify自动部署github pages比较简单，其中Netlify的注意事项和Vercel (zeit now)的项目导入可参考《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》</p>
-<p>如此一来，那么则有Coding Pages，Github Pages，Netlify，Vercel四个站点，而CDN路线则有CloudFlare和腾讯云做备用路线，其中Netlify，Vercel也自带CDN节点的。另2个备用CDN线路，可以把上面四个站点作为源站。Coding是被腾讯收购了，用的都是腾讯云的服务器，因此腾讯云的CDN可设置为coding pages为源站，另外腾讯云CDN还支持备用线路，可在Netlify，Vercel中选取一个即可。</p>
+<p>如此一来，那么则有Coding Pages，Github Pages，Netlify，Vercel四个站点，而CDN路线则有CloudFlare和腾讯云做备用路线，其中Netlify，Vercel也自带CDN节点的。另2个备用CDN线路，可以把上面四个站点作为源站。Coding是被腾讯收购了，用的都是腾讯云的服务器，因此腾讯云的CDN可设置为coding pages为源站，另外腾讯云CDN还支持备用线路，可在Netlify，Vercel中选取一个即可。不过如果用<code>Coding pages</code>的话，注意选取图中的方案1和方案4，不然是不会在<code>Coding pages</code>上有文件生成的。</p>
 <p>在《<a href="https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html">CloudFlare CDN GitHub Pages</a>》中说过，CF是可以采用CANME解析的，而不必NS解析，因此用国内的DNS解析即可，则可以把移动路线，电信路线，联通路线分别解析到不同的站点，至于如何解析，则需要用网站测速工具测试一下做个参考。</p>
 <p>比如本站目前电信路线走的是Vercel，联通路线走的是Github Pages，移动路线走的是Netlify，搜索引擎路线则自己考虑，如果过于分散，可以不便于<code>Let&#39;s Encrypt</code>的续期。</p>
 
@@ -811,9 +812,9 @@
                 <a href="/post/github-coding-ci-cd-hexo-cdn.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg" class="responsive-img" alt="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg" class="responsive-img" alt="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想">
                         
-                        <span class="card-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速</span>
+                        <span class="card-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -826,7 +827,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
                             </span>
                         <span class="publish-author">
                             
@@ -1081,7 +1082,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.8k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

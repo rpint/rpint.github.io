@@ -16,6 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
+    <link rel="canonical" href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">
     <title>语雀文章用Serverless自动部署到Hexo博客 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
@@ -355,7 +356,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-30
+                    2020-07-31
                 </div>
                 
 
@@ -382,7 +383,7 @@
                 <h3 id="流程和概述"><a href="#流程和概述" class="headerlink" title="流程和概述"></a>流程和概述</h3><p>流程大概为： <code>语雀webhook→Serverless→Github Actions→Github Pages</code></p>
 <p>本身用 <code>Github Actions→Github Pages</code> 即可完成在线更新文章，或者说通过Github网页写文章实现自动化部署到hexo静态博客。但习惯用语雀来记录笔记，或者有类似需求的，便可在语雀文档中写文章从而实现自动化部署到 <code>Github Pages</code>静态博客上。</p>
 <h3 id="Serverless配置"><a href="#Serverless配置" class="headerlink" title="Serverless配置"></a>Serverless配置</h3><ul>
-<li>你得先有腾讯云或者阿里云账户，没有注册的话，这些注册需要验证手机，甚至实名认证。这里以腾讯云为例，在腾讯云中开通<code>Serverless</code>有叫函数计算，有叫云函数，有叫无服务器计算，总之都是它。</li>
+<li>你得先有腾讯云或者阿里云账户，没有注册的话，这些注册需要验证手机，甚至实名认证。这里以腾讯云为例，在腾讯云中开通<code>Serverless</code>有叫函数计算，有叫云函数，有叫无服务架构，总之都是它。</li>
 <li>新建云函数，函数名称自己随意，运行环境 <code>Python2.7</code> 创建方式 <code>空白函数</code> ，点击高级设置，启用 <code>运行角色</code> 为 <code>SCF_QcsRole</code> </li>
 <li>点击完成后，在 <code>函数代码→函数管理</code> 复制如下代码做相应修改，没有Github账户或者私有仓库待会创建后来修改也可以。</li>
 </ul>
@@ -429,7 +430,7 @@ def main_handler(event, context):
 <li>在知识库的开发者中，网页路径为 <code>https://www.yuque.com/你的语雀用户名/知识库用户名/settings/webhooks</code>  填入上面云函数的访问路径，名称自己写，然后把 <code>仅主动推送更新触发</code> ， <code>发布文档</code> ， <code>更新文档</code> ， <code>删除文档</code> 都勾选上点击添加</li>
 <li>在点击右上角头像，点击 <code>个人设置</code>→ <code>token</code> → <code>新建</code> ，用途自己填写，这里勾选 <code>读取你的知识库</code> <code>读取你的文档</code> 后创建，记下这串token，后面要填写在Github私有仓库中。</li>
 <li>因为要用到 <code>yuque-hexo</code> 插件，因此不妨在本地执行以下 <code>npm install yuque-hexo --save</code> 好让hexo的 <code>package.json</code> 中写有 <code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code> 这样的字段。</li>
-<li>用记事本打开<code>package.json</code>文件，可以在<code>&quot;dependencies&quot;:</code> 字段中看到<code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code></li>
+<li>用记事本打开<code>package.json</code>文件，可以在<code>  &quot;dependencies&quot;:</code> 字段中看到<code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code></li>
 <li>接着配置如下代码</li>
 </ul>
 <pre><code class="yaml">&quot;yuqueConfig&quot;: {
@@ -441,7 +442,7 @@ def main_handler(event, context):
     &quot;onlyPublished&quot;: false
   },</code></pre>
 <ul>
-<li>着在 <code>&quot;scripts&quot;:</code> 字段下加入如下代码</li>
+<li>着在 <code> &quot;scripts&quot;:</code> 字段下加入如下代码</li>
 </ul>
 <pre><code class="yaml">  &quot;start&quot;: &quot;yuque-hexo clean &amp;&amp; yuque-hexo sync &amp;&amp; hexo clean &amp;&amp; hexo generate&quot;,</code></pre>
 <ul>
@@ -1218,7 +1219,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.8k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

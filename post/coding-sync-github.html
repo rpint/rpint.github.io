@@ -16,6 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
+    <link rel="canonical" href="https://www.tangruiping.com/post/coding-sync-github.html">
     <title>Coding持续集成自动同步到GitHub | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
@@ -389,27 +390,28 @@
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/github-token.jpg" alt="github token"></p>
 <p>然后粘贴下面代码到文本编辑器中保存一下，如果复制不便可进入 <code>https://gitee.com/ct2/web/blob/master/coding-sync-github.md</code>复制。</p>
 <pre><code>pipeline {
-  agent any
-  stages {
-    stage(&#39;检出&#39;) {
-      steps {
-        checkout([
-          $class: &#39;GitSCM&#39;,
-          branches: [[name: env.GIT_BUILD_REF]],
-          userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]
-        ])
-      }
-    }
-    stage(&#39;推送部署&#39;) {
-      steps {
-        echo &#39;正在推送文件...&#39;
-        sh &#39;git fetch $FETCH&#39;
-        sh &#39;git push -f $FETCH HEAD:master&#39;
-        echo &#39;已完成推送.&#39;
-      }
-    }
-  }
-}</code></pre><p>这个时候我们来配置一下环境变量， <code>https://用户名:token@github.com/用户名/仓库名.git</code>，这里的用户名为你github的用户名。这段配好后，看下面图，添加到环境变量，勾选保密，这样就不会把token在构建日志中输出了，提高了安全性。</p>
+ agent any
+ stages {
+   stage(&#39;检出&#39;) {
+     steps {
+       checkout([
+         $class: &#39;GitSCM&#39;,
+         branches: [[name: env.GIT_BUILD_REF]],
+         userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]
+       ])
+     }
+   }
+   stage(&#39;推送部署&#39;) {
+     steps {
+       echo &#39;正在推送文件...&#39;
+       sh &#39;git fetch $FETCH&#39;
+       sh &#39;git push -f $FETCH HEAD:master&#39;
+       echo &#39;已完成推送.&#39;
+     }
+   }
+ }
+}</code></pre>
+<p>这个时候我们来配置一下环境变量， <code>https://用户名:token@github.com/用户名/仓库名.git</code>，这里的用户名为你github的用户名。这段配好后，看下面图，添加到环境变量，勾选保密，这样就不会把token在构建日志中输出了，提高了安全性。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-config.jpg" alt="coding-ci添加环境变量"></p>
 <p>这样就算完成了。进入 <code>coding</code>中的代码仓库，用 <code>web</code>上传一个文件看看，然后你会发现后台自动进行构建，此时你打开 <code>GitHub</code>的代码仓库，刷新一下看看，如果成功的话，通过 <code>coding</code>网页上传的文件在 <code>GitHub</code>上也会出现，删除刚上传的这个文件也会发现 <code>GitHub</code>中的文件被删除了。</p>
 <h3 id="Coding-Ci免费额度"><a href="#Coding-Ci免费额度" class="headerlink" title="Coding-Ci免费额度"></a>Coding-Ci免费额度</h3><p>不过 <code>Coding</code>持续集成是有一定免费额度的，就在<code>持续集成</code>中的 <code>构建节点</code>中即可看到，每周构建次数200次，也足够用了。同样目前一个仓库是 <code>2 GiB</code>，在仓库设置中可以看到。</p>
@@ -1062,7 +1064,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.7k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.8k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
