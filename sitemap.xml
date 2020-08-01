@@ -2,65 +2,65 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.tangruiping.com/post/serverless-wordpress-typecho.html</loc>
-    
-    <lastmod>2020-08-01T07:05:13.017Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html</loc>
     
-    <lastmod>2020-07-31T08:39:55.006Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</loc>
-    
-    <lastmod>2020-07-31T01:17:13.278Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/coding-ci-hexo.html</loc>
-    
-    <lastmod>2020-07-31T01:10:35.111Z</lastmod>
+    <lastmod>2020-08-01T08:16:14.146Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html</loc>
     
-    <lastmod>2020-07-30T23:50:30.108Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/github-actions-hexo.html</loc>
-    
-    <lastmod>2020-07-30T08:00:37.266Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/coding-sync-github.html</loc>
-    
-    <lastmod>2020-07-30T07:59:14.552Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</loc>
-    
-    <lastmod>2020-07-30T07:58:37.596Z</lastmod>
+    <lastmod>2020-08-01T08:16:01.157Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://www.tangruiping.com/post/update-on-the-hexo-theme.html</loc>
     
-    <lastmod>2020-07-28T23:27:19.356Z</lastmod>
+    <lastmod>2020-08-01T08:15:54.172Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/post/github-actions-hexo.html</loc>
+    
+    <lastmod>2020-08-01T08:15:46.300Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</loc>
+    
+    <lastmod>2020-08-01T08:15:41.640Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/post/coding-ci-hexo.html</loc>
+    
+    <lastmod>2020-08-01T08:15:19.945Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/post/coding-sync-github.html</loc>
+    
+    <lastmod>2020-08-01T08:15:02.607Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</loc>
+    
+    <lastmod>2020-08-01T08:14:52.907Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/post/serverless-wordpress-typecho.html</loc>
+    
+    <lastmod>2020-08-01T07:05:13.017Z</lastmod>
     
   </url>
   
