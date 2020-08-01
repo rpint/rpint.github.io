@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="hexo主题更新和valine评论系统问题, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="keywords" content="Serverless云函数计算搭建Typecho和Wordpress网站, 唐瑞平,瑞平笔记,唐瑞平日志">
     <meta name="description" content="自强不息，厚德载物">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,8 +16,8 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <link rel="canonical" href="https://www.tangruiping.com/post/update-on-the-hexo-theme.html">
-    <title>hexo主题更新和valine评论系统问题 | 唐瑞平</title>
+    <link rel="canonical" href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html">
+    <title>Serverless云函数计算搭建Typecho和Wordpress网站 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/libs/awesome/css/all.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/hexo.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/serverless-wordpress-typecho.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">hexo主题更新和valine评论系统问题</h1>
+                    <h1 class="description center-align post-title">Serverless云函数计算搭建Typecho和Wordpress网站</h1>
                 </div>
             </div>
         </div>
@@ -349,21 +349,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-29
+                    2020-08-01
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-07-29
+                    2020-08-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.4k
                 </div>
                 
 
@@ -380,23 +380,50 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="hexo建站程序"><a href="#hexo建站程序" class="headerlink" title="hexo建站程序"></a>hexo建站程序</h3><p><code>hexo</code>是一个静态网站生成器，可直接把网站内容以<code>html</code>页面生成好。不同于动态网站，在你访问的时候由服务器端生成好<code>html</code>页面然后发送到客户端。</p>
-<p>类似于<code>hexo</code>这样的网页生成器还有<code>hugo</code>，但<code>hugo</code>的效率可比<code>hexo</code>高多了，要是有上百篇文章的话，<code>hexo</code>生成要等上十来秒钟或者更久，而<code>hugo</code>只需两三秒钟。</p>
-<p>虽然<code>hexo</code>比不上<code>hugo</code>的效率，但<code>hexo</code>的主题可比<code>hugo</code>多太多了。一般玩博客的个人站长，在最初期<code>90%</code>都很重视主题，不管是动态博客还是静态博客，无一不是如此。</p>
-<p>因此造就了主题丰富者更容易受到用户青睐，至于内容，长期坚持写的也寥寥无几。就拿自个来说，都有三个月没有更新过了。想来成年人的世界，要坚持一件兴趣不高或者没有兴趣的事情，是太不容易了。</p>
-<h3 id="hexo主题更新"><a href="#hexo主题更新" class="headerlink" title="hexo主题更新"></a>hexo主题更新</h3><p>静态博客不比动态博客，更新主题什么的相对麻烦。这个麻烦是指静态程序得手动更新博客主题的配置文件，如果主题作者改动较大，或者你自己N久没有更新主题，可能会遇上不少麻烦。</p>
-<p>动态网站如<code>WordPress</code>就比较好办，因为动态网站都是带有数据库系统的，很多东西如站点标题，网站描述等，都是写入到数据库中，更新的只是程序文件，对比静态网站较为方便。</p>
-<p>而静态网站是没有数据库的，一切都是在本地生成好了上传到对象存储即可使用。因此在更新主题的时候，如站点名称，网站描述这些都是在主题配置文件中，需要你去修改的。尽管hexo带有主题配置文件<code>_config.yml</code>和站点配置文件<code>_config.yml</code>，依旧免不了逐字逐句去修改配置文件。</p>
-<p><img src="https://noscos.nos-eastchina1.126.net/trpic/hexo-v.jpg" alt="hexo版本"></p>
-<p>所以说静态网站更新主题是一件想对麻烦的事情，同样麻烦是还有静态网站生成器的程序，比如我现在用的是<code>hexo4.0</code>，现在最新版是<code>hexo4.21</code>，差别倒是不大，如果你是从<code>2.x</code>的版本直接升级到<code>4.x</code>的版本，夸度较大，可能还会面临其他问题，而如果这个时候你使用的主题作者已停止更新，可能会造成不兼容，还得更换主题。当然这个问题，动态网站也是存在的，比如<code>php5.6</code>升级到<code>php7.3</code>可能就会造成旧版主题不适配的情况。</p>
-<h3 id="第三方评论系统"><a href="#第三方评论系统" class="headerlink" title="第三方评论系统"></a>第三方评论系统</h3><p>我已经大半年没有更新主题了，其实时间也不算长，尽管此主题作者新版本改动了页面布局，似乎更美观。但如上所述，更新主题过于麻烦，因此我没有任何更新的动力，而且自己也过了那个折腾劲的年龄段，精力着实有限。</p>
-<p>但最近问题出现在第三方评论系统<code>valine</code>，第三方评论系统无法正常留言。虽然本站文章内容少，至今也没一个留言的，但不能使用总感觉不爽。自己又不是搞开发的，也不懂是哪里出问题，摸索了大半小时后感觉可能是主题的问题。</p>
-<p>情况大概是这样的，<code>LeanCloud</code>可能更新了某些设置或者链接不可使用，导致某个链接不能正常加载。于是我想着不更新主题，直接更新<code>valine</code>评论系统，结果发现问题依旧，而<code>valine</code>在4月26号有过更新。<del>因此怀疑是主题没有更新造成的</del></p>
-<p><del>我也不清楚是什么时候出现这个问题的， 感觉也就一个月左右的事吧。于是更新了主题，结果发现问题依旧，再看主题更新时间为4月11号，故此这个问题只能等作者更新解决。</del></p>
-<p>晚上自己又多测试了几遍，排除了主题问题，而是<code>LeanCloud</code>华东节点引起的，然后想切换到华北节点，结果发现要验证手机号，验证好手机号后创建应用又需要实名认证，这个就有点烦了，万一实名认证又不能搞定呢？为了保险起见，我单独注册了个国际版的<code>LeanCloud</code>，结果再次验证手机号后不需要实名认证，本地测试发现<code>tab.avoscloud.com</code>已经改为<code>us.avoscloud.com</code>，那就应该是OK的。</p>
-<p>我在看别人用的这个评论系统发现加载的都是<code>avoscloud.com</code>，说明就是华北节点，而我之前创建的是华东节点，因此导致这个问题，小企业就是小企业，<code>tab.avoscloud.com</code>证书过期都没人处理。搞得我还以为是没有验证手机号和实名认证导致的呢，当然也不排除极小可能性是这个原因。</p>
-<p>也不想把<code>valine</code>更换为<code>来比力</code>，<code>gitalk</code>，<code>disqus</code>等第三方评论系统，主要是因为<code>valine</code>评论比较方便，甚至都可以不用填写邮箱，而另外一些要不就需要账户登录，要不就在国内访问不稳定。另外<code>valine</code>可结合<code>LeanCloud</code>使用，评论数据还在自己手中掌握。</p>
-<p>后面发现主题作者新增了迷你版的<code>valine</code>，启用这个倒是没啥问题，但看页面请求数达到了60多个，尽管很多都是表情图片的请求数，倒是很想把表情给禁用掉，无奈又不懂<code>JavaScript</code>，<del>最后决定取消评论功能</del> 既然解决了评论问题，那么还是保留此功能吧。</p>
+                <p>听闻<code>Serverless</code>很久了，前几天还用它玩过下Hexo《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》。</p>
+<p>因此也早有想法把WordPress和Tyepcho这样的博客程序运行在serverless上。而这一次的搭建都是来源于<code>https://github.com/awesome-fc/fc-wordpress</code>提供的教程和安装包。</p>
+<p>昨夜摸索了三个小时终于得以成功，但这篇教程中很多过于基础的都没有提到，比如配置账户之类的，这对于像我这样从未接触过开发和Serverless的人来讲，有些地方有点摸不着头脑。</p>
+<p>根据前面提到的教程安装好<code>nodejs</code>和<code>funcraf</code>两工具，然后下载它的<code>fc-wordpress</code>，也可以网页下载好后解压到某个目录。</p>
+<p><code>funcraf</code>我是用的二进制文件，下载好后是一个exe文件，在系统环境变量中指定这个文件名所在的具体位置即可，比如我的是 <code>D:\fc\fun.exe</code> ，然后把下载好的文件也放入此处，这时候文件和文件夹结构如下：</p>
+<ul>
+<li>fc-web-mysql文件夹</li>
+<li>fc-web-sqlite文件夹</li>
+<li>png文件夹可以没有</li>
+<li>fun.exe</li>
+<li>.gitignore</li>
+<li>README.md</li>
+</ul>
+<h3 id="配置阿里云"><a href="#配置阿里云" class="headerlink" title="配置阿里云"></a>配置阿里云</h3><p>第一步，开通阿里的函数计算，我都忘记我上面时候开通了。好像阿里函数计算设置了地域就没法更好，因此需要注意。我的目前是上海区，这个区域是要写到.env配置中的。</p>
+<p>第二步，创建NAS文件存储系统的时候，选择的区域跟函数计算区域一致，创建的时候需要用到VPC专有网络，区域也要一致，最好三者之间的所在区域都一致。</p>
+<h3 id="配置-env文件"><a href="#配置-env文件" class="headerlink" title="配置.env文件"></a>配置.env文件</h3><p>我采用Mysql数据库，所以我进入到<code>fc-web-mysql</code>文件夹中的.env去配置它。复制一份<code>.env_example</code> 改名为 <code>.env</code> ，Windows上无法直接这样改名，可通过7z压缩后修改文件名再解压。</p>
+<p>记事本打开它，配置有如下</p>
+<pre><code>DEFAULT_REGION=云函数所在区域cn-shanghai,我这里是上海
+ACCOUNT_ID=阿里云账户ID
+ENDPOINT=云函数的地址https://阿里云账户ID.cn-shanghai.fc.aliyuncs.com
+ACCESS_KEY_ID=云函数的ACCESS_KEY_ID
+ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
+<p><img src="https://noscos.nos-eastchina1.126.net/trpic/fc-index.jpg" alt="函数计算"></p>
+<p>这些都在函数计算的页面可查看到，其中自定义的域名用CANME解析到图中的 <code>公网 Endpoint：</code> ,比如我用打算用<code>fc.tangruiping.com</code>来做网站，现在就把此域名CANME解析到图中的 <code>公网 Endpoint：</code> 即可。</p>
+<h3 id="配置index-php"><a href="#配置index-php" class="headerlink" title="配置index.php"></a>配置index.php</h3><p>主要修改此处 <code>$host = &quot;fc.tangruiping.com&quot;;  </code> </p>
+<h3 id="配置template-yml"><a href="#配置template-yml" class="headerlink" title="配置template.yml"></a>配置template.yml</h3><p>主要修改三个地方，第一个是<code>LogConfig:</code>下的<code>Project:</code>，这一个你要重新命名，要跟别人都不同。然后从此处往下数20行左右，这个字段的上面一行，其实跟刚才你命名之前的是一样的，所以这里也需要修改为一样。<br><img src="https://noscos.nos-eastchina1.126.net/trpic/template-yml.jpg" alt="配置template.yml"></p>
+<p>最后一处就是<code>DomainName</code>跟<code>index.php</code>修改的域名一样，都为<code>fc.tangruiping.com</code>。</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>如此配置好这三项，如需添加Typecho或这WordPress的主题，可在<code>\fc-web-mysql\.fun\nas\auto-default\fc-wp-mysql\wordpress</code>中添加好，改写好，为了避免出现其他情况，第一次我建议你啥都别动，直接部署即可。</p>
+<p>如果你想部署typecho，就把<code>Wordpress</code>文件夹下的文件删除，把<code>Typecho</code>的文件放进来即可。但WordPress文件夹名字不要随意改动。</p>
+<p>在命令行中进入<code>fc-web-mysql</code>文件夹中，执行如下三条命令即可搞定。</p>
+<p><code>fun nas init</code>  初始化 NAS，</p>
+<p><code>fun nas sync</code>  上传文件到 NAS</p>
+<p><code>fun deploy</code>  部署</p>
+<p>完成后，访问<code>fc.tangruiping.com</code>即可看到安装界面，而这就跟其他传统的LNMP或LAMP环境中安装WordPress和Tyepcho是一样的。</p>
+<h3 id="采用Serverless的缺点"><a href="#采用Serverless的缺点" class="headerlink" title="采用Serverless的缺点"></a>采用Serverless的缺点</h3><p>先把缺点说一下吧，网站没办法伪静态，热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
+<p>这里的第一页值得是第一个加载的资源文件，而不是网站的主页。</p>
+<p>至于能不能全站HTTPS，这个我没有测试，我是以typecho搭建的，不知道能不能全站HTTPS，至少首页是可以HTTPS的，其他子页面又回到了HTTP，可能配置好应该能行。</p>
+<p>而伪静态，反正按照常规在后天设置是行不通的。而serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p>
+<p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示。</p>
+<p><img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-typecho-time.jpg" alt="网页各个页面加载时间情况"></p>
+<p>压测结束后，我再次打开这些页面，发生时间还更慢了，好几次加载的第一页都超过了3s。不过，这一切的前提，都是在我用的其他区域的数据库所测试的结果。</p>
+<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点。</p>
+<h3 id="Sqlite3数据库安装"><a href="#Sqlite3数据库安装" class="headerlink" title="Sqlite3数据库安装"></a>Sqlite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>Sqlite3</code>应该也不难，参考开头的那篇教程即可。而用Sqlite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
+<p><code>Sqlite3</code>数据库是安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。</p>
 
             </div>
             <hr>
@@ -422,7 +449,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.tangruiping.com/post/update-on-the-hexo-theme.html">https://www.tangruiping.com/post/update-on-the-hexo-theme.html</a>
+                    <a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html">https://www.tangruiping.com/post/serverless-wordpress-typecho.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -768,27 +795,28 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/post/cloudflare-cdn-github-pages.html">
+                <a href="/post/serverless-wordpress-typecho.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/cloudflare-ssl.jpg" class="responsive-img" alt="CloudFlare CDN GitHub Pages">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-wordpress-typecho.jpg" class="responsive-img" alt="Serverless云函数计算搭建Typecho和Wordpress网站">
                         
-                        <span class="card-title">CloudFlare CDN GitHub Pages</span>
+                        <span class="card-title">Serverless云函数计算搭建Typecho和Wordpress网站</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            如果觉得CloudFlare CDN对国内加速不够明显，推荐看看《Vercel Zeit now自动部署Github为hexo博客加速》
-托管在GitHub Pages为何要托管于 GitHub上，因为没有备案。在国内，域名不备案都无法解析
+                            听闻Serverless很久了，前几天还用它玩过下Hexo《语雀文章用Serverless自动部署到Hexo博客》。
+因此也早有想法把WordPress和Tyepcho这样的博客程序运行在serverless上。而这一次的搭建都是来源于ht
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-01
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -801,6 +829,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -819,31 +848,32 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/feelings-for-a-new-phone.html">
+                <a href="/post/github-coding-ci-cd-hexo-cdn.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/honor20p.jpg" class="responsive-img" alt="换新手机之感悟">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg" class="responsive-img" alt="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想">
                         
-                        <span class="card-title">换新手机之感悟</span>
+                        <span class="card-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            回顾手机原来那部手机也颇有些年头了，还记得当年用这部机子的时候，最大的感受就是快速充电。这个体验令我影响深刻。尽管当年是 高通旗舰 处理器，20W的充电功率， UFS2.0闪存在当年也是妥妥的 旗舰机。
-但架不住手机行业的迅猛迭代，从 单摄
+                            网站优化国内和国外隔着一堵墙，无论如何你都没办法快速绕过它。对于我来说，在域名没有备案的情况下，本站算是差不多已经优化到极限了。
+但就在刚刚，我的移动数据流量打开加载十余秒，差不多算是超时了，要彻底解决这个问题，只有备案，无其他路可走。
+好
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-02-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-31
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%94%9F%E6%B4%BB/" class="post-category">
-                                    生活
+                            <a href="/categories/%E6%8A%80%E6%9C%AF/" class="post-category">
+                                    技术
                                 </a>
                             
                             
@@ -853,8 +883,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%89%8B%E6%9C%BA/">
-                        <span class="chip bg-color">手机</span>
+                    <a href="/tags/%E7%BD%91%E7%AB%99/">
+                        <span class="chip bg-color">网站</span>
                     </a>
                     
                 </div>

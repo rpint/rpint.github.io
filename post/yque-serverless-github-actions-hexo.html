@@ -383,7 +383,7 @@
                 <h3 id="流程和概述"><a href="#流程和概述" class="headerlink" title="流程和概述"></a>流程和概述</h3><p>流程大概为： <code>语雀webhook→Serverless→Github Actions→Github Pages</code></p>
 <p>本身用 <code>Github Actions→Github Pages</code> 即可完成在线更新文章，或者说通过Github网页写文章实现自动化部署到hexo静态博客。但习惯用语雀来记录笔记，或者有类似需求的，便可在语雀文档中写文章从而实现自动化部署到 <code>Github Pages</code>静态博客上。</p>
 <h3 id="Serverless配置"><a href="#Serverless配置" class="headerlink" title="Serverless配置"></a>Serverless配置</h3><ul>
-<li>你得先有腾讯云或者阿里云账户，没有注册的话，这些注册需要验证手机，甚至实名认证。这里以腾讯云为例，在腾讯云中开通<code>Serverless</code>有叫函数计算，有叫云函数，有叫无服务架构，总之都是它。</li>
+<li>你得先有腾讯云或者阿里云账户，没有注册的话，这些注册需要验证手机，甚至实名认证。这里以腾讯云为例，在腾讯云中开通<code>Serverless</code>（无服务架构），有叫函数计算，有叫云函数，总之都围绕它展开做的产品。</li>
 <li>新建云函数，函数名称自己随意，运行环境 <code>Python2.7</code> 创建方式 <code>空白函数</code> ，点击高级设置，启用 <code>运行角色</code> 为 <code>SCF_QcsRole</code> </li>
 <li>点击完成后，在 <code>函数代码→函数管理</code> 复制如下代码做相应修改，没有Github账户或者私有仓库待会创建后来修改也可以。</li>
 </ul>
@@ -1219,7 +1219,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">24.8k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">26.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
