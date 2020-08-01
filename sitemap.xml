@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.tangruiping.com/post/serverless-wordpress-typecho.html</loc>
+    
+    <lastmod>2020-08-01T15:45:29.064Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html</loc>
     
     <lastmod>2020-08-01T08:16:14.146Z</lastmod>
@@ -54,13 +61,6 @@
     <loc>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</loc>
     
     <lastmod>2020-08-01T08:14:52.907Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/serverless-wordpress-typecho.html</loc>
-    
-    <lastmod>2020-08-01T07:05:13.017Z</lastmod>
     
   </url>
   

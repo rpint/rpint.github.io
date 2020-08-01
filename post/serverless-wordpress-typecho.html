@@ -363,7 +363,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -393,8 +393,8 @@
 <li>.gitignore</li>
 <li>README.md</li>
 </ul>
-<h3 id="配置阿里云"><a href="#配置阿里云" class="headerlink" title="配置阿里云"></a>配置阿里云</h3><p>第一步，开通阿里的函数计算，我都忘记我上面时候开通了。好像阿里函数计算设置了地域就没法更好，因此需要注意。我的目前是上海区，这个区域是要写到.env配置中的。</p>
-<p>第二步，创建NAS文件存储系统的时候，选择的区域跟函数计算区域一致，创建的时候需要用到VPC专有网络，区域也要一致，最好三者之间的所在区域都一致。</p>
+<h3 id="配置阿里云"><a href="#配置阿里云" class="headerlink" title="配置阿里云"></a>配置阿里云</h3><p>第一步，开通阿里的函数计算，我都忘记我什么时候开通了。好像阿里函数计算设置了地域就没法更好，因此需要注意。我的目前是上海区，这个区域是要写到.env配置中的。</p>
+<p>第二步，开通文件存储，选择按量付费即可。</p>
 <h3 id="配置-env文件"><a href="#配置-env文件" class="headerlink" title="配置.env文件"></a>配置.env文件</h3><p>我采用Mysql数据库，所以我进入到<code>fc-web-mysql</code>文件夹中的.env去配置它。复制一份<code>.env_example</code> 改名为 <code>.env</code> ，Windows上无法直接这样改名，可通过7z压缩后修改文件名再解压。</p>
 <p>记事本打开它，配置有如下</p>
 <pre><code>DEFAULT_REGION=云函数所在区域cn-shanghai,我这里是上海
@@ -403,9 +403,9 @@ ENDPOINT=云函数的地址https://阿里云账户ID.cn-shanghai.fc.aliyuncs.com
 ACCESS_KEY_ID=云函数的ACCESS_KEY_ID
 ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/fc-index.jpg" alt="函数计算"></p>
-<p>这些都在函数计算的页面可查看到，其中自定义的域名用CANME解析到图中的 <code>公网 Endpoint：</code> ,比如我用打算用<code>fc.tangruiping.com</code>来做网站，现在就把此域名CANME解析到图中的 <code>公网 Endpoint：</code> 即可。</p>
+<p>这些需要填写的都在函数计算的页面可查看到，其中自定义的域名用CANME解析到图中的 <code>公网 Endpoint：</code> ,比如我用打算用<code>fc.tangruiping.com</code>来做网站，现在就把此域名CANME解析到图中的 <code>公网 Endpoint：</code> 即可。</p>
 <h3 id="配置index-php"><a href="#配置index-php" class="headerlink" title="配置index.php"></a>配置index.php</h3><p>主要修改此处 <code>$host = &quot;fc.tangruiping.com&quot;;  </code> </p>
-<h3 id="配置template-yml"><a href="#配置template-yml" class="headerlink" title="配置template.yml"></a>配置template.yml</h3><p>主要修改三个地方，第一个是<code>LogConfig:</code>下的<code>Project:</code>，这一个你要重新命名，要跟别人都不同。然后从此处往下数20行左右，这个字段的上面一行，其实跟刚才你命名之前的是一样的，所以这里也需要修改为一样。<br><img src="https://noscos.nos-eastchina1.126.net/trpic/template-yml.jpg" alt="配置template.yml"></p>
+<h3 id="配置template-yml"><a href="#配置template-yml" class="headerlink" title="配置template.yml"></a>配置template.yml</h3><p>主要修改三个地方，第一个是<code>LogConfig:</code>下的<code>Project:</code>，这一个你要重新命名，要跟别人都不同，具体看下图。<br><img src="https://noscos.nos-eastchina1.126.net/trpic/template-yml.jpg" alt="配置template.yml"></p>
 <p>最后一处就是<code>DomainName</code>跟<code>index.php</code>修改的域名一样，都为<code>fc.tangruiping.com</code>。</p>
 <h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>如此配置好这三项，如需添加Typecho或这WordPress的主题，可在<code>\fc-web-mysql\.fun\nas\auto-default\fc-wp-mysql\wordpress</code>中添加好，改写好，为了避免出现其他情况，第一次我建议你啥都别动，直接部署即可。</p>
 <p>如果你想部署typecho，就把<code>Wordpress</code>文件夹下的文件删除，把<code>Typecho</code>的文件放进来即可。但WordPress文件夹名字不要随意改动。</p>
@@ -415,15 +415,20 @@ ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
 <p><code>fun deploy</code>  部署</p>
 <p>完成后，访问<code>fc.tangruiping.com</code>即可看到安装界面，而这就跟其他传统的LNMP或LAMP环境中安装WordPress和Tyepcho是一样的。</p>
 <h3 id="采用Serverless的缺点"><a href="#采用Serverless的缺点" class="headerlink" title="采用Serverless的缺点"></a>采用Serverless的缺点</h3><p>先把缺点说一下吧，网站没办法伪静态，热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
-<p>这里的第一页值得是第一个加载的资源文件，而不是网站的主页。</p>
+<p>这里的第一页指的是第一个加载的资源文件，而不是网站的主页。</p>
 <p>至于能不能全站HTTPS，这个我没有测试，我是以typecho搭建的，不知道能不能全站HTTPS，至少首页是可以HTTPS的，其他子页面又回到了HTTP，可能配置好应该能行。</p>
 <p>而伪静态，反正按照常规在后天设置是行不通的。而serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p>
 <p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-typecho-time.jpg" alt="网页各个页面加载时间情况"></p>
 <p>压测结束后，我再次打开这些页面，发生时间还更慢了，好几次加载的第一页都超过了3s。不过，这一切的前提，都是在我用的其他区域的数据库所测试的结果。</p>
-<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点。</p>
-<h3 id="Sqlite3数据库安装"><a href="#Sqlite3数据库安装" class="headerlink" title="Sqlite3数据库安装"></a>Sqlite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>Sqlite3</code>应该也不难，参考开头的那篇教程即可。而用Sqlite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
+<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了DOMO的速度也是在1.5s左右。</p>
+<h3 id="Sqlite3数据库安装"><a href="#Sqlite3数据库安装" class="headerlink" title="Sqlite3数据库安装"></a>Sqlite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>Sqlite3</code>则还需要PHP环境，而用Sqlite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
 <p><code>Sqlite3</code>数据库是安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。</p>
+<p>首先你的系统需要PHP环境，到<code>https://windows.php.net/download/</code>下载，选择<code>Thread Safe</code>下的ZIP下载即可。然后解压到某个目录，配置Path项的环境变量，把路径指向为你的PHP所在目录，重新打开命令窗口执行`php -v·即可看到php的版本号。</p>
+<p>在php的文件夹下，复制一份<code>php.ini-development</code>文件重命名为<code>php.ini</code>，记事本打开配置它。</p>
+<p>搜索<code>extension_dir</code>，把<code>;extension_dir = &quot;./&quot;</code>改为<code>extension_dir = &quot;./ext&quot;</code>即可，注意<code>;</code>表示注释，得去掉。</p>
+<p>搜索<code>extension=pdo_sqlite</code>，去掉注释。</p>
+<p>其余参考开头的那篇教程即可，仅适用于WordPress安装。</p>
 
             </div>
             <hr>
@@ -1080,7 +1085,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">26.2k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">26.3k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
