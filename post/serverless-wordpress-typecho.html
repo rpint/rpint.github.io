@@ -363,14 +363,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    2.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    9 分
                 </div>
                 
 
@@ -381,7 +381,7 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>听闻<code>Serverless</code>很久了，前几天还用它玩过下Hexo《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》。</p>
-<p>因此也早有想法把WordPress和Tyepcho这样的博客程序运行在serverless上。而这一次的搭建都是来源于<code>https://github.com/awesome-fc/fc-wordpress</code>提供的教程和安装包。</p>
+<p>因此也早有想法把WordPress和Typecho这样的博客程序运行在serverless上。而这一次的搭建都是来源于<code>https://github.com/awesome-fc/fc-wordpress</code>提供的教程和安装包。</p>
 <p>昨夜摸索了三个小时终于得以成功，现在简单介绍下自己的配置过程。</p>
 <p>根据前面提到的教程安装好<code>nodejs</code>和<code>funcraf</code>两工具，然后下载它的<code>fc-wordpress</code>，也可以网页下载好后解压到某个目录。</p>
 <p><code>funcraf</code>我是用的二进制文件，下载好后是一个exe文件，在系统环境变量中指定这个文件名所在的具体位置即可，比如我的是 <code>D:\fc\fun.exe</code> ，然后把下载好的文件也放入此处，这时候文件和文件夹结构如下：</p>
@@ -413,36 +413,41 @@ ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
 <p><code>fun nas init</code>  初始化 NAS，</p>
 <p><code>fun nas sync</code>  上传文件到 NAS</p>
 <p><code>fun deploy</code>  部署</p>
-<p>完成后，访问<code>fc.tangruiping.com</code>即可看到安装界面，而这就跟其他传统的LNMP或LAMP环境中安装WordPress和Tyepcho是一样的。</p>
+<p>完成后，访问<code>fc.tangruiping.com</code>即可看到安装界面，而这就跟其他传统的LNMP或LAMP环境中安装WordPress和Typecho是一样的。</p>
 <h3 id="开启全程HTTPS"><a href="#开启全程HTTPS" class="headerlink" title="开启全程HTTPS"></a>开启全程HTTPS</h3><p>首先进入你的阿里云函数计算页面，注意下你左上方的区域，不要选错了区域，不然找不到你的域名。开启HTTPS，自己申请证书填写好。</p>
-<p>然后在WordPress主题<code>functions.php</code>追加如下代码：</p>
+<p>然后在WordPress主题<code>functions.php</code>追加如下代码：复制代码如有不便请来此处<code>https://gitee.com/ct2/web/blob/master/serverless-wordpress-typecho.md</code></p>
 <pre><code>//http转https
 add_filter(&#39;get_header&#39;, &#39;fanly_ssl&#39;);
 function fanly_ssl(){
-    if( is_ssl() ){
-        function fanly_ssl_main ($content){
-            $siteurl = get_option(&#39;siteurl&#39;);
-            $upload_dir = wp_upload_dir();
-            $content = str_replace( &#39;http:&#39;.strstr($siteurl, &#39;//&#39;), &#39;https:&#39;.strstr($siteurl, &#39;//&#39;), $content);
-            $content = str_replace( &#39;http:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), &#39;https:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), $content);
-            return $content;
-        }
-        ob_start(&quot;fanly_ssl_main&quot;);
-    }
+   if( is_ssl() ){
+       function fanly_ssl_main ($content){
+           $siteurl = get_option(&#39;siteurl&#39;);
+           $upload_dir = wp_upload_dir();
+           $content = str_replace( &#39;http:&#39;.strstr($siteurl, &#39;//&#39;), &#39;https:&#39;.strstr($siteurl, &#39;//&#39;), $content);
+           $content = str_replace( &#39;http:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), &#39;https:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), $content);
+           return $content;
+       }
+       ob_start(&quot;fanly_ssl_main&quot;);
+   }
 }</code></pre>
 <p>在wp-config.php追加如下代码</p>
 <pre><code>$_SERVER[&#39;HTTPS&#39;] = &#39;on&#39;;
 define(&#39;FORCE_SSL_LOGIN&#39;, true);
 define(&#39;FORCE_SSL_ADMIN&#39;, true);</code></pre>
-<p>然后再次同步到NAS，再次部署即可更新（这是全部替换，包括数据库，所以要是写有了文章的话，这样覆盖后就没了）。而且，每次部署，函数计算中的域名都会默认回HTTP，自行手动改回去。</p>
+<p>然后再次同步到NAS，再次部署即可更新，每次部署，函数计算中的域名都会默认回HTTP，自行手动改回去。</p>
 <p>最后在WordPress设置中也修改一下，但以HTTPS的方式进行访问就走HTTPS协议，如果以HTTP方式访问就走HTTP协议。还是没办法让HTTP重定向到HTTPS，这点没能解决。</p>
-<h3 id="采用Serverless的缺点"><a href="#采用Serverless的缺点" class="headerlink" title="采用Serverless的缺点"></a>采用Serverless的缺点</h3><p>先把缺点说一下吧，网站没办法伪静态，热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
+<p>Typecho开启HTTPS方法，站点根目录下的<code>config.inc.php</code>文件中加入下面代码</p>
+<pre><code> /** 开启HTTPS */
+define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
+<h3 id="采用Serverless的问题"><a href="#采用Serverless的问题" class="headerlink" title="采用Serverless的问题"></a>采用Serverless的问题</h3><p>网站没办法伪静态，热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
 <p>这里的第一页指的是第一个加载的资源文件，而不是网站的主页。</p>
-<p>而伪静态，反正按照常规在后天设置是行不通的。而serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p>
+<p>而伪静态，反正按照常规在后台设置是行不通的。而Serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p>
 <p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-typecho-time.jpg" alt="网页各个页面加载时间情况"></p>
 <p>压测结束后，我再次打开这些页面，发生时间还更慢了，好几次加载的第一页都超过了3s。不过，这一切的前提，都是在我用的其他区域的数据库所测试的结果。</p>
-<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了DOMO的速度也是在1.5s左右。<strong>已经验证出结果了，确实我的跨区域数据库影响甚大，采用下面的SQLite时间还短些</strong>。没具体测试，看浏览器的热启动时间不到1s了，另外，这些时间去函数计算的日志中看应该更准确些。</p>
+<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了DOMO的速度也是在1.5s左右。<strong>已经验证出结果了，确实我的跨区域数据库影响甚大，采用下面的SQLite时间还短些</strong>。没具体测试，看浏览器的热启动时间有时候可以不到1s了，另外，这些时间去函数计算的日志中看应该更准确些。</p>
+<p>为了缩小误差，我又特意安装了使用了<code>SQLite3</code>的数据库安装Typecho，结果出乎我意料，冷启动时间不到6秒，而WordPress默认设置是12秒以上，甚至是15秒，热启动的时间基本在200~400毫秒左右，其余都一样，只有数据库不一样。</p>
+<p>而后又把WordPress安装到Serverless上，用的是MySQL数据库，发现结果并没有比Typecho用MySQL数据库慢，甚至还要快一丢丢，这超出了我的能力范围，我无法解释，只能称之为玄学。</p>
 <h3 id="SQLite3数据库安装"><a href="#SQLite3数据库安装" class="headerlink" title="SQLite3数据库安装"></a>SQLite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>SQLite3</code>则还需要PHP环境，而用SQLite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
 <p><code>Sqlite3</code>数据库是安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。但SQLite3好像不支持<code>utf8mb4</code>编码，有兴趣可自行搜索<code>utf8mb4 utf8</code>看看两者的区别，一般个人博客影响不大。</p>
 <p>首先你的系统需要PHP环境，到<code>https://windows.php.net/download/</code>下载，选择<code>Thread Safe</code>下的ZIP下载即可。然后解压到某个目录，配置Path项的环境变量，把路径指向为你的PHP所在目录，重新打开命令窗口执行<code>php -v</code>即可看到php的版本号。</p>
@@ -450,6 +455,13 @@ define(&#39;FORCE_SSL_ADMIN&#39;, true);</code></pre>
 <p>搜索<code>extension_dir</code>，把<code>;extension_dir = &quot;./&quot;</code>改为<code>extension_dir = &quot;./ext&quot;</code>即可，注意<code>;</code>表示注释，得去掉。</p>
 <p>搜索<code>extension=pdo_sqlite</code>，去掉注释。</p>
 <p>其余参考开头的那篇教程即可，仅适用于WordPress安装，若要用SQLite3安装typecho则需自己改造。</p>
+<p>还是简单说一下我的改造过程吧，把Typecho的文件替换掉WordPress的文件，这一步跟前面用MySQL安装Typecho是一样的，然后进到<code>fc-web-sqlite\.fun\nas\auto-default\fc-wp-sqlite\wordpress</code>目录下执行<code>php -S 0.0.0.0:80</code>命令本地安装好typecho和SQLite3数据库的链接，完成后在<code>usr</code>文件夹下看到一个<code>.db</code>的数据库文件，我这里的名字为<code>my0908.db</code>,回到上一级目录打开<code>config.inc.php</code>文件，找到<code>定义数据库参数</code>这一段，可以看到它指向的数据库路径，我这里把它改为<code>  &#39;file&#39; =&gt; &#39;../usr/my0908.db&#39;,</code>。（为了安全，我建议把文件名弄长一些）</p>
+<p>在复制一份<code>config.inc.php</code>文件改名为<code>config.inc-sqlite3.php</code>，打开它，把数据库的指向路径修改为<code>  &#39;file&#39; =&gt; &#39;./usr/0908.db&#39;,</code>，跟前面的相比少了个点号。</p>
+<p>在打开<code>index.php</code>文件把<code>config.inc.php</code>替换为<code>config.inc-sqlite3.php</code>即可完成改造。</p>
+<p>因为数据库在本地，路径只能是相对的，而相对的位置又不一样，只好通此种办法巧妙解决。对于SQLite3数据库的管理和查看，推荐这个可视化工具<a href="http://www.sqlitebrowser.org/" target="_blank" rel="external nofollow noopener noreferrer">DB Browser for SQLite</a></p>
+<h3 id="Fun工具命令"><a href="#Fun工具命令" class="headerlink" title="Fun工具命令"></a>Fun工具命令</h3><p>查看NAS上的文件<code>fun nas ls -a nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas ls -a nas://fc-wp-mysql/mnt/auto/wordpress</code> 可查看WordPress文件夹下的文件，用这个<code>fun nas ls -a nas:///mnt/auto/wordpress</code>也行。</p>
+<p>删除NAS上的文件<code>fun nas rm -r nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas rm -r nas://fc-wp-mysql/mnt/auto/wordpress/wp-content/themes/twentynineteen</code>删除WordPress自带的一个主题</p>
+<p>复制文件<code>fun nas cp nas:///mnt/auto/wordpress/111.txt D:\</code> 复制NAS的文件到本地的D盘，反之<code>fun nas cp D:\111.txt nas:///mnt/auto/wordpress/</code>则是复制111.txt文件到NAS的WordPress文件夹下，然后可通过上面的命令查看即可。</p>
 
             </div>
             <hr>
@@ -836,7 +848,7 @@ define(&#39;FORCE_SSL_ADMIN&#39;, true);</code></pre>
                     <div class="summary block-with-text">
                         
                             听闻Serverless很久了，前几天还用它玩过下Hexo《语雀文章用Serverless自动部署到Hexo博客》。
-因此也早有想法把WordPress和Tyepcho这样的博客程序运行在serverless上。而这一次的搭建都是来源于ht
+因此也早有想法把WordPress和Typecho这样的博客程序运行在serverless上。而这一次的搭建都是来源于ht
                         
                     </div>
                     <div class="publish-info">
@@ -1106,7 +1118,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">26.6k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">27.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
