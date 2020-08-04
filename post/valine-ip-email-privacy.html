@@ -366,14 +366,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    824
+                    891
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    2 分
+                    3 分
                 </div>
                 
 
@@ -392,7 +392,7 @@
 <p>目前在最新的 1.4.14版本还是存在这个问题的。Github也有人反馈了此问题，暂没见官方回应，不知道下个版本会不会解决此问题。否则，还真没有较好的评论系统，<code>来必力</code>在韩国，加载稍微有些慢，需登录账户评论。虽然可以支持多种登录方式（如QQ，微博，微信，百度，豆瓣），还有些也都是需要账户的，如果不是程序员或者IT从业者，普通人根本就没有这些账户，实在是提高了评论的门槛。</p>
 <h3 id="Valine评论系统IP邮箱泄露解决方法"><a href="#Valine评论系统IP邮箱泄露解决方法" class="headerlink" title="Valine评论系统IP邮箱泄露解决方法"></a>Valine评论系统IP邮箱泄露解决方法</h3><p>刚刚又去看了一眼<code>Github Issues</code>发现有回应，其解决方法如下：</p>
 <blockquote>
-<p>  访问 LeanCloud 控制台 &gt; 存储 &gt; 结构化数据<br>  选择 Comment Class，分别点击 mail 和 ip 相应字段的下拉菜单，选择编辑<br>  勾选”客户端不可见”后，客户端发起查询的时候，返回的结果将不包含这个字段</p>
+<p>  访问 LeanCloud 控制台 &gt; 存储 &gt; 结构化数据<br>  选择 Comment Class，分别点击 mail 和 ip 相应字段的下拉菜单，选择编辑<br>  勾选”客户端不可见”后，客户端发起查询的时候，返回的结果将不包含这个字段<br><strong>注意</strong><br>  如果设置 mail 客户端不可见，将不会显示评论者的 Gravatar，转为显示默认头像。<br>  目前想到的办法是新增一个可见字段存储 mail 的 MD5，需要改 Valine 源码，还需要处理现有数据。</p>
 </blockquote>
 <p>进入控制台找到后发现无法改动，第一反难道又是节点问题？第二反应是浏览器兼容性问题？后来自己研究了下，发现是<code>LeanCloud</code>控制台的版本问题，在右上方的帮助下关掉新版即可解决。</p>
 <p>小公司产品就是小公司产品，这么疏忽，就敢上线，做测试的到底在干嘛？上次他们公司的华东节点都挂掉不知道多久，都没人修复，后面我都跑去注册了国际版用，在《<a href="https://www.tangruiping.com/post/update-on-the-hexo-theme.html">hexo主题更新和valine评论系统问题</a>》有讲过。</p>
@@ -1050,7 +1050,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">28.4k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">28.5k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
