@@ -362,7 +362,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    3.2k
                 </div>
                 
 
@@ -394,8 +394,13 @@
 </ul>
 <h3 id="配置阿里云"><a href="#配置阿里云" class="headerlink" title="配置阿里云"></a>配置阿里云</h3><p>第一步，开通阿里的函数计算，我都忘记我什么时候开通了。需要注意下地区，我的目前是上海区，这个区域是要写到.env配置中的。</p>
 <p>第二步，开通文件存储，选择按量付费即可。</p>
-<p>关于备案问题，如果你的域名在阿里云有备案，则无用担心此问题。如果在腾讯云备案，但没有在阿里云接入备案，具体咨询阿里云客服了解。</p>
-<p>如果想了解更多关于备案信息和掉不掉备案的问题，可以参见《<a href="https://www.tangruiping.com/post/personal-website-icp-beian-faq.html">个人网站ICP备案常见问题</a>》，如果没有备案想体验的话，那就不要选择大陆区域。</p>
+<p>关于备案问题，如果你的域名在阿里云有备案，则无用担心此问题。如果在腾讯云备案，但没有在阿里云接入备案，具体咨询阿里云客服了解。我目前（2020年8月）咨询的结果是，不但要在阿里云接入备案，而且函数计算还不能申请备案服务号，得购买ESC产品才可以。什么是备案服务号，可以参见《<a href="https://www.tangruiping.com/post/personal-website-icp-beian-faq.html">个人网站ICP备案常见问题</a>》。</p>
+<p>如果没有备案想体验的话，那就不要选择大陆区域，或者用阿里云系统提供的域名。</p>
+<p>目前（2020年8月）腾讯云也要接入备案的，但腾讯云提供函数计算的备案服务号，折算下来需要110元人民币这样，而这些购买的资源有效时常为5年。</p>
+<blockquote>
+<p>Serverless 备案要求：备案本身不收取任何费用，但通过 Serverless 方式备案需购买云函数5000万次调用次数包与40万GBs资源用量包</p>
+</blockquote>
+<p>关于百度云和华为云，肯定也是要接入备案了，我没去了解。因为这是工信部的规定，而不是云服务商能决定的，差别主要在于备案服务号如何取得的问题。</p>
 <h3 id="配置-env文件"><a href="#配置-env文件" class="headerlink" title="配置.env文件"></a>配置.env文件</h3><p>我采用Mysql数据库，所以我进入到<code>fc-web-mysql</code>文件夹中的.env去配置它。复制一份<code>.env_example</code> 改名为 <code>.env</code> ，Windows上无法直接这样改名，可通过7z压缩后修改文件名再解压。</p>
 <p>记事本打开它，配置有如下</p>
 <pre><code>DEFAULT_REGION=云函数所在区域cn-shanghai,我这里是上海
@@ -874,12 +879,12 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">网站</span>
-                    </a>
-                    
                     <a href="/tags/HEXO/">
                         <span class="chip bg-color">HEXO</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BD%91%E7%AB%99/">
+                        <span class="chip bg-color">网站</span>
                     </a>
                     
                 </div>
@@ -928,16 +933,16 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">网站</span>
-                    </a>
-                    
                     <a href="/tags/HEXO/">
                         <span class="chip bg-color">HEXO</span>
                     </a>
                     
                     <a href="/tags/CDN/">
                         <span class="chip bg-color">CDN</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BD%91%E7%AB%99/">
+                        <span class="chip bg-color">网站</span>
                     </a>
                     
                 </div>
@@ -1125,7 +1130,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">28.6k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">28.9k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
