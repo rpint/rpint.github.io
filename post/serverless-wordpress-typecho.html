@@ -355,7 +355,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-03
+                    2020-08-06
                 </div>
                 
 
@@ -439,13 +439,14 @@ define(&#39;FORCE_SSL_ADMIN&#39;, true);</code></pre>
 <p>Typecho开启HTTPS方法，站点根目录下的<code>config.inc.php</code>文件中加入下面代码，但依旧没办法支持HTTP重定向到HTTPS，WordPress用插件可以解决，但Typecho就没有这样的插件了，需要在函数层面解决。</p>
 <pre><code> /** 开启HTTPS */
 define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
-<h3 id="采用Serverless的问题"><a href="#采用Serverless的问题" class="headerlink" title="采用Serverless的问题"></a>采用Serverless的问题</h3><p>网站没办法伪静态，热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
+<h3 id="采用Serverless的问题"><a href="#采用Serverless的问题" class="headerlink" title="采用Serverless的问题"></a>采用Serverless的问题</h3><p>网站没办法伪静态，如果是老网站迁移，则可能无法对应上原有地址，导致SEO排名问题，若是新站，则可以考虑。</p>
+<p>热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
 <p>这里的第一页指的是第一个加载的资源文件，而不是网站的主页。</p>
 <p>而伪静态，反正按照常规在后台设置是行不通的。而Serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p>
 <p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-typecho-time.jpg" alt="网页各个页面加载时间情况"></p>
 <p>压测结束后，我再次打开这些页面，发生时间还更慢了，好几次加载的第一页都超过了3s。不过，这一切的前提，都是在我用的其他区域的数据库所测试的结果。</p>
-<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了demo的速度也是在1.5s左右。<strong>已经验证出结果了，确实我的跨区域数据库影响甚大，采用下面的SQLite时间还短些</strong>。没具体测试，看浏览器的热启动时间有时候可以不到1s了，另外，还可以去函数计算的日志中看调用的情况。</p>
+<p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了demo的速度也是在1.5s左右。<strong>已经验证出结果了，确实我的跨区域数据库影响甚大，采用下面的SQLite时间还短些</strong>。没具体测试，看浏览器的热启动时间有时候可以不到1s了，另外，还可以去函数计算的日志中看调用的情况。也最好了解下日志服务，虽然有免费额度，但是不多，超出部分则收取费用。</p>
 <p>为了缩小误差，我又特意安装了使用了<code>SQLite3</code>的数据库安装Typecho，结果出乎我意料，冷启动时间不到6秒，而WordPress默认设置是12秒以上，甚至是15秒，热启动的时间基本在200~400毫秒左右，其余都一样，只有数据库不一样。</p>
 <p>而后又把WordPress安装到Serverless上，用的是MySQL数据库，发现结果并没有比Typecho用MySQL数据库慢，甚至还要快一丢丢，这超出了我的能力范围，我无法解释，只能称之为玄学。</p>
 <h3 id="SQLite3数据库安装"><a href="#SQLite3数据库安装" class="headerlink" title="SQLite3数据库安装"></a>SQLite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>SQLite3</code>则还需要PHP环境，而用SQLite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
@@ -461,7 +462,7 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
 <p>因为数据库在本地，路径只能是相对的，而相对的位置又不一样，只好通此种办法巧妙解决。或者获取NAS上的绝对路径填写，就不用如此修改。对于SQLite3数据库的管理和查看，推荐这个可视化工具<a href="http://www.sqlitebrowser.org/" target="_blank" rel="external nofollow noopener noreferrer">DB Browser for SQLite</a></p>
 <h3 id="Fun工具命令"><a href="#Fun工具命令" class="headerlink" title="Fun工具命令"></a>Fun工具命令</h3><p>查看NAS上的文件<code>fun nas ls -a nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas ls -a nas://fc-wp-mysql/mnt/auto/wordpress</code> 可查看WordPress文件夹下的文件，用这个<code>fun nas ls -a nas:///mnt/auto/wordpress</code>也行。</p>
 <p>删除NAS上的文件<code>fun nas rm -r nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas rm -r nas://fc-wp-mysql/mnt/auto/wordpress/wp-content/themes/twentynineteen</code>删除WordPress自带的一个主题</p>
-<p>复制文件<code>fun nas cp nas:///mnt/auto/wordpress/111.txt D:\</code> 复制NAS的文件到本地的D盘，反之<code>fun nas cp D:\111.txt nas:///mnt/auto/wordpress/</code>则是复制111.txt文件到NAS的WordPress文件夹下，然后可通过上面的命令查看即可。复制文件夹上传加上参数<code>-r</code>就好。</p>
+<p>复制文件<code>fun nas cp nas:///mnt/auto/wordpress/robots.txt D:\</code> 复制NAS的文件到本地的D盘，反之<code>fun nas cp D:\robots.txt nas:///mnt/auto/wordpress/</code>则是复制robots.txt文件到NAS的WordPress文件夹下，然后可通过上面的命令查看即可。复制文件夹上传加上参数<code>-r</code>就好。</p>
 <h3 id="自动部署WordPress到Serverless"><a href="#自动部署WordPress到Serverless" class="headerlink" title="自动部署WordPress到Serverless"></a>自动部署WordPress到Serverless</h3><p>如果觉得上面的还是有难度，那么进入阿里云的函数计算中的应用中心，选择创建应用模板，找到<code>无服务器 WordPress 网站</code>这一项开始创建，为了确保一次性搞定，你得预先把域名CANME解析到函数计算域名上，参见《<a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html#toc-heading-2">配置.env文件</a>》这里的域名解析，然后点击部署即可。成功后，浏览器上输入你绑定的域名即可安装WordPress程序。</p>
 <p>跟手动相比，没办法用SQLite3数据库，没办法用Typecho博客，不过通过挂载NAS替换相应的文件应该也可以做到这些，但这跟手动相比又有何区别呢？</p>
 <p>如果不想用了，删除应用，删除时间长达1小时左右。虽然慢点，但是很安心，会自动删除VPC，NAS，还有ECS下的安全组列。</p>
