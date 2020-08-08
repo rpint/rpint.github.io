@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="keywords" content="Hexo Hugo vuepress gatsby静态网站生成器的选择, 唐瑞平,瑞平笔记,唐瑞平日志">
     <meta name="description" content="自强不息  厚德载物">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想 | 唐瑞平</title>
+    <title>Hexo Hugo vuepress gatsby静态网站生成器的选择 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/awesome/css/all.css">
@@ -201,12 +201,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/hexo-hugo-vuepress-gatsby.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</h1>
+                    <h1 class="description center-align post-title">Hexo Hugo vuepress gatsby静态网站生成器的选择</h1>
                 </div>
             </div>
         </div>
@@ -331,10 +331,6 @@
                                 <span class="chip bg-color">HEXO</span>
                             </a>
                         
-                            <a href="/tags/CDN/">
-                                <span class="chip bg-color">CDN</span>
-                            </a>
-                        
                     </div>
                     
                 </div>
@@ -356,28 +352,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-31
+                    2020-08-08
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-01
+                    2020-08-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    1.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    6 分
                 </div>
                 
 
@@ -387,61 +383,60 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="网站优化"><a href="#网站优化" class="headerlink" title="网站优化"></a>网站优化</h3><p>国内和国外隔着一堵墙，无论如何你都没办法快速绕过它。对于我来说，在域名没有备案的情况下，本站算是差不多已经优化到极限了。</p>
-<p>但就在刚刚，我的移动数据流量打开加载十余秒，差不多算是超时了，要彻底解决这个问题，只有备案，无其他路可走。</p>
-<p>好在，同之前相比，速度已经有了明显提升，也总算没白费这个折腾劲儿。有一点感受是对网站理解又稍微深刻了些许。</p>
-<h4 id="CDN加速"><a href="#CDN加速" class="headerlink" title="CDN加速"></a>CDN加速</h4><p>比如，之前在CDN中有CORS（跨域请求）这一项不理解，当然现在也不是很理解，至少知道如果没有正确配置它，会导致类似于字体文件这类资源没办法在浏览器上正常加载。</p>
-<p>尽管状态码为200，但资源大小确实零字节，后面设置了后才得以解决。之前没有遇到这个情况，所以也就不知道具体有什么用，反正没设置也能用。</p>
-<p>既然谈到了CDN，那么就在谈谈CDN中的回源，源站等问题。比如我的网站主域名为<code>www.tangruiping.com</code>，不带<code>www</code>的<code>tangruiping.com</code>做301跳转到带<code>www</code>的。</p>
-<p>现在我的网站是纯静态站点，原来是托管在<code>Github Pages</code>，但因为访问较慢，我接入CDN来为其加速。原来的访问过程是<code>用户→www.tangruiping.com→Github pages</code>，接入了CDN后就变成<code>用户→www.tangruiping.com→CDN→Github pages</code>。</p>
-<p>那么此时，我的源站地址则为<code>Github Pages</code>地址，回源Host则是<code>www.tangruiping.com</code>。而CDN中常说的加速域名，就是<code>www.tangruiping.com</code>。而<code>源站地址</code>一定不能和<code>加速域名</code>相同，而<code>加速域名</code>可以和<code>回源Host</code>一样。</p>
-<h4 id="CDN前端库"><a href="#CDN前端库" class="headerlink" title="CDN前端库"></a>CDN前端库</h4><p>因为是静态网站，很多的<code>css样式</code>，<code>js脚本</code>，字体等都可以走CDN，本质上跟前面说的CDN加速没啥区别性。</p>
-<p>不同的是，前面的CDN加速需要自己把静态资源传入到对象存储也好，或者其他地方也好，在接入CDN加速。而CDN前端库则是自带有很多这样的资源，直接调用即可。</p>
-<p>一来不需要你备案域名，二来还是免费使用，不用担心被人恶意刷流量等问题。当然即便是没有备案，还是可以通过云服务商自带的域名实行加速，目前阿里腾讯是提供域名。七牛则是默认30天回收，管它叫测试域名。又拍云则没有，其他云没用过。</p>
-<p>百度的前端公共库现已关闭，腾讯的资源少之又少，又拍云的老之又老，好像没有听过阿里有前端公共库，不过阿里持有七牛股份，勉强算阿里的吧。</p>
-<p>360有个由奇舞团主导的，还有个bootcdn的，相比之下，360略胜。不过360的前端公共库也是几经曲折，而bootcdn的有时候我这边加载贼慢。字节跳动也有个前端库，现把他们都列入下表。</p>
-<table>
-<thead>
-<tr>
-<th>七牛</th>
-<th>网址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>七牛</td>
-<td><a href="https://www.staticfile.org/" target="_blank" rel="external nofollow noopener noreferrer">https://www.staticfile.org/</a></td>
-</tr>
-<tr>
-<td>字节跳动</td>
-<td><a href="https://cdn.bytedance.com/" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.bytedance.com/</a></td>
-</tr>
-<tr>
-<td>360</td>
-<td><a href="https://cdn.baomitu.com/" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.baomitu.com</a></td>
-</tr>
-<tr>
-<td>Bootcdn</td>
-<td><a href="https://cdn.bootcdn.net/" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.bootcdn.net</a></td>
-</tr>
-</tbody></table>
-<p>以上这几个前端库还是比较全的，推荐顺序也是从上到下。还有一个要单独拿出来说，那就是真正能做到全球都有节点的<a href="https://cdn.jsdelivr.net,我不知道如何给它排名,因为很多人有点滥用,比如用它给github加速./" target="_blank" rel="external nofollow noopener noreferrer">https://cdn.jsdelivr.net，我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。</a></p>
-<p>还可以用它加速存储在Github上的图片，文件等。不知道今后会不会被墙，尽管在国内是有正规的ICP备案。当然它也有加载不了的时候，这个时候，怎么办？</p>
-<h3 id="coding持续集成github持续部署"><a href="#coding持续集成github持续部署" class="headerlink" title="coding持续集成github持续部署"></a>coding持续集成github持续部署</h3><p>对于网站的更新，我目前采用两个更新点，一个是Hexo本地处理好后通过git push到coding，让coding-ci到github pages上，再由Netlify和Vercel自动导入他们的站点进行多站点部署。</p>
-<p><img src="https://noscos.nos-eastchina1.126.net/trpic/website-process.jpg" alt="本站流程"></p>
-<p>如图所示，还可以直接在语雀上更新文章使得自动部署到hexo博客，具体可以参见《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
-<p>但我不习惯这样更新，另外也可以在coding上自动处理好hexo项目，然后输出到coding pages仓库，再一次持续集成后推送到github pages仓库，这样做跟前面直接把hexo源码推送到github 私有仓库通过github actions功能推送到github pages是一样的。</p>
-<p>不过一个是由github来完成，一个是由coding来完成，而这样一来反而多消耗了一次持续集成的次数，每周200次的额度，折算一半还有100次，也足够用了，但觉得没必要如此。</p>
-<p>所以我采用的还是图中前面两个方案，既然是此方案，那么我就可以稍微做点差异化的处理。比如在主题目录下的_config.yml配置文件中，本地的用jsdelivr前端库，coding上的用七牛前端库，这样既可做到在不同地方更新，生成后的网站加载的前端资源是不一样的。</p>
-<p>缺点是文章之间可能需要手动同步一下，不然会不一致，不过影响也不是很大，像这几天每天一篇文章的更新频率，那是几乎没有的事儿。</p>
-<p>如果想了解本地Hexo处理好后让coding自动推送到Github的可以参见《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》这篇文章。</p>
-<p>如果想让coding处理好hexo项目可参见《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》，再结合前面的《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》即可搞定。</p>
-<p>如果觉得Coding额度不够用，想试试<code>Github Actions</code>每月2000分钟的额度，或想体验一下Github的持续集成可参考《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p>
-<p>要真折算成分钟，Coding每周200次，每次最大时长30分钟，折算下来一个月最高是24000分钟，但问题是hexo所需时长不多，按次数计算则不如<code>Github Actions</code>了。</p>
-<p>如果不用github做后台更新文章，或者也不想用coding为后台更新文章，就习惯语雀优良的Markdown书写体验，则可以试试《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
-<h3 id="多解析路线"><a href="#多解析路线" class="headerlink" title="多解析路线"></a>多解析路线</h3><p>不管从哪里做入口，最终都汇聚到<code>Github Pages</code>上，但有比Github访问速度更好的静态站点，肯定要试试咯。因此使用<code>Netlify</code>和<code>Vercel</code>做补充，然后顺带也把<code>CloudFlare</code>上。Netlify自动部署github pages比较简单，其中Netlify的注意事项和Vercel (zeit now)的项目导入可参考《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》</p>
-<p>如此一来，那么则有Coding Pages，Github Pages，Netlify，Vercel四个站点，而CDN路线则有CloudFlare和腾讯云做备用路线，其中Netlify，Vercel也自带CDN节点的。另2个备用CDN线路，可以把上面四个站点作为源站。Coding是被腾讯收购了，用的都是腾讯云的服务器，因此腾讯云的CDN可设置为coding pages为源站，另外腾讯云CDN还支持备用线路，可在Netlify，Vercel中选取一个即可。不过如果用<code>Coding pages</code>的话，注意选取图中的方案1和方案4，不然是不会在<code>Coding pages</code>上有文件生成的。</p>
-<p>在《<a href="https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html">CloudFlare CDN GitHub Pages</a>》中说过，CF是可以采用CANME解析的，而不必NS解析，因此用国内的DNS解析即可，则可以把移动路线，电信路线，联通路线分别解析到不同的站点，至于如何解析，则需要用网站测速工具测试一下做个参考。</p>
-<p>比如本站目前电信路线走的是Vercel，联通路线走的是Github Pages，移动路线走的是Netlify，搜索引擎路线则自己考虑，如果过于分散，可以不便于<code>Let&#39;s Encrypt</code>的续期。</p>
+                <h3 id="静态网站生成器有哪些"><a href="#静态网站生成器有哪些" class="headerlink" title="静态网站生成器有哪些"></a>静态网站生成器有哪些</h3><p>静态网站相比对是动态网站，而动态网站则不用说了，目前互联网各大平台可以说都是属于动态网站类型。用户基数大，总是要考虑运营的，而用户运营是运营必不可少的一环节。</p>
+<p>静态网站的交互性过于薄弱，因此不适合构建大型网站。更适合官方文档，或者喜欢“极客”风的个人博客用户。而优点则是安全性好，加载速度快，有多大流量就能撑起多少用户。</p>
+<p>因事先生成好html相关文件，所以不用担心数据查询等问题导致的性能瓶颈。要事先生成好这些html页面文件，就得有静态网站生成器这样的工具。</p>
+<p>就用户基数比较大的有Hexo，Hugo，Gatsby，Vuepress，Jekyll。另外还有Pelican，Metalsmith，Octopress，Pelican，Middleman，DocPad，Wintersmith，Cactus，HubPress，MkDocs，Docsify等，实在太多了，根据数不过来。</p>
+<p>名字中带Docs的适合的的场景也很明显，适合文档形式展现，比如书籍，应用文档之类的。</p>
+<h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>我最开始接触静态网站就是Hexo，但最后网站上线用的却是Hugo。衡量用户的多少，用百度指数，谷歌趋势都不够直观的看到数据。</p>
+<p>因此，我们就看看github上的<code>stars</code>数量吧。</p>
+<ul>
+<li>Stars 数量：31K</li>
+<li>官网：<a href="https://hexo.io/zh-cn/" target="_blank" rel="external nofollow noopener noreferrer">https://Hexo.io/zh-cn/</a></li>
+<li>Hexo Github：<a href="https://github.com/Hexojs/Hexo" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/Hexojs/Hexo</a></li>
+</ul>
+<p>跟Hugo相比，Hexo的生成速度实在不是一个数量级的。根据Hexo核心成员的说法，<code>Benchmark</code>数据是 300篇文章15s，1000篇文章 45s。</p>
+<p>毕竟说的是<code>基准数据</code>，我自己直接体验是155篇文章，用时35s，从敲下<code>Hexo g</code>命令后开始计时一直到完成，总共35秒，总共字数是486.4K字。</p>
+<p>我用的是Hexo4.2.1的版本，看官网动态，Hexo5.0速度又有小幅度提升，到时候我在看看同样的文章，同样安装了搜索插件，sitemap等插件看看同时多少。</p>
+<h3 id="Hugo"><a href="#Hugo" class="headerlink" title="Hugo"></a>Hugo</h3><p>很多人都说Hugo的速度独步天下，确实也是这么回事，跟Hexo相比对，Hugo同样的文章字数，不到1s就搞定。</p>
+<p>说Hugo的速度和Hexo不在一个数量级上，看来并不冤枉。最开始接触这类静态网页生成器的时候，对Hugo印象好不是因为速度快，那时候也没什么文章，所以速度体现不出来，就差几秒而已。</p>
+<p>给我印象最深的是Hugo只需一个<code>二进制</code>文件即可搞定这一些，让我觉得非常干净，而且容易上手。不像Hexo还要npm一堆东西才能用。</p>
+<ul>
+<li>Stars 数量：45.9K</li>
+<li>官网：<a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer">https://goHugo.io</a></li>
+<li>Hugo Github：<a href="https://github.com/goHugoio/Hugo" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/goHugoio/Hugo</a></li>
+</ul>
+<p>我一直以为用Hugo的人少，看来是中文用户中用Hugo的人少，看Stars的数量比Hexo高出不少呢。所以这就带来一个问题，如果只是喜欢静态网站而不是专业的程序员，应当说Hexo对中文用户支持更友好，毕竟开发出Hexo的就是台湾人。</p>
+<h3 id="VuePress"><a href="#VuePress" class="headerlink" title="VuePress"></a>VuePress</h3><p>VuePress是<code>VUE</code>来驱动的，而VUE则是<code>前端</code>三大框架（Angular、React、Vue）之一。严格意义上说，我最初折腾的就是VuePress，是因为折腾一次失败了，才转向Hexo，从而发现了Hugo。</p>
+<p>因此，我对VuePress没什么太大的感触，唯一的感触就是对新手上手难度可能比Hexo，Hugo大些。现在好些了，一搜有不少VuePress的教程，之前就只有2篇，翻来覆去就那么2篇VuePress的相关教程。</p>
+<ul>
+<li>Stars 数量：17.1K</li>
+<li>官网：<a href="https://vuepress.vuejs.org/zh/" target="_blank" rel="external nofollow noopener noreferrer">https://vuepress.vuejs.org/zh/</a></li>
+<li>VuePress Github：<a href="https://github.com/vuejs/vuepress" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/vuejs/vuepress</a></li>
+</ul>
+<p>主题不多，就官网默认的那一款主题我都还蛮喜欢的，也正因为如此，所以一开始就从VuePress下手折腾。</p>
+<h3 id="Gatsby"><a href="#Gatsby" class="headerlink" title="Gatsby"></a>Gatsby</h3><ul>
+<li>Stars 数量：46.3K</li>
+<li>官网：<a href="https://www.gatsbyjs.org/" target="_blank" rel="external nofollow noopener noreferrer">https://www.gatsbyjs.org/</a></li>
+<li>Gatsby Github：<a href="https://github.com/gatsbyjs/gatsby" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/gatsbyjs/gatsby</a></li>
+</ul>
+<p>看到比Hexo，Hugo都还高的Stars数量，是挺出乎我这个外行人的意料。因为看见用Gatsby搭建的博客确实不多，至少在我浏览的印象中，Hexo是排第一的，其次是Hugo。</p>
+<p>因此这一款我连安装都没有安装过，传闻如果你是搞React的就非常适合用了，或者说用React框架的人都用Gatsby的多。而且功能非常强大，超越了静态网站，能从任何地方加载数据。</p>
+<p>如果是以前，可能还是想跑去折腾一把，但现在就只能在Hugo和Hexo之间反复横跳了。对于一个博客，能有自己的内容输出是为首要，而至于用什么搭建，这些只是用来实现的工具罢了。</p>
+<p>但很多刚开时折腾网站或者博客的人，包括我，都是喜欢先折腾一把用什么工具搭建，是<code>WordPress</code>还是<code>Typecho</code>，还是<code>Ghost</code>，然后转向<code>静态网站</code>了还是想着到底是Hexo，还是Hugo。</p>
+<p>选定好工具后，又开始折腾主题，这几乎是每一个人的必经之路。</p>
+<h3 id="Jekyll"><a href="#Jekyll" class="headerlink" title="Jekyll"></a>Jekyll</h3><p>Jekyll我同样不了解，要不是把Hexo生成好的站点托管在<code>Github pages</code>上，我都不知道有这个工具。</p>
+<ul>
+<li>Stars 数量：41K</li>
+<li>官网：<a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener noreferrer">https://jekyllrb.com/</a></li>
+<li>Jekyll Github：<a href="https://github.com/jekyll/jekyll" target="_blank" rel="external nofollow noopener noreferrer">https://github.com/jekyll/jekyll</a></li>
+</ul>
+<p>看来偏见无处不在，我一直以为Hexo是拥有最多的静态网站用户群体数，可从<code>Github Stars</code>数量来衡量的话，Hexo不但不能屈居第二，反倒是倒数第二。</p>
+<p>又再一次出乎我的意料，只能说环境和接触面决定了你的眼界和认识。这段时间忽然重视起博客来，就写了几篇文章，未来相信会有一段时间，又要停更很久了吧。</p>
+<p>不折腾，就没有东西可写，这话倒是不假。</p>
+<h3 id="间接解决Hexo生成慢的问题"><a href="#间接解决Hexo生成慢的问题" class="headerlink" title="间接解决Hexo生成慢的问题"></a>间接解决Hexo生成慢的问题</h3><p>Hexo生成文章慢是因为执行了<code>hexo g</code>命令后不能马上有结果，需要一个过程，几秒到几十秒不等，而这个时候你就需得等到它执行完毕才能执行下一条命令。</p>
+<p>如果我们把这个过程放到云端去处理，比如我都是直接把文章<code>push</code>到Coding上，然后再让Coding自动push给github，最后触发<code>Github Actions</code>来处理完成后推送到Github Pages上。而这一过程都是全自动，在本地写好脚本双击一次执行<code>git push</code>，然后就让他在云端处理好了。如果你不是那种写完文章后立马就要自己看一遍的话，可以说这是Hexo较为完美的解决方案。</p>
+<p>至于如何完成这两步，可分别参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》和《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》这两篇文章。其他如Hugo，VuePress等也可以这么用，区别大概就是Avtions脚本的不同罢了。</p>
 
             </div>
             <hr>
@@ -467,7 +462,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html">https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</a>
+                    <a href="https://www.tangruiping.com/post/hexo-hugo-vuepress-gatsby.html">https://www.tangruiping.com/post/hexo-hugo-vuepress-gatsby.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -511,10 +506,6 @@
                             
                                 <a href="/tags/HEXO/">
                                     <span class="chip bg-color">HEXO</span>
-                                </a>
-                            
-                                <a href="/tags/CDN/">
-                                    <span class="chip bg-color">CDN</span>
                                 </a>
                             
                         </div>
@@ -821,27 +812,28 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/post/serverless-wordpress-typecho.html">
+                <a href="/post/hexo-hugo-vuepress-gatsby.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-wordpress-typecho.jpg" class="responsive-img" alt="Serverless云函数计算搭建Typecho和Wordpress网站">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/hexo-hugo-vuepress-gatsby.jpg" class="responsive-img" alt="Hexo Hugo vuepress gatsby静态网站生成器的选择">
                         
-                        <span class="card-title">Serverless云函数计算搭建Typecho和Wordpress网站</span>
+                        <span class="card-title">Hexo Hugo vuepress gatsby静态网站生成器的选择</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            听闻Serverless很久了，前几天还用它玩过下Hexo《语雀文章用Serverless自动部署到Hexo博客》。
-因此也早有想法把WordPress和Typecho这样的博客程序运行在serverless上。而这一次的搭建都是来源于ht
+                            静态网站生成器有哪些静态网站相比对是动态网站，而动态网站则不用说了，目前互联网各大平台可以说都是属于动态网站类型。用户基数大，总是要考虑运营的，而用户运营是运营必不可少的一环节。
+静态网站的交互性过于薄弱，因此不适合构建大型网站。更适合官方
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-08
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -854,6 +846,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -861,8 +854,8 @@
                         <span class="chip bg-color">网站</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%87%E6%A1%88/">
-                        <span class="chip bg-color">备案</span>
+                    <a href="/tags/HEXO/">
+                        <span class="chip bg-color">HEXO</span>
                     </a>
                     
                 </div>
@@ -876,23 +869,23 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/coding-ci-hexo.html">
+                <a href="/post/valine-ip-email-privacy.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-hexo.jpg" class="responsive-img" alt="Coding持续集成自动部署Hexo博客">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/valine.jpg" class="responsive-img" alt="静态博客Valine评论系统IP邮箱泄露问题和解决方法">
                         
-                        <span class="card-title">Coding持续集成自动部署Hexo博客</span>
+                        <span class="card-title">静态博客Valine评论系统IP邮箱泄露问题和解决方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            流程介绍前面写了一篇文章《Github Actions自动部署Hexo博客》，是可以通过Github本身自带的持续集成功能来处理hexo项目，从而免去了在本地执行这项操作，只需要在Github上编写Markdown文档即可实现自动部署到he
+                            Valine评论系统IP邮箱泄露问题Valine评论系统一直都挺好用的，是大多数静态站点首选的评论系统，比如Hexo,Hugo等。并且不少主题都集成了此功能，轻量化，没有多余的修饰，。用LeanCloud的数据库存储评论，要修改评论或者删除
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-04
                             </span>
                         <span class="publish-author">
                             
@@ -915,6 +908,10 @@
                     
                     <a href="/tags/HEXO/">
                         <span class="chip bg-color">HEXO</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">安全</span>
                     </a>
                     
                 </div>
