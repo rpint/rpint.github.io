@@ -359,7 +359,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-07
+                    2020-08-09
                 </div>
                 
 
@@ -462,7 +462,7 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
 <p>为了缩小误差，我又特意安装了使用了<code>SQLite3</code>的数据库安装Typecho，结果出乎我意料，冷启动时间不到6秒，而WordPress默认设置是12秒以上，甚至是15秒，热启动的时间基本在200~400毫秒左右，其余都一样，只有数据库不一样。</p>
 <p>而后又把WordPress安装到Serverless上，用的是MySQL数据库，发现结果并没有比Typecho用MySQL数据库慢，甚至还要快一丢丢，这超出了我的能力范围，我无法解释，只能称之为玄学。</p>
 <h3 id="SQLite3数据库安装"><a href="#SQLite3数据库安装" class="headerlink" title="SQLite3数据库安装"></a>SQLite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>SQLite3</code>则还需要PHP环境，而用SQLite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
-<p><code>Sqlite3</code>数据库是安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。但SQLite3好像不支持<code>utf8mb4</code>编码，有兴趣可自行搜索<code>utf8mb4 utf8</code>看看两者的区别，一般个人博客影响不大。</p>
+<p><code>Sqlite3</code>数据库是安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。不过Sqlite没办法做多并发写入，多并发读取倒不是什么问题，因此对于个人博客完全不用担心。</p>
 <p>首先你的系统需要PHP环境，到<code>https://windows.php.net/download/</code>下载，选择<code>Thread Safe</code>下的ZIP下载即可。然后解压到某个目录，配置Path项的环境变量，把路径指向为你的PHP所在目录，重新打开命令窗口执行<code>php -v</code>即可看到php的版本号。</p>
 <p>在php的文件夹下，复制一份<code>php.ini-development</code>文件重命名为<code>php.ini</code>，记事本打开配置它。</p>
 <p>搜索<code>extension_dir</code>，把<code>;extension_dir = &quot;./&quot;</code>改为<code>extension_dir = &quot;./ext&quot;</code>即可，注意<code>;</code>表示注释，得去掉。</p>
