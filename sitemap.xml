@@ -193,13 +193,6 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/tags/%E5%9F%9F%E5%90%8D/</loc>
-    <lastmod>2020-08-09</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tangruiping.com/tags/%E6%89%8B%E6%9C%BA/</loc>
     <lastmod>2020-08-09</lastmod>
     <changefreq>daily</changefreq>
@@ -207,7 +200,7 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/tags/%E5%AE%89%E5%85%A8/</loc>
+    <loc>https://www.tangruiping.com/tags/%E5%9F%9F%E5%90%8D/</loc>
     <lastmod>2020-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -215,6 +208,13 @@
   
   <url>
     <loc>https://www.tangruiping.com/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/</loc>
+    <lastmod>2020-08-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/tags/%E5%AE%89%E5%85%A8/</loc>
     <lastmod>2020-08-09</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
