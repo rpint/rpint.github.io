@@ -25,8 +25,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/aos/aos.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/animate/animate.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/css/my.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/css/my.css">
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/jquery/jquery.min.js"></script>
 
@@ -360,7 +360,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-09
+                    2020-08-10
                 </div>
                 
 
@@ -406,7 +406,7 @@
 <p>Serverless 备案要求：备案本身不收取任何费用，但通过 Serverless 方式备案需购买云函数5000万次调用次数包与40万GBs资源用量包</p>
 </blockquote>
 <p>关于百度云和华为云，肯定也是要接入备案了，我没去了解。因为这是<code>工信部</code>的规定，而不是云服务商能决定的，差别主要在于备案服务号如何取得的问题。</p>
-<h3 id="配置-env文件"><a href="#配置-env文件" class="headerlink" title="配置.env文件"></a>配置.env文件</h3><p>我采用Mysql数据库，所以我进入到<code>fc-web-mysql</code>文件夹中的.env去配置它。复制一份<code>.env_example</code> 改名为 <code>.env</code> ，Windows上无法直接这样改名，可通过7z压缩后修改文件名再解压。</p>
+<h3 id="配置-env文件"><a href="#配置-env文件" class="headerlink" title="配置.env文件"></a>配置.env文件</h3><p>我采用Mysql数据库，所以我进入到<code>fc-web-mysql</code>文件夹中的.env去配置它。复制一份<code>.env_example</code> 改名为 <code>.env</code> ，如果Windows上无法直接这样改名，可通过7z压缩后修改文件名再解压。</p>
 <p>记事本打开它，配置有如下</p>
 <pre><code>DEFAULT_REGION=云函数所在区域cn-shanghai,我这里是上海
 ACCOUNT_ID=阿里云账户ID
@@ -418,14 +418,14 @@ ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
 <h3 id="配置index-php"><a href="#配置index-php" class="headerlink" title="配置index.php"></a>配置index.php</h3><p>主要修改此处 <code>$host = &quot;fc.tangruiping.com&quot;;  </code> </p>
 <h3 id="配置template-yml"><a href="#配置template-yml" class="headerlink" title="配置template.yml"></a>配置template.yml</h3><p>主要修改三个地方，第一个是<code>LogConfig:</code>下的<code>Project:</code>，这一个你要重新命名，要跟别人都不同，具体看下图。<br><img src="https://noscos.nos-eastchina1.126.net/trpic/template-yml.jpg" alt="配置template.yml"></p>
 <p>最后一处就是<code>DomainName</code>跟<code>index.php</code>修改的域名一样，都为<code>fc.tangruiping.com</code>。</p>
-<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>如此配置好这三项，如需添加Typecho或这WordPress的主题，可在<code>\fc-web-mysql\.fun\nas\auto-default\fc-wp-mysql\wordpress</code>中添加好，改写好，为了避免出现其他情况，第一次我建议你啥都别动，直接部署即可。</p>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>如此配置好这三项，如需添加Typecho或着WordPress的主题，可在<code>\fc-web-mysql\.fun\nas\auto-default\fc-wp-mysql\wordpress</code>中添加好，改写好，为了避免出现其他情况，第一次我建议你啥都别动，直接部署即可。</p>
 <p>如果你想部署typecho，就把<code>Wordpress</code>文件夹下的文件删除，把<code>Typecho</code>的文件放进来即可。但WordPress文件夹名字不要随意改动。</p>
 <p>在命令行中进入<code>fc-web-mysql</code>文件夹中，执行如下三条命令即可搞定。</p>
 <p><code>fun nas init</code>  初始化 NAS，</p>
 <p><code>fun nas sync</code>  上传文件到 NAS</p>
 <p><code>fun deploy</code>  部署</p>
 <p>完成后，访问<code>fc.tangruiping.com</code>即可看到安装界面，而这就跟其他传统的LNMP或LAMP环境中安装WordPress和Typecho是一样的。</p>
-<h3 id="开启全程HTTPS"><a href="#开启全程HTTPS" class="headerlink" title="开启全程HTTPS"></a>开启全程HTTPS</h3><p>首先进入你的阿里云函数计算页面，注意下你左上方的区域，不要选错了区域，不然找不到你的域名。开启HTTPS，自己申请证书填写好。</p>
+<h3 id="开启全程HTTPS"><a href="#开启全程HTTPS" class="headerlink" title="开启全程HTTPS"></a>开启全程HTTPS</h3><p>首先进入你的阿里云函数计算页面，注意下你左上方的区域，不要选错了区域，不然找不到你的域名。找到自定义域名这个选项，开启HTTPS，自己申请证书填写好。</p>
 <p>然后在WordPress主题<code>functions.php</code>追加如下代码：复制代码如有不便请来此处<code>https://gitee.com/ct2/web/blob/master/serverless-wordpress-typecho.md</code></p>
 <pre><code>//http转https
 add_filter(&#39;get_header&#39;, &#39;fanly_ssl&#39;);
@@ -445,7 +445,7 @@ function fanly_ssl()&amp;#123;
 <pre><code>$_SERVER[&#39;HTTPS&#39;] = &#39;on&#39;;
 define(&#39;FORCE_SSL_LOGIN&#39;, true);
 define(&#39;FORCE_SSL_ADMIN&#39;, true);</code></pre>
-<p>然后再次同步到NAS，再次部署即可更新，每次部署，函数计算中的域名都会默认回HTTP，自行手动改回去。</p>
+<p>然后再次同步到NAS，再次部署即可更新，每次部署，函数计算中的域名都会默认变为HTTP，自行手动改回去。</p>
 <p><del>最后在WordPress设置中也修改一下，但以HTTPS的方式进行访问就走HTTPS协议，如果以HTTP方式访问就走HTTP协议。还是没办法让HTTP重定向到HTTPS，这点没能解决。</del></p>
 <p>可用<code>really-simple-ssl</code>插件解决此问题，所以上面代码应该不需要配置就能解决，如果不行那就用上代码+插件。</p>
 <p>Typecho开启HTTPS方法，站点根目录下的<code>config.inc.php</code>文件中加入下面代码，但依旧没办法支持HTTP重定向到HTTPS，WordPress用插件可以解决，但Typecho就没有这样的插件了，需要在函数层面解决。</p>
@@ -554,12 +554,12 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
                     
                 </div>
                 <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
-                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/share/css/share.min.css">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/share/css/share.min.css">
 <div id="article-share">
 
     
     <div class="social-share" data-sites="qq,qzone,wechat,weibo,douban" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/share/js/social-share.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/share/js/social-share.min.js"></script>
     
 
     
@@ -826,7 +826,7 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/valine/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/valine/av-min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/valine/Valine.min.js"></script>
 <script>
     new Valine({
@@ -1009,21 +1009,21 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
 
 
 <!-- 代码块功能依赖 -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/codeBlock/codeBlockFuction.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/codeBlock/codeBlockFuction.js"></script>
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/codeBlock/codeLang.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/codeBlock/codeLang.js"></script>
 
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/codeBlock/codeCopy.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/codeBlock/codeShrink.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/codeBlock/codeShrink.js"></script>
 
 
 <!-- 代码块折行 -->
@@ -1195,7 +1195,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/js/search.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/js/search.js"></script>
 <script type="text/javascript">
 $(function () {
     searchFunc("https://cdn.jsdelivr.net/gh/rpint/rpint.github.io/search.xml", 'searchInput', 'searchResult');
@@ -1215,7 +1215,7 @@ $(function () {
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/aos/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/scrollprogress/scrollProgress.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/lightGallery/js/lightgallery-all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/js/matery.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/js/matery.js"></script>
 
     <!-- Baidu Analytics -->
 
