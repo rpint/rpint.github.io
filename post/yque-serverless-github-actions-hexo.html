@@ -30,7 +30,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.0.2"></head>
 
 
 <body>
@@ -374,7 +374,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    10 分
                 </div>
                 
 
@@ -400,11 +400,11 @@ import requests
 
 def main_handler(event, context):
     r = requests.post(&quot;https://api.github.com/repos/用户名/私有仓库名/dispatches&quot;,
-    json = {&quot;event_type&quot;: &quot;start&quot;},
-    headers = {&quot;User-Agent&quot;:&#39;curl/7.52.1&#39;,
+    json = &amp;#123;&quot;event_type&quot;: &quot;start&quot;&amp;#125;,
+    headers = &amp;#123;&quot;User-Agent&quot;:&#39;curl/7.52.1&#39;,
               &#39;Content-Type&#39;: &#39;application/json&#39;,
               &#39;Accept&#39;: &#39;application/vnd.github.everest-preview+json&#39;,
-              &#39;Authorization&#39;: &#39;token Github访问Token&#39;})
+              &#39;Authorization&#39;: &#39;token Github访问Token&#39;&amp;#125;)
 
     if r.status_code == 204:
         return &quot;This&#39;s OK!&quot;
@@ -429,7 +429,7 @@ def main_handler(event, context):
 </li>
 </ul>
 <h3 id="语雀配置"><a href="#语雀配置" class="headerlink" title="语雀配置"></a>语雀配置</h3><ul>
-<li>没有账户点击这里<a href="https://www.yuque.com/login?platform=wechat&inviteToken=d250cce7a9bfb322880f20b1d1c4cdc4cbb69ea97c42f510d2ad4c28a19e0be5" target="_blank" rel="external nofollow noopener noreferrer">申请语雀</a>账户，注册成功后在知识库中新建一个知识库，权限选择互联网可见，知识库名称自己命名，比如我这里为 <code>tohexo</code></li>
+<li>没有账户点击这里<a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.yuque.com/login?platform=wechat&inviteToken=d250cce7a9bfb322880f20b1d1c4cdc4cbb69ea97c42f510d2ad4c28a19e0be5">申请语雀</a>账户，注册成功后在知识库中新建一个知识库，权限选择互联网可见，知识库名称自己命名，比如我这里为 <code>tohexo</code></li>
 <li>然后点击右上角头像设置刚新建的知识库，在知识库信息中便可修改路径，比如我的全路径为  <code>https://www.yuque.com/ccne2020/hexoblog</code> 留意下这个链接，待会后面会取用这个链接中的相关信息。</li>
 <li>在知识库的开发者中，网页路径为 <code>https://www.yuque.com/你的语雀用户名/知识库用户名/settings/webhooks</code>  填入上面云函数的访问路径，名称自己写，然后把 <code>仅主动推送更新触发</code> ， <code>发布文档</code> ， <code>更新文档</code> ， <code>删除文档</code> 都勾选上点击添加</li>
 <li>在点击右上角头像，点击 <code>个人设置</code>→ <code>token</code> → <code>新建</code> ，用途自己填写，这里勾选 <code>读取你的知识库</code> <code>读取你的文档</code> 后创建，记下这串token，后面要填写在Github私有仓库中。</li>
@@ -437,14 +437,14 @@ def main_handler(event, context):
 <li>用记事本打开<code>package.json</code>文件，可以在<code>  &quot;dependencies&quot;:</code> 字段中看到<code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code></li>
 <li>接着配置如下代码</li>
 </ul>
-<pre><code class="yaml">&quot;yuqueConfig&quot;: {
+<pre><code class="yaml">&quot;yuqueConfig&quot;: &amp;#123;
     &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;,
     &quot;login&quot;: &quot;你的语雀名，我这里的是ccne2020&quot;,
     &quot;repo&quot;: &quot;你的语雀知识库名，我这里的是hexoblog&quot;,
     &quot;mdNameFormat&quot;: &quot;title&quot;,
     &quot;postPath&quot;: &quot;source/_posts/yuque&quot;,
     &quot;onlyPublished&quot;: false
-  },</code></pre>
+  &amp;#125;,</code></pre>
 <ul>
 <li>着在 <code> &quot;scripts&quot;:</code> 字段下加入如下代码</li>
 </ul>
@@ -453,29 +453,29 @@ def main_handler(event, context):
 <li>下面开始百度搜索 <code>json在线检查</code> 找一个检查json的网站打开，复制你文件的内容检查一遍看看能不能通过，能通过才可以用。</li>
 <li>如果你的知识库中没有文章的话，这是可以先发一篇文章。我的整个 <code>package.json</code> 文件内容如下：</li>
 </ul>
-<pre><code class="yaml">{
+<pre><code class="yaml">&amp;#123;
   &quot;name&quot;: &quot;hexo-site&quot;,
   &quot;version&quot;: &quot;0.0.0&quot;,
   &quot;private&quot;: true,
-  &quot;scripts&quot;: {
+  &quot;scripts&quot;: &amp;#123;
     &quot;start&quot;: &quot;yuque-hexo clean &amp;&amp; yuque-hexo sync &amp;&amp; hexo clean &amp;&amp; hexo generate&quot;,
     &quot;build&quot;: &quot;hexo generate&quot;,
     &quot;clean&quot;: &quot;hexo clean&quot;,
     &quot;deploy&quot;: &quot;hexo deploy&quot;,
     &quot;server&quot;: &quot;hexo server&quot;
-  },
-&quot;yuqueConfig&quot;: {
+  &amp;#125;,
+&quot;yuqueConfig&quot;: &amp;#123;
     &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;,
     &quot;login&quot;: &quot;ccne2020&quot;,
     &quot;repo&quot;: &quot;hexoblog&quot;,
     &quot;mdNameFormat&quot;: &quot;title&quot;,
     &quot;postPath&quot;: &quot;source/_posts/yuque&quot;,
     &quot;onlyPublished&quot;: false
-  },
-  &quot;hexo&quot;: {
+  &amp;#125;,
+  &quot;hexo&quot;: &amp;#123;
     &quot;version&quot;: &quot;4.2.1&quot;
-  },
-  &quot;dependencies&quot;: {
+  &amp;#125;,
+  &quot;dependencies&quot;: &amp;#123;
     &quot;hexo&quot;: &quot;^4.2.1&quot;,
     &quot;hexo-autonofollow&quot;: &quot;^1.0.1&quot;,
     &quot;hexo-deployer-git&quot;: &quot;^2.1.0&quot;,
@@ -490,12 +490,12 @@ def main_handler(event, context):
     &quot;hexo-server&quot;: &quot;^1.0.0&quot;,
     &quot;hexo-wordcount&quot;: &quot;^6.0.1&quot;,
     &quot;yuque-hexo&quot;: &quot;^1.6.5&quot;
-  },
-  &quot;devDependencies&quot;: {
+  &amp;#125;,
+  &quot;devDependencies&quot;: &amp;#123;
     &quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.9&quot;,
     &quot;hexo-generator-sitemap&quot;: &quot;^2.0.0&quot;
-  }
-}</code></pre>
+  &amp;#125;
+&amp;#125;</code></pre>
 <h3 id="Github-Pages配置"><a href="#Github-Pages配置" class="headerlink" title="Github Pages配置"></a>Github Pages配置</h3><ul>
 <li>按理说，你应该具备此仓库，并且已经存放了hexo网站文件，如果没有，那么则创建一个以 <code>你的github用户名.github.io</code> 的公开仓库即可。</li>
 <li>下面打开git，没有的话去官网下载一个 <code>https://git-scm.com/downloads</code> ，可参见《<a href="https://www.tangruiping.com/post/github-actions-hexo.html#toc-heading-4">Github Actions自动部署Hexo博客</a>》中的 <code>密钥生成</code> 这一小节。</li>
@@ -556,7 +556,7 @@ jobs:
     - name: Setup Hexo Dependencies and Generate Public Files
       env:
     # from: 这里的YUQUE_TOKEN: $不能随意改
-        YUQUE_TOKEN: ${{ secrets.YQ_TOKEN }}
+        YUQUE_TOKEN: $&amp;#123;&amp;#123; secrets.YQ_TOKEN &amp;#125;&amp;#125;
       run: |
         npm install hexo-cli -g
         npm install yuque-hexo -g
@@ -567,11 +567,11 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        deploy_key: ${{ secrets.YUQUE_GIT_HEXO }}
+        deploy_key: $&amp;#123;&amp;#123; secrets.YUQUE_GIT_HEXO &amp;#125;&amp;#125;
         external_repository: Github用户名/Pages仓库
         publish_branch: master
         publish_dir: ./public
-        commit_message: ${{ github.event.head_commit.message }}</code></pre>
+        commit_message: $&amp;#123;&amp;#123; github.event.head_commit.message &amp;#125;&amp;#125;</code></pre>
 <p>最后在Serverless中点击测试，如果成功的话应该可以看到 <code>This&#39;s OK!</code>。在语雀中无论删除文章，更新文章，新发布文章，都一定要选择 <code>文档有较大更新，推送给关注知识库的人</code> 才能触发这系列操作。</p>
 <p>针对语雀图片无法正常显示的解决办法，找到主题的 <code>layout</code> 文件夹中的 <code>post.ejs</code> 文件中加上一句 <code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</code>可解决此问题。</p>
 <h3 id="最后总结"><a href="#最后总结" class="headerlink" title="最后总结"></a>最后总结</h3><p>另外github actions可能对触发操作做了一定限制，因此不要频繁点击测试，可能会导致失败问题。我自己的感觉是前面我一分钟点击七八次都能通过测试，后面莫名其妙就失败了，猜想与此有关，然后过了几分钟再次点击，测试又通过。在一个我怀疑跟墙有关，反正很玄学。</p>
@@ -1235,7 +1235,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">30.8k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">31.1k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

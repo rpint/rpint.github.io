@@ -30,7 +30,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.0.2"></head>
 
 
 <body>
@@ -407,13 +407,13 @@
 <p>前面我还以为是不是文件名路径太长所致，后面发现有更长的文件名都可以正常访问，自然就不存在这个问题。所以想到是不是 <code>Github</code>仓库的文件出现了什么问题，但 <code>netlify</code>也是用的 <code>Github pages</code>，后面发现居然是文件名大小写问题导致的404。</p>
 <h3 id="为Vercel和netlify自定义404页面"><a href="#为Vercel和netlify自定义404页面" class="headerlink" title="为Vercel和netlify自定义404页面"></a>为Vercel和netlify自定义404页面</h3><p>在主题文件夹下的 <code>\source</code>目录放置一个 <code>404.html</code>文件到此即可，最终执行 <code>hexo g</code>后在 <code>public</code>文件夹的根目录下存在 <code>404.html</code>文件即可。</p>
 <p>根据我自己的测试，现在的Vercel不需要 <code>vercel.json</code>文件，之前的办法还是在主题文件夹下的 <code>\source</code>目录新建一个 <code>vercel.json</code>文件，代码如下，官网文档说明 <code>https://vercel.com/docs/configuration#routes/advanced/custom-404</code></p>
-<pre><code>{
+<pre><code>&amp;#123;
  &quot;version&quot;: 2,
  &quot;routes&quot;: [
-   { &quot;handle&quot;: &quot;filesystem&quot; },
-   { &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; }
+   &amp;#123; &quot;handle&quot;: &quot;filesystem&quot; &amp;#125;,
+   &amp;#123; &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; &amp;#125;
  ]
-}</code></pre>
+&amp;#125;</code></pre>
 <h3 id="Netlify跳转到网站主页"><a href="#Netlify跳转到网站主页" class="headerlink" title="Netlify跳转到网站主页"></a>Netlify跳转到网站主页</h3><p>Netlify默认给一个二级域名，如xxx..netlify.app，直接访问此域名并不会跳转到你自定义的域名，因此需要新建一个 <code>netlify.toml</code> 文件，写上如下内容，放到网站根目录，或者放到 <code>themes\这里是主题名称\source</code>即可。</p>
 <pre><code>[[redirects]]
 from = &quot;https://xxx.netlify.app/*&quot;
@@ -1086,7 +1086,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">30.8k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">31.1k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

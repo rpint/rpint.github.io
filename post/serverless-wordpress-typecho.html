@@ -30,7 +30,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@1.0/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.0.2"></head>
 
 
 <body>
@@ -367,7 +367,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.2k
+                    3.3k
                 </div>
                 
 
@@ -429,18 +429,18 @@ ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
 <p>然后在WordPress主题<code>functions.php</code>追加如下代码：复制代码如有不便请来此处<code>https://gitee.com/ct2/web/blob/master/serverless-wordpress-typecho.md</code></p>
 <pre><code>//http转https
 add_filter(&#39;get_header&#39;, &#39;fanly_ssl&#39;);
-function fanly_ssl(){
-   if( is_ssl() ){
-       function fanly_ssl_main ($content){
+function fanly_ssl()&amp;#123;
+   if( is_ssl() )&amp;#123;
+       function fanly_ssl_main ($content)&amp;#123;
            $siteurl = get_option(&#39;siteurl&#39;);
            $upload_dir = wp_upload_dir();
            $content = str_replace( &#39;http:&#39;.strstr($siteurl, &#39;//&#39;), &#39;https:&#39;.strstr($siteurl, &#39;//&#39;), $content);
            $content = str_replace( &#39;http:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), &#39;https:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), $content);
            return $content;
-       }
+       &amp;#125;
        ob_start(&quot;fanly_ssl_main&quot;);
-   }
-}</code></pre>
+   &amp;#125;
+&amp;#125;</code></pre>
 <p>在wp-config.php追加如下代码</p>
 <pre><code>$_SERVER[&#39;HTTPS&#39;] = &#39;on&#39;;
 define(&#39;FORCE_SSL_LOGIN&#39;, true);
@@ -472,7 +472,7 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
 <p>还是简单说一下我的改造过程吧，把Typecho的文件替换掉WordPress的文件，这一步跟前面用MySQL安装Typecho是一样的，修改hosts文件，暂时把自定义域名指向<code>127.0.0.1</code>，然后进到<code>fc-web-sqlite\.fun\nas\auto-default\fc-wp-sqlite\wordpress</code>目录下执行<code>php -S 0.0.0.0:80</code>命令本地安装好typecho和SQLite3数据库的链接，完成后在<code>usr</code>文件夹下看到一个<code>.db</code>的数据库文件，我这里的名字为<code>my0908.db</code>,回到上一级目录打开<code>config.inc.php</code>文件，找到<code>定义数据库参数</code>这一段，可以看到它指向的数据库路径，我这里把它改为<code>  &#39;file&#39; =&gt; &#39;../usr/my0908.db&#39;,</code>。（为了安全，我建议把文件名弄长一些）</p>
 <p>在复制一份<code>config.inc.php</code>文件改名为<code>config.inc-sqlite3.php</code>，打开它，把数据库的指向路径修改为<code>  &#39;file&#39; =&gt; &#39;./usr/0908.db&#39;,</code>，跟前面的相比少了个点号。</p>
 <p>在打开<code>index.php</code>文件把<code>config.inc.php</code>替换为<code>config.inc-sqlite3.php</code>即可完成改造。</p>
-<p>因为数据库在本地，路径只能是相对的，而相对的位置又不一样，只好通此种办法巧妙解决。或者获取NAS上的绝对路径填写，就不用如此修改。对于SQLite3数据库的管理和查看，推荐这个可视化工具<a href="http://www.sqlitebrowser.org/" target="_blank" rel="external nofollow noopener noreferrer">DB Browser for SQLite</a></p>
+<p>因为数据库在本地，路径只能是相对的，而相对的位置又不一样，只好通此种办法巧妙解决。或者获取NAS上的绝对路径填写，就不用如此修改。对于SQLite3数据库的管理和查看，推荐这个可视化工具<a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.sqlitebrowser.org/">DB Browser for SQLite</a></p>
 <h3 id="Fun工具命令"><a href="#Fun工具命令" class="headerlink" title="Fun工具命令"></a>Fun工具命令</h3><p>查看NAS上的文件<code>fun nas ls -a nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas ls -a nas://fc-wp-mysql/mnt/auto/wordpress</code> 可查看WordPress文件夹下的文件，用这个<code>fun nas ls -a nas:///mnt/auto/wordpress</code>也行。</p>
 <p>删除NAS上的文件<code>fun nas rm -r nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas rm -r nas://fc-wp-mysql/mnt/auto/wordpress/wp-content/themes/twentynineteen</code>删除WordPress自带的一个主题</p>
 <p>复制文件<code>fun nas cp nas:///mnt/auto/wordpress/robots.txt D:\</code> 复制NAS的文件到本地的D盘，反之<code>fun nas cp D:\robots.txt nas:///mnt/auto/wordpress/</code>则是复制robots.txt文件到NAS的WordPress文件夹下，然后可通过上面的命令查看即可。复制文件夹上传加上参数<code>-r</code>就好。</p>
@@ -1144,7 +1144,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">30.8k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">31.1k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
