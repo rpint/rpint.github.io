@@ -455,7 +455,7 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
 <p>热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p>
 <p>这里的第一页指的是第一个加载的资源文件，而不是网站的主页。</p>
 <p>而伪静态，反正按照常规在后台设置是行不通的。而Serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p>
-<p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示。</p>
+<p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示，为Typecho程序。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-typecho-time.jpg" alt="网页各个页面加载时间情况"></p>
 <p>压测结束后，我再次打开这些页面，发生时间还更慢了，好几次加载的第一页都超过了3s。不过，这一切的前提，都是在我用的其他区域的数据库所测试的结果。</p>
 <p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了demo的速度也是在1.5s左右。<strong>已经验证出结果了，确实我的跨区域数据库影响甚大，采用下面的SQLite时间还短些</strong>。没具体测试，看浏览器的热启动时间有时候可以不到1s了。</p>
@@ -463,7 +463,7 @@ define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre>
 <p>为了缩小误差，我又特意安装了使用了<code>SQLite3</code>的数据库安装Typecho，结果出乎我意料，冷启动时间不到6秒，而WordPress默认设置是12秒以上，甚至是15秒，热启动的时间基本在200~400毫秒左右，其余都一样，只有数据库不一样。</p>
 <p>而后又把WordPress安装到Serverless上，用的是MySQL数据库，发现结果并没有比Typecho用MySQL数据库慢，甚至还要快一丢丢，这超出了我的能力范围，我无法解释，只能称之为玄学。</p>
 <h3 id="SQLite3数据库安装"><a href="#SQLite3数据库安装" class="headerlink" title="SQLite3数据库安装"></a>SQLite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>SQLite3</code>则还需要PHP环境，而用SQLite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p>
-<p><code>Sqlite3</code>数据库是安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。不过Sqlite没办法做多并发写入，多并发读取倒不是什么问题，因此对于个人博客完全不用担心。</p>
+<p><code>Sqlite3</code>数据库是同博客程序安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。不过Sqlite没办法做多并发写入，多并发读取倒不是什么问题，因此对于个人博客完全不用担心。</p>
 <p>首先你的系统需要PHP环境，到<code>https://windows.php.net/download/</code>下载，选择<code>Thread Safe</code>下的ZIP下载即可。然后解压到某个目录，配置Path项的环境变量，把路径指向为你的PHP所在目录，重新打开命令窗口执行<code>php -v</code>即可看到php的版本号。</p>
 <p>在php的文件夹下，复制一份<code>php.ini-development</code>文件重命名为<code>php.ini</code>，记事本打开配置它。</p>
 <p>搜索<code>extension_dir</code>，把<code>;extension_dir = &quot;./&quot;</code>改为<code>extension_dir = &quot;./ext&quot;</code>即可，注意<code>;</code>表示注释，得去掉。</p>
@@ -1144,7 +1144,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">31.1k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">31.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
