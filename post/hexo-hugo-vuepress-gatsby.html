@@ -16,6 +16,17 @@
     <link rel="canonical" href="https://www.tangruiping.com/post/hexo-hugo-vuepress-gatsby.html">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175458473-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'UA-175458473-1');
+</script>
+
 
     <title>Hexo Hugo vuepress gatsby静态网站生成器的选择 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
@@ -421,7 +432,7 @@
 <li>VuePress Github：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/vuejs/vuepress">https://github.com/vuejs/vuepress</a></li>
 </ul>
 <p>主题不多，就官网默认的那一款主题我都还蛮喜欢的，也正因为如此，所以一开始就从VuePress下手折腾。</p>
-<p>而且具有SPA（单页应用），一次加载好所需的文件，要切换页面时，只需重新加载需要切换的那个页面资源即可，体验起来，速度倒是挺不错的。但也因为是这种原因，所以文章越多，js脚本也越多，那生成的文件也越多，体积也跟着变大。</p>
+<p>而且具有SPA（单页应用），一次加载好所需的文件，切换其他页面由JS应用代码直接请求渲染，无需整体刷新。，体验起来，速度倒是挺不错的。但也因为是这种原因，所以文章越多，JS脚本也越多，那生成的文件也越多，体积也会稍稍变大。</p>
 <h3 id="Gatsby"><a href="#Gatsby" class="headerlink" title="Gatsby"></a>Gatsby</h3><ul>
 <li>Stars 数量：46.3K</li>
 <li>官网：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.gatsbyjs.org/">https://www.gatsbyjs.org/</a></li>
