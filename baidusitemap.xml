@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.tangruiping.com/post/github-actions-hexo.html</loc>
+    <lastmod>2020-08-15</lastmod>
+  </url>
+  <url>
     <loc>https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html</loc>
     <lastmod>2020-08-14</lastmod>
   </url>
@@ -22,10 +26,6 @@
   </url>
   <url>
     <loc>https://www.tangruiping.com/post/update-on-the-hexo-theme.html</loc>
-    <lastmod>2020-08-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tangruiping.com/post/github-actions-hexo.html</loc>
     <lastmod>2020-08-01</lastmod>
   </url>
   <url>
