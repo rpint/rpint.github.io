@@ -371,7 +371,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-01
+                    2020-08-17
                 </div>
                 
 
@@ -396,8 +396,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="Coding持续集成概述"><a href="#Coding持续集成概述" class="headerlink" title="Coding持续集成概述"></a>Coding持续集成概述</h3><p>这篇还是需要在本地处理好静态网站推送到coding，如果不想在本地环境用hexo生成好静态网站，可以试试《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p>
-<p>如果Github访问总是不够稳定，可以试试《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p>
-<p>一直以来，本站都是以 <code>GitHub</code>为主， <code>Coding</code>为辅，但每次更新网站文章，都需要部署两此，有点麻烦。尽管我用 <code>Windows脚本语言</code>实现了双击一次自动部署一个站点，双击两次全部搞定。</p>
+<p>如果Github访问总是不太稳定，可以试试《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p>
+<p>一直以来，本站都是以 <code>GitHub</code>为主， <code>Coding</code>为辅，但每次更新网站文章，都需要部署两次，有点麻烦。尽管我用 <code>Windows脚本语言</code>实现了双击一次自动部署一个站点，双击两次全部搞定。</p>
 <p>但今天发现可以通过 <code>Coding</code>来实现同步到 <code>GitHub</code>上，当然还是要试试看。早上发现一篇文章是关于 <code>GitHub</code>自动推送到 <code>Coding</code>的，但需要借助 <code>zeit now</code>来实现，而且过程有点复杂对于我来说，最要紧的它不是从 <code>Coding</code>→ <code>GitHub</code>。</p>
 <h3 id="配置Coding-Ci"><a href="#配置Coding-Ci" class="headerlink" title="配置Coding-Ci"></a>配置Coding-Ci</h3><p>首先进入 <code>Coding</code>官网找到 <code>持续集成</code>中的 <code>构建计划</code>，然后点击 <code>新建构建计划配置</code>，然后在 <code>选择构建计划模版</code>中找到 <code>自定义构建过程</code>，或者通过 <code>Ctrl+F</code>搜索 <code>Jenkinsfile</code>看看，应该也能快速找到。</p>
 <p>确定后进入 <code>自定义构建过程 模版</code>，代码仓库下的代码源选择 <code>Coding</code>，使用静态配置的Jenkinsfile，然后确定后进入 <code>配置流程</code>，选择 <code>文本编辑器</code>。</p>
