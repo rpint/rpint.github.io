@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.tangruiping.com/post/valine-ip-email-privacy.html</loc>
+    <lastmod>2020-08-21</lastmod>
+  </url>
+  <url>
     <loc>https://www.tangruiping.com/post/hexo-hugo-vuepress-gatsby.html</loc>
     <lastmod>2020-08-17</lastmod>
   </url>
@@ -19,10 +23,6 @@
   <url>
     <loc>https://www.tangruiping.com/post/serverless-wordpress-typecho.html</loc>
     <lastmod>2020-08-10</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tangruiping.com/post/valine-ip-email-privacy.html</loc>
-    <lastmod>2020-08-08</lastmod>
   </url>
   <url>
     <loc>https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html</loc>
