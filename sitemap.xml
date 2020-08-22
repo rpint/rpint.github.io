@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</loc>
+    
+    <lastmod>2020-08-22</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.tangruiping.com/post/blog-seo-page-view-search-engine.html</loc>
     
     <lastmod>2020-08-22</lastmod>
@@ -59,13 +66,6 @@
   
   <url>
     <loc>https://www.tangruiping.com/post/update-on-the-hexo-theme.html</loc>
-    
-    <lastmod>2020-08-01</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</loc>
     
     <lastmod>2020-08-01</lastmod>
     
