@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="keywords" content="宝塔面板漏洞事件和未来运维架构, 唐瑞平,瑞平笔记,唐瑞平日志">
     <meta name="description" content="自强不息  厚德载物">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="canonical" href="https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html">
+    <link rel="canonical" href="https://www.tangruiping.com/post/bt-bug-next-ops.html">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175458473-1"></script>
@@ -28,7 +28,7 @@
 </script>
 
 
-    <title>Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想 | 唐瑞平</title>
+    <title>宝塔面板漏洞事件和未来运维架构 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/awesome/css/all.css">
@@ -213,12 +213,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/bt-bug-next-ops.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</h1>
+                    <h1 class="description center-align post-title">宝塔面板漏洞事件和未来运维架构</h1>
                 </div>
             </div>
         </div>
@@ -335,16 +335,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/HEXO/">
-                                <span class="chip bg-color">HEXO</span>
-                            </a>
-                        
-                            <a href="/tags/CDN/">
-                                <span class="chip bg-color">CDN</span>
-                            </a>
-                        
                             <a href="/tags/%E7%BD%91%E7%AB%99/">
                                 <span class="chip bg-color">网站</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%BF%90%E7%BB%B4/">
+                                <span class="chip bg-color">运维</span>
                             </a>
                         
                     </div>
@@ -368,28 +364,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-31
+                    2020-08-24
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-22
+                    2020-08-24
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    1.9k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    6 分
                 </div>
                 
 
@@ -399,61 +395,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="网站优化"><a href="#网站优化" class="headerlink" title="网站优化"></a>网站优化</h3><p>国内和国外隔着一堵墙，无论如何你都没办法快速绕过它。对于我来说，在域名没有备案的情况下，本站算是差不多已经优化到极限了。</p>
-<p>但就在刚刚，我的移动数据流量打开加载十余秒，差不多算是超时了，要彻底解决这个问题，只有备案，无其他路可走。</p>
-<p>好在，同之前相比，速度已经有了明显提升，也总算没白费这个折腾劲儿。有一点感受是对网站理解又稍微深刻了些许。</p>
-<h4 id="CDN加速"><a href="#CDN加速" class="headerlink" title="CDN加速"></a>CDN加速</h4><p>比如，之前在CDN中有CORS（跨域请求）这一项不理解，当然现在也不是很理解，至少知道如果没有正确配置它，会导致类似于字体文件这类资源没办法在浏览器上正常加载。</p>
-<p>尽管状态码为200，但资源大小确实零字节，后面设置了后才得以解决。之前没有遇到这个情况，所以也就不知道具体有什么用，反正没设置也能用。</p>
-<p>既然谈到了CDN，那么就在谈谈CDN中的回源，源站等问题。比如我的网站主域名为<code>www.tangruiping.com</code>，不带<code>www</code>的<code>tangruiping.com</code>做301跳转到带<code>www</code>的。</p>
-<p>现在我的网站是纯静态站点，原来是托管在<code>Github Pages</code>，但因为访问较慢，我接入CDN来为其加速。原来的访问过程是<code>用户→www.tangruiping.com→Github pages</code>，接入了CDN后就变成<code>用户→www.tangruiping.com→CDN→Github pages</code>。</p>
-<p>那么此时，我的源站地址则为<code>Github Pages</code>地址，回源Host则是<code>www.tangruiping.com</code>。而CDN中常说的加速域名，就是<code>www.tangruiping.com</code>。而<code>源站地址</code>一定不能和<code>加速域名</code>相同，而<code>加速域名</code>可以和<code>回源Host</code>一样。</p>
-<h4 id="CDN前端库"><a href="#CDN前端库" class="headerlink" title="CDN前端库"></a>CDN前端库</h4><p>因为是静态网站，很多的<code>css样式</code>，<code>js脚本</code>，字体等都可以走CDN，本质上跟前面说的CDN加速没啥区别性。</p>
-<p>不同的是，前面的CDN加速需要自己把静态资源传入到对象存储也好，或者其他地方也好，在接入CDN加速。而CDN前端库则是自带有很多这样的资源，直接调用即可。</p>
-<p>一来不需要你备案域名，二来还是免费使用，不用担心被人恶意刷流量等问题。当然即便是没有备案，还是可以通过云服务商自带的域名实行加速，目前阿里腾讯是提供域名。七牛则是默认30天回收，管它叫测试域名。又拍云则没有，其他云没用过。</p>
-<p>百度的前端公共库现已关闭，腾讯的资源少之又少，又拍云的老之又老，好像没有听过阿里有前端公共库，不过阿里持有七牛股份，勉强算阿里的吧。</p>
-<p>360有个由奇舞团主导的，还有个bootcdn的，相比之下，360略胜。不过360的前端公共库也是几经曲折，而bootcdn的有时候我这边加载贼慢。字节跳动也有个前端库，现把他们都列入下表。</p>
-<table>
-<thead>
-<tr>
-<th>七牛</th>
-<th>网址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>七牛</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.staticfile.org/">https://www.staticfile.org/</a></td>
-</tr>
-<tr>
-<td>字节跳动</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.bytedance.com/">https://cdn.bytedance.com/</a></td>
-</tr>
-<tr>
-<td>360</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.baomitu.com/">https://cdn.baomitu.com</a></td>
-</tr>
-<tr>
-<td>Bootcdn</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.bootcdn.net/">https://cdn.bootcdn.net</a></td>
-</tr>
-</tbody></table>
-<p>以上这几个前端库还是比较全的，推荐顺序也是从上到下。还有一个要单独拿出来说，那就是真正能做到全球都有节点的<a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.jsdelivr.net/">jsdelivr</a>， 我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。（跟jsdelivr相似的还有<code>statically.io</code>）</p>
-<p>还可以用它加速存储在Github上的图片，文件等。不知道今后会不会被墙，尽管在国内是有正规的ICP备案。当然它也有加载不了的时候，这个时候，怎么办？</p>
-<h3 id="coding持续集成github持续部署"><a href="#coding持续集成github持续部署" class="headerlink" title="coding持续集成github持续部署"></a>coding持续集成github持续部署</h3><p>对于网站的更新，我目前采用两个更新点，一个是Hexo本地处理好后通过git push到coding，让coding-ci到github pages上，再由Netlify和Vercel自动导入他们的站点进行多站点部署。</p>
-<p><img src="https://noscos.nos-eastchina1.126.net/trpic/website-process.jpg" alt="本站流程"></p>
-<p>如图所示，还可以直接在语雀上更新文章使得自动部署到hexo博客，具体可以参见《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
-<p>但我不习惯这样更新，另外也可以在coding上自动处理好hexo项目，然后输出到coding pages仓库，再一次持续集成后推送到github pages仓库，这样做跟前面直接把hexo源码推送到github 私有仓库通过github actions功能推送到github pages是一样的。</p>
-<p>不过一个是由github来完成，一个是由coding来完成，而这样一来反而多消耗了一次持续集成的次数，每周200次的额度，折算一半还有100次，也足够用了，但觉得没必要如此。</p>
-<p>所以我采用的还是图中前面两个方案，既然是此方案，那么我就可以稍微做点差异化的处理。比如在主题目录下的_config.yml配置文件中，本地的用jsdelivr前端库，coding上的用七牛前端库，这样既可做到在不同地方更新，生成后的网站加载的前端资源是不一样的。</p>
-<p>缺点是文章之间可能需要手动同步一下，不然会不一致，不过影响也不是很大，像这几天每天一篇文章的更新频率，那是几乎没有的事儿。</p>
-<p>如果想了解本地Hexo处理好后让coding自动推送到Github的可以参见《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》这篇文章。</p>
-<p>如果想让coding处理好hexo项目可参见《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》，再结合前面的《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》即可搞定。</p>
-<p>如果觉得Coding额度不够用，想试试<code>Github Actions</code>每月2000分钟的额度，或想体验一下Github的持续集成可参考《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p>
-<p>要真折算成分钟，Coding每周200次，每次最大时长30分钟，折算下来一个月最高是24000分钟，但问题是hexo所需时长不多，按次数计算则不如<code>Github Actions</code>了。</p>
-<p>如果不用github做后台更新文章，或者也不想用coding为后台更新文章，就习惯语雀优良的Markdown书写体验，则可以试试《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
-<h3 id="多解析路线"><a href="#多解析路线" class="headerlink" title="多解析路线"></a>多解析路线</h3><p>不管从哪里做入口，最终都汇聚到<code>Github Pages</code>上，但有比Github访问速度更好的静态站点，肯定要试试咯。因此使用<code>Netlify</code>和<code>Vercel</code>做补充，然后顺带也把<code>CloudFlare</code>上。Netlify自动部署github pages比较简单，其中Netlify的注意事项和Vercel (zeit now)的项目导入可参考《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》</p>
-<p>如此一来，那么则有Coding Pages，Github Pages，Netlify，Vercel四个站点，而CDN路线则有CloudFlare和腾讯云做备用路线，其中Netlify，Vercel也自带CDN节点的。另2个备用CDN线路，可以把上面四个站点作为源站。Coding是被腾讯收购了，用的都是腾讯云的服务器，因此腾讯云的CDN可设置为coding pages为源站，另外腾讯云CDN还支持备用线路，可在Netlify，Vercel中选取一个即可。不过如果用<code>Coding pages</code>的话，注意选取图中的方案1和方案4，不然是不会在<code>Coding pages</code>上有文件生成的。</p>
-<p>在《<a href="https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html">CloudFlare CDN GitHub Pages</a>》中说过，CF是可以采用CANME解析的，而不必NS解析，因此用国内的DNS解析即可，则可以把移动路线，电信路线，联通路线分别解析到不同的站点，至于如何解析，则需要用网站测速工具测试一下做个参考。</p>
-<p>比如本站目前电信路线走的是Vercel，联通路线走的是Github Pages，移动路线走的是Netlify，搜索引擎路线则自己考虑，如果过于分散，可以不便于<code>Let&#39;s Encrypt</code>的续期。</p>
+                <h3 id="事件起因"><a href="#事件起因" class="headerlink" title="事件起因"></a>事件起因</h3><p>昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。</p>
+<p>21点过后打开电脑，见Q群也有人讨论这事，就想着试试看，到底是怎么回事。于是就借用<code>知道创宇</code>的工具，找到了几个站点，还真可以采用<code>IP:888/pma</code>这样的形式直接访问<code>phpmyadmin</code>管理的MySQL数据库。</p>
+<p>而且权限之大可以做任何操作，直接删库都OK。尽管宝塔官网采用短信的通知形式，但总有人不重视这些问题，即便是在今上午，还是有站点没有做任何修复，甚至是现在我写文章的傍晚，某些网站还可以采用上面形式可直接访问数据库。</p>
+<p>更详细的分析我也说不了，网上有些文章分析的也挺好，还从代码对比层面讲了它改动的业务逻辑。我想从另一个角度谈谈对此次事件的看法，不妨就从抵制宝塔的声音开始讲起。</p>
+<h3 id="什么是宝塔面板"><a href="#什么是宝塔面板" class="headerlink" title="什么是宝塔面板"></a>什么是宝塔面板</h3><p>什么是宝塔，这里的宝塔并不是宝塔镇河妖的宝塔，而是方便快速构建程序运行环境的一种程序或者说面板。</p>
+<p>一般来讲，一个网站需要运行环境，网站就是Website，因此离不开<code>Web服务器</code>程序，如<code>Nginx</code>，<code>Apache HTTP</code>。再看网站是由什么语言程序写的，如果是<code>PHP语言</code>写的，那么还需要<code>PHP环境</code>，而这些语言写的网站都是属于动态类型的网站，还得有个数据库，如<code>MySQL</code>。这三者具备了，得看你网站运行在什么系统上，如果是<code>Linux系统</code>，那么这一套组合就可以简称为<code>LNMP</code>或者<code>LAMP</code>，LAMP和LNMP的区别是用Apache还是Nginx而已。</p>
+<p>而宝塔面板就是快速方便的搭建一套LAMP或者LNMP环境，当然你得先在Linux系统上安装好宝塔，然后由宝塔编译安装其他三个程序并且管理它们，简单说这就是<code>Linux面板</code>的作用。</p>
+<p>而这一次的漏洞就是在管理环境出现了逻辑问题，导致数据库可直接被访问。</p>
+<h3 id="对宝塔漏洞事件的看法"><a href="#对宝塔漏洞事件的看法" class="headerlink" title="对宝塔漏洞事件的看法"></a>对宝塔漏洞事件的看法</h3><p>只要是人写的代码，就会有漏洞，只要是人，就可能出现业务逻辑的BUG。而宝塔出了这么大档子事，犯得还是这么低级的错误，要说没有这样的声音，才是奇怪。</p>
+<p>其实就算是微软，也都有人说Windows不安全，我用Linux之类的声音。不管什么事件，一旦发生，总会出现两种完全不同的声音，我想这才符合中国古代哲学的辩证思想。有阴就有阳，有人说可以，就有人说不可以。</p>
+<p>至于谁对谁错，在某种程度上，反而不是那么重要。我更关注的是如果一件事情发现，可怕的是只有一种声音。</p>
+<p>从昨天到今天，看到不少人说早就不用宝塔了，LNMP脚本包它不香吗？也有的说，已经不用宝塔好久了，早几年就改用XX面板了。还有的说，今后再也不用宝塔了。总之，这些都算得上抵制或者嘲讽的声音吧。当然也有不少理智人说该用还得用，我倒是倾向于后者观点。</p>
+<p>原因也很简单，不是所有人都是开发者和运维工程师，时间一久，很容易忘记操作步骤和某些细节。如果要处理修改点什么，改点什么，可能需要临时查阅笔记或者搜索引擎。这对非程序员和运维人员来说，是很麻烦也很费时间，而且时间费了未必就能解决，解决了下次遇见可能又需要重复一次查阅。</p>
+<p>听说，这次事件中，还有几个政府网站也遭了殃。看来，帮政府管理计算机资产的人，也是图方便，另一方面很可能是水平有限。</p>
+<p>就自己检索到的几个网站来看，用来做PC站点的反而少，多是面向移动端做小程序。或许也能说明，这些小程序的运营者，还不够有实力聘请专业的运维人员，而是自己用宝塔，研究研究，非计算机专业的人也较容易上手。</p>
+<p>声音不同，是因为立场不同，看问题的角度自然就不一样。即便这次有不少人被删库，对宝塔也不会造成多大的冲击。因为方便容易远胜于安全，而且宝塔也不是一点都不安全，对于他们来说，没有宝塔，环境都搭建不来，那招人来做，流出的都是真金白银。</p>
+<p>权衡之后，自然该用还是得用。我自己之前，设立了好几套密码，过于复杂，为了安全，对于不同网站采用不同密码，安全性是提高了不少，但费脑力。稍微久点不登录的站点，就想不起来是哪一套密码了。后面采用密码管理器解决后，就再也不用记密码，所以我现在QQ密码微信密码都记不住了。你看，任何事情都有它的两面性。</p>
+<h3 id="面向未来的运维架构"><a href="#面向未来的运维架构" class="headerlink" title="面向未来的运维架构"></a>面向未来的运维架构</h3><p>目前（2020年8月）宝塔官网写的是历经200多个版本的迭代，100多项服务器管理功能，400万安装，1000+中大型企业使用。</p>
+<p>这个成绩看着是听不错的，但我依旧不看好运维面板的未来，随着<code>Serverless架构</code>的推进，未来更是一种“无服务化”的运维模式，开发者只需对代码进行更新迭代即可，无需关注服务器的运行状况。</p>
+<p>如果说<code>Serverless</code>没能挑起这个大梁，那么必将有其他类似产品出现，这是一种趋势。如同在云计算之前，几乎所有运维都要面临机房，网络设备，硬件设备打交道。而今，随着云计算的普及，多数运维人员只需要打开阿里云，腾讯云的页面，点击鼠标即可完成对服务器的申请和配置，并不需要亲自去机房部署，只有少数面向机房运维的才会接触这些。</p>
+<p>尽管Serverless现在存在很多问题，有很多不完善，但并代表这个模式不行。因为很多软件程序的设计一开始就不是为了serverless架构而设计的，想要完全与之兼容，肯定是需要时间。</p>
+<p>另外，随着云原生的推进，相信<code>Serverless</code>在未来会有更好的展现。之前在《<a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html">Serverless云函数计算搭建Typecho和Wordpress网站</a>》中讲到，搭建个人站点的wordpress和typecho几乎没什么问题，就是伪静态方面不好解决。</p>
+<p>而且，阿里云都有一键安装<code>Wordpress</code>到<code>Serverless</code>如果把<code>HTTPS</code>问题和<code>伪静态</code>问题解决了，难道不比宝塔方便？十年前，虚拟主机还要考虑单线，双线问题，现在你还会考虑吗？同理，现在你还考虑服务器是几G几核心的问题，未来就不需再考虑了。</p>
 
             </div>
             <hr>
@@ -479,7 +443,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html">https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</a>
+                    <a href="https://www.tangruiping.com/post/bt-bug-next-ops.html">https://www.tangruiping.com/post/bt-bug-next-ops.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -517,16 +481,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/HEXO/">
-                                    <span class="chip bg-color">HEXO</span>
-                                </a>
-                            
-                                <a href="/tags/CDN/">
-                                    <span class="chip bg-color">CDN</span>
-                                </a>
-                            
                                 <a href="/tags/%E7%BD%91%E7%AB%99/">
                                     <span class="chip bg-color">网站</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%BF%90%E7%BB%B4/">
+                                    <span class="chip bg-color">运维</span>
                                 </a>
                             
                         </div>
@@ -833,27 +793,28 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/post/serverless-wordpress-typecho.html">
+                <a href="/post/bt-bug-next-ops.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-wordpress-typecho.jpg" class="responsive-img" alt="Serverless云函数计算搭建Typecho和Wordpress网站">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/bt-bug-next-ops.jpg" class="responsive-img" alt="宝塔面板漏洞事件和未来运维架构">
                         
-                        <span class="card-title">Serverless云函数计算搭建Typecho和Wordpress网站</span>
+                        <span class="card-title">宝塔面板漏洞事件和未来运维架构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            听闻Serverless很久了，前几天还用它玩过下Hexo《语雀文章用Serverless自动部署到Hexo博客》。
-因此也早有想法把WordPress和Typecho这样的博客程序运行在serverless上。而这一次的搭建都是来源于ht
+                            事件起因昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。
+21点过后打开电脑，见Q群也
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-24
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -866,6 +827,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -873,8 +835,8 @@
                         <span class="chip bg-color">网站</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%87%E6%A1%88/">
-                        <span class="chip bg-color">备案</span>
+                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
+                        <span class="chip bg-color">运维</span>
                     </a>
                     
                 </div>
@@ -888,23 +850,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/coding-ci-hexo.html">
+                <a href="/post/blog-seo-page-view-search-engine.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-hexo.jpg" class="responsive-img" alt="Coding持续集成自动部署Hexo博客">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/blog-seo-page-view-search-engine.jpg" class="responsive-img" alt="个人博客SEO流量及搜索引擎问题现状">
                         
-                        <span class="card-title">Coding持续集成自动部署Hexo博客</span>
+                        <span class="card-title">个人博客SEO流量及搜索引擎问题现状</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            流程介绍前面写了一篇文章《Github Actions自动部署Hexo博客》，是可以通过Github本身自带的持续集成功能来处理hexo项目，从而免去了在本地执行这项操作，只需要在Github上编写Markdown文档即可实现自动部署到he
+                            10年前很喜欢听一首歌名叫做越长大越孤单的歌曲，现在是越长大时间越快。一不留神，就有十多天没有更新博客了。还是之前那句话，没有折腾，哪来的东西更新博客呢？
+今天是这也学不进，那也学不进，不如就写点什么好了。也不只是今天静不下心，现在是越来越
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-22
                             </span>
                         <span class="publish-author">
                             
@@ -921,12 +884,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HEXO/">
-                        <span class="chip bg-color">HEXO</span>
-                    </a>
-                    
                     <a href="/tags/%E7%BD%91%E7%AB%99/">
                         <span class="chip bg-color">网站</span>
+                    </a>
+                    
+                    <a href="/tags/SEO/">
+                        <span class="chip bg-color">SEO</span>
                     </a>
                     
                 </div>
