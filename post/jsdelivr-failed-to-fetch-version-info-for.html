@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="keywords" content="jsdelivr 出现 Failed to fetch version info for  原因分析, 唐瑞平,瑞平笔记,唐瑞平日志">
     <meta name="description" content="自强不息  厚德载物">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="canonical" href="https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html">
+    <link rel="canonical" href="https://www.tangruiping.com/post/jsdelivr-failed-to-fetch-version-info-for.html">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175458473-1"></script>
@@ -28,7 +28,7 @@
 </script>
 
 
-    <title>Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想 | 唐瑞平</title>
+    <title>jsdelivr 出现 Failed to fetch version info for  原因分析 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/awesome/css/all.css">
@@ -213,12 +213,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/github-coding-ci-cd-hexo-cdn.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/jsdelivr-failed.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</h1>
+                    <h1 class="description center-align post-title">jsdelivr 出现 Failed to fetch version info for  原因分析</h1>
                 </div>
             </div>
         </div>
@@ -335,10 +335,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/HEXO/">
-                                <span class="chip bg-color">HEXO</span>
-                            </a>
-                        
                             <a href="/tags/CDN/">
                                 <span class="chip bg-color">CDN</span>
                             </a>
@@ -368,28 +364,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-31
+                    2020-08-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-22
+                    2020-08-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2k
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    7 分
+                    3 分
                 </div>
                 
 
@@ -399,61 +395,24 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="网站优化"><a href="#网站优化" class="headerlink" title="网站优化"></a>网站优化</h3><p>国内和国外隔着一堵墙，无论如何你都没办法快速绕过它。对于我来说，在域名没有备案的情况下，本站算是差不多已经优化到极限了。</p>
-<p>但就在刚刚，我的移动数据流量打开加载十余秒，差不多算是超时了，要彻底解决这个问题，只有备案，无其他路可走。</p>
-<p>好在，同之前相比，速度已经有了明显提升，也总算没白费这个折腾劲儿。有一点感受是对网站理解又稍微深刻了些许。</p>
-<h4 id="CDN加速"><a href="#CDN加速" class="headerlink" title="CDN加速"></a>CDN加速</h4><p>比如，之前在CDN中有CORS（跨域请求）这一项不理解，当然现在也不是很理解，至少知道如果没有正确配置它，会导致类似于字体文件这类资源没办法在浏览器上正常加载。</p>
-<p>尽管状态码为200，但资源大小确实零字节，后面设置了后才得以解决。之前没有遇到这个情况，所以也就不知道具体有什么用，反正没设置也能用。</p>
-<p>既然谈到了CDN，那么就在谈谈CDN中的回源，源站等问题。比如我的网站主域名为<code>www.tangruiping.com</code>，不带<code>www</code>的<code>tangruiping.com</code>做301跳转到带<code>www</code>的。</p>
-<p>现在我的网站是纯静态站点，原来是托管在<code>Github Pages</code>，但因为访问较慢，我接入CDN来为其加速。原来的访问过程是<code>用户→www.tangruiping.com→Github pages</code>，接入了CDN后就变成<code>用户→www.tangruiping.com→CDN→Github pages</code>。</p>
-<p>那么此时，我的源站地址则为<code>Github Pages</code>地址，回源Host则是<code>www.tangruiping.com</code>。而CDN中常说的加速域名，就是<code>www.tangruiping.com</code>。而<code>源站地址</code>一定不能和<code>加速域名</code>相同，而<code>加速域名</code>可以和<code>回源Host</code>一样。</p>
-<h4 id="CDN前端库"><a href="#CDN前端库" class="headerlink" title="CDN前端库"></a>CDN前端库</h4><p>因为是静态网站，很多的<code>css样式</code>，<code>js脚本</code>，字体等都可以走CDN，本质上跟前面说的CDN加速没啥区别性。</p>
-<p>不同的是，前面的CDN加速需要自己把静态资源传入到对象存储也好，或者其他地方也好，在接入CDN加速。而CDN前端库则是自带有很多这样的资源，直接调用即可。</p>
-<p>一来不需要你备案域名，二来还是免费使用，不用担心被人恶意刷流量等问题。当然即便是没有备案，还是可以通过云服务商自带的域名实行加速，目前阿里腾讯是提供域名。七牛则是默认30天回收，管它叫测试域名。又拍云则没有，其他云没用过。</p>
-<p>百度的前端公共库现已关闭，腾讯的资源少之又少，又拍云的老之又老，好像没有听过阿里有前端公共库，不过阿里持有七牛股份，勉强算阿里的吧。</p>
-<p>360有个由奇舞团主导的，还有个bootcdn的，相比之下，360略胜。不过360的前端公共库也是几经曲折，而bootcdn的有时候我这边加载贼慢。字节跳动也有个前端库，现把他们都列入下表。</p>
-<table>
-<thead>
-<tr>
-<th>七牛</th>
-<th>网址</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>七牛</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.staticfile.org/">https://www.staticfile.org/</a></td>
-</tr>
-<tr>
-<td>字节跳动</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.bytedance.com/">https://cdn.bytedance.com/</a></td>
-</tr>
-<tr>
-<td>360</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.baomitu.com/">https://cdn.baomitu.com</a></td>
-</tr>
-<tr>
-<td>Bootcdn</td>
-<td><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.bootcdn.net/">https://cdn.bootcdn.net</a></td>
-</tr>
-</tbody></table>
-<p>以上这几个前端库还是比较全的，推荐顺序也是从上到下。还有一个要单独拿出来说，那就是真正能做到全球都有节点的<a target="_blank" rel="external nofollow noopener noreferrer" href="https://cdn.jsdelivr.net/">jsdelivr</a>， 我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。（跟jsdelivr相似的还有<code>statically.io</code>）</p>
-<p>还可以用它加速存储在Github上的图片，文件等。不知道今后会不会被墙，尽管在国内是有正规的ICP备案。当然它也有加载不了的时候，这个时候，怎么办？</p>
-<h3 id="coding持续集成github持续部署"><a href="#coding持续集成github持续部署" class="headerlink" title="coding持续集成github持续部署"></a>coding持续集成github持续部署</h3><p>对于网站的更新，我目前采用两个更新点，一个是Hexo本地处理好后通过git push到coding，让coding-ci到github pages上，再由Netlify和Vercel自动导入他们的站点进行多站点部署。</p>
-<p><img src="https://noscos.nos-eastchina1.126.net/trpic/website-process.jpg" alt="本站流程"></p>
-<p>如图所示，还可以直接在语雀上更新文章使得自动部署到hexo博客，具体可以参见《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
-<p>但我不习惯这样更新，另外也可以在coding上自动处理好hexo项目，然后输出到coding pages仓库，再一次持续集成后推送到github pages仓库，这样做跟前面直接把hexo源码推送到github 私有仓库通过github actions功能推送到github pages是一样的。</p>
-<p>不过一个是由github来完成，一个是由coding来完成，而这样一来反而多消耗了一次持续集成的次数，每周200次的额度，折算一半还有100次，也足够用了，但觉得没必要如此。</p>
-<p>所以我采用的还是图中前面两个方案，既然是此方案，那么我就可以稍微做点差异化的处理。比如在主题目录下的_config.yml配置文件中，本地的用jsdelivr前端库，coding上的用七牛前端库，这样既可做到在不同地方更新，生成后的网站加载的前端资源是不一样的。</p>
-<p>缺点是文章之间可能需要手动同步一下，不然会不一致，不过影响也不是很大，像这几天每天一篇文章的更新频率，那是几乎没有的事儿。</p>
-<p>如果想了解本地Hexo处理好后让coding自动推送到Github的可以参见《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》这篇文章。</p>
-<p>如果想让coding处理好hexo项目可参见《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》，再结合前面的《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》即可搞定。</p>
-<p>如果觉得Coding额度不够用，想试试<code>Github Actions</code>每月2000分钟的额度，或想体验一下Github的持续集成可参考《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p>
-<p>要真折算成分钟，Coding每周200次，每次最大时长30分钟，折算下来一个月最高是24000分钟，但问题是hexo所需时长不多，按次数计算则不如<code>Github Actions</code>了。</p>
-<p>如果不用github做后台更新文章，或者也不想用coding为后台更新文章，就习惯语雀优良的Markdown书写体验，则可以试试《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p>
-<h3 id="多解析路线"><a href="#多解析路线" class="headerlink" title="多解析路线"></a>多解析路线</h3><p>不管从哪里做入口，最终都汇聚到<code>Github Pages</code>上，但有比Github访问速度更好的静态站点，肯定要试试咯。因此使用<code>Netlify</code>和<code>Vercel</code>做补充，然后顺带也把<code>CloudFlare</code>上。Netlify自动部署github pages比较简单，其中Netlify的注意事项和Vercel (zeit now)的项目导入可参考《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》</p>
-<p>如此一来，那么则有Coding Pages，Github Pages，Netlify，Vercel四个站点，而CDN路线则有CloudFlare和腾讯云做备用路线，其中Netlify，Vercel也自带CDN节点的。另2个备用CDN线路，可以把上面四个站点作为源站。Coding是被腾讯收购了，用的都是腾讯云的服务器，因此腾讯云的CDN可设置为coding pages为源站，另外腾讯云CDN还支持备用线路，可在Netlify，Vercel中选取一个即可。不过如果用<code>Coding pages</code>的话，注意选取图中的方案1和方案4，不然是不会在<code>Coding pages</code>上有文件生成的。</p>
-<p>在《<a href="https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html">CloudFlare CDN GitHub Pages</a>》中说过，CF是可以采用CANME解析的，而不必NS解析，因此用国内的DNS解析即可，则可以把移动路线，电信路线，联通路线分别解析到不同的站点，至于如何解析，则需要用网站测速工具测试一下做个参考。</p>
-<p>比如本站目前电信路线走的是Vercel，联通路线走的是Github Pages，移动路线走的是Netlify，搜索引擎路线则自己考虑，如果过于分散，可以不便于<code>Let&#39;s Encrypt</code>的续期。</p>
+                <p>今早起来发现采用jsdelivr加载静态资源的链接访问出现了404，取其中一个404状态的链接单独访问，出现<code>Failed to fetch version info for GithubName/仓库名 </code>。</p>
+<p>奇怪的是，同一个仓库下，有的链接却没有问题，而本站的链接，也有一个静态文件出现404。而本站的链接跟前面的链接不是同一个Github用户，并且我也没做什么改动。</p>
+<p><img src="https://noscos.nos-eastchina1.126.net/trpic/jsdelivr-404.jpg" alt="jsdelivr 404"></p>
+<p>于是Google搜索，看到有人说是release包大于50MB导致，特意下载查看大小，压缩包只有17MB，解压后不到45MB，不管如何都没超出50MB的范围，可见也不是这个原因导致。</p>
+<p>如果是<code>release</code>包大的问题导致，那么本站的release包肯定不大，解压都不超过10MB，又继续搜索，见有人说是github仓库许久不更新的原因，两个月不更新就会出现这个状况。</p>
+<p>但我的前几天才更新了，都不到一个礼拜，可见也不大可能是这个原因。但还是重新推送了一次，更新下看看，后面果然不行。</p>
+<p>大概又过了十多分钟后，发现问题自己解决了。但本站的那个静态文件还是404，尽管不是同一个Github用户，于是我猜想有两种情况。</p>
+<p>第一种情况，就是<code>jsdelivr</code>的节点问题，获取不到Github文件信息，版本信息，这种可能性是最大。</p>
+<p>第二种情况，可能与你网站访问有关，我前面的两个网站，主要用来测试，因此日常没有任何访问量，可能是因为好几天没有访问，<code>CDN节</code>点把<code>缓存</code>给清理了，导致现在访问一下不能获取文件信息。</p>
+<p>不过，第二种猜想也经不起推敲，如果是这样，那么本站站点就不应该出现任何jsdelivr的404链接，因为昨天晚上我才推送文章更新了，并且自己访问了。</p>
+<p>因此我还是倾向于第一种情况，版本号我直接用的是<code>@latest</code>。<code>Wordpress</code>网站和<code>Hugo</code>两网站，Wordpress的静态文件全部是404，Hugo网站的静态文件70%是404，而这两个网站的静态文件资源都是存放到一个github仓库。</p>
+<p>Wordpress用的是<code>Serverless</code>搭建了，为了减少云函数计算的调用次数，我把静态文件都用<code>jsdelivr cdn</code>加速了。</p>
+<p>不清楚jsdelivr背后的原理，故此感觉问题比较玄学。之前，我的静态文件链接都是没有取用版本号的形式来用的，也能正常使用。后来某一天，发现忽然都不能访问了，全部404，查的可能是链接没有指定版本号的缘故，于是立马添加版本号然后指定，问题得以解决。</p>
+<p>而后我又时不时的手动测试，加版本号和不加版本号访问，都能正常，并且排除浏览器缓存问题。好像给我的感觉是加了版本号访问稳定些的样子，而今天的这个问题，我指定其他版本号也不能访问，去掉版本号还是404。</p>
+<p>所以猜测是jsdelivr用的网宿节点，而网宿的某些节点出现问题导致的状况。如果你直接搜索<code>jsdelivr挂了</code>，会出现不少相关的讨论话题。</p>
+<p>如果你的站点访问量大，最好准备另一套CDN作为备用。而静态网站解决这个问题的方法也很简单，就是复制一份主题，改写静态资源调用的相关文件，写好你的备用CDN链接即可。如果卦了，及时更新即可。</p>
+<p>还可以采用本地一套配置，Coding上配置另一套，比如本地走的是jsdelivr cdn路线，那么在coding上我配置的是七牛的CDN，如果jsdelivr不正常了，只需在coding发动一次更新即可。具体还得参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》和《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》两篇文章，需要用到Coding的<code>持续集</code>成推送到Github，然后由<code>Github Actions</code>来执行<code>Hexo g</code>生成静态网页推送到<code>Github Pages</code>。</p>
+<p>文章都写完了才想起了，当故障发生的时候，我应该在移动和电信网络之间切换看看，会不会出现同样的状况。</p>
 
             </div>
             <hr>
@@ -479,7 +438,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html">https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</a>
+                    <a href="https://www.tangruiping.com/post/jsdelivr-failed-to-fetch-version-info-for.html">https://www.tangruiping.com/post/jsdelivr-failed-to-fetch-version-info-for.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -516,10 +475,6 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/HEXO/">
-                                    <span class="chip bg-color">HEXO</span>
-                                </a>
                             
                                 <a href="/tags/CDN/">
                                     <span class="chip bg-color">CDN</span>
@@ -833,27 +788,28 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/post/serverless-wordpress-typecho.html">
+                <a href="/post/jsdelivr-failed-to-fetch-version-info-for.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-wordpress-typecho.jpg" class="responsive-img" alt="Serverless云函数计算搭建Typecho和Wordpress网站">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/jsdelivr-failed.jpg" class="responsive-img" alt="jsdelivr 出现 Failed to fetch version info for  原因分析">
                         
-                        <span class="card-title">Serverless云函数计算搭建Typecho和Wordpress网站</span>
+                        <span class="card-title">jsdelivr 出现 Failed to fetch version info for  原因分析</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            听闻Serverless很久了，前几天还用它玩过下Hexo《语雀文章用Serverless自动部署到Hexo博客》。
-因此也早有想法把WordPress和Typecho这样的博客程序运行在serverless上。而这一次的搭建都是来源于ht
+                            今早起来发现采用jsdelivr加载静态资源的链接访问出现了404，取其中一个404状态的链接单独访问，出现Failed to fetch version info for GithubName/仓库名 。
+奇怪的是，同一个仓库下，有的链接
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-08-01
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -866,15 +822,16 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">网站</span>
+                    <a href="/tags/CDN/">
+                        <span class="chip bg-color">CDN</span>
                     </a>
                     
-                    <a href="/tags/%E5%A4%87%E6%A1%88/">
-                        <span class="chip bg-color">备案</span>
+                    <a href="/tags/%E7%BD%91%E7%AB%99/">
+                        <span class="chip bg-color">网站</span>
                     </a>
                     
                 </div>
@@ -888,23 +845,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/coding-ci-hexo.html">
+                <a href="/post/bt-bug-next-devops.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-hexo.jpg" class="responsive-img" alt="Coding持续集成自动部署Hexo博客">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/bt-bug-next-devops.jpg" class="responsive-img" alt="宝塔面板漏洞事件和未来运维架构">
                         
-                        <span class="card-title">Coding持续集成自动部署Hexo博客</span>
+                        <span class="card-title">宝塔面板漏洞事件和未来运维架构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            流程介绍前面写了一篇文章《Github Actions自动部署Hexo博客》，是可以通过Github本身自带的持续集成功能来处理hexo项目，从而免去了在本地执行这项操作，只需要在Github上编写Markdown文档即可实现自动部署到he
+                            事件起因昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。
+21点过后打开电脑，见Q群也
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-24
                             </span>
                         <span class="publish-author">
                             
@@ -921,12 +879,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HEXO/">
-                        <span class="chip bg-color">HEXO</span>
+                    <a href="/tags/%E8%BF%90%E7%BB%B4/">
+                        <span class="chip bg-color">运维</span>
                     </a>
                     
-                    <a href="/tags/%E7%BD%91%E7%AB%99/">
-                        <span class="chip bg-color">网站</span>
+                    <a href="/tags/%E5%AE%89%E5%85%A8/">
+                        <span class="chip bg-color">安全</span>
                     </a>
                     
                 </div>
