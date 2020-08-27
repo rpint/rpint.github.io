@@ -371,7 +371,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-25
+                    2020-08-27
                 </div>
                 
 
@@ -395,7 +395,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>今早起来发现采用jsdelivr加载静态资源的链接访问出现了404，取其中一个404状态的链接单独访问，出现<code>Failed to fetch version info for GithubName/仓库名 </code>。</p>
+                <p>今早起来发现采用jsdelivr加载静态资源的链接访问出现了<code>404</code>，取其中一个404状态的链接单独访问，出现<code>Failed to fetch version info for GithubName/仓库名 </code>。</p>
 <p>奇怪的是，同一个仓库下，有的链接却没有问题，而本站的链接，也有一个静态文件出现404。而本站的链接跟前面的链接不是同一个Github用户，并且我也没做什么改动。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/jsdelivr-404.jpg" alt="jsdelivr 404"></p>
 <p>于是Google搜索，看到有人说是release包大于50MB导致，特意下载查看大小，压缩包只有17MB，解压后不到45MB，不管如何都没超出50MB的范围，可见也不是这个原因导致。</p>
@@ -410,7 +410,7 @@
 <p>不清楚<code>jsdelivr</code>背后的原理，问题比较玄的还不止这一次。之前，我的静态文件链接都是没有取用版本号的形式来用的，也能正常使用。后来某一天，发现忽然都不能访问了，全部404，搜索后发现可能是链接没有指定版本号的缘故，于是立马添加版本号然后指定，问题得以解决。</p>
 <p>而后我又时不时的手动测试，加版本号和不加版本号访问，都能正常，并且排除浏览器缓存问题。给我的感觉好像是加了版本号访问稳定些的样子，而今天的这个问题，我指定其他版本号也不能访问，去掉版本号还是404。</p>
 <p>所以猜测是<code>jsdelivr</code>用的<code>网宿节点</code>，而网宿的某些节点出现问题导致的状况。如果你直接搜索<code>jsdelivr挂了</code>，会出现不少相关的讨论话题。</p>
-<p>如果你的站点访问量大，最好准备另一套CDN作为备用。而静态网站解决这个问题的方法也很简单，就是复制一份主题，改写静态资源调用的相关文件，写好你的备用CDN链接即可。如果卦了，及时更新即可。</p>
+<p>如果你的站点访问量大，最好准备另一套CDN作为备用。而静态网站解决这个问题的方法也很简单，就是复制一份主题，改写静态资源调用的相关文件，写好你的备用CDN链接即可。如果卦了，及时更新即可。当然你也可以选择一个跟jsdelivr相似的CDN<code>statically.io</code>，不过这个CDN目前没有国内节点，访问速度也不算快。</p>
 <p>还可以采用本地一套配置，Coding上配置另一套，比如本地走的是jsdelivr cdn路线，那么在coding上我配置的是七牛的CDN，如果jsdelivr不正常了，只需在coding发动一次更新即可。具体还得参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》和《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》两篇文章，需要用到Coding的<code>持续集成</code>推送到Github，然后由<code>Github Actions</code>来执行<code>Hexo g</code>生成静态网页推送到<code>Github Pages</code>。</p>
 <p>文章都写完了才想起了，当故障发生的时候，我应该在移动和电信网络之间切换看看，会不会出现同样的状况。</p>
 
