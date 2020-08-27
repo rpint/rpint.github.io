@@ -371,14 +371,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-14
+                    2020-08-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -416,6 +416,7 @@
 <p>最终还是解决了这个问题，问题出现在文件名的大小写问题上。我昨天为了优化<code>hexo</code>博客，发现如果网址 URL中带有大写的名称，在访问的时候会进行一次301重定向，这无疑也增加了一点时间。</p>
 <p>于是我就把文件名改为小写，结果在 <code>Github</code> pages仓库中，文件名还是以 <code>Cloudflare-CDN-Github-Pages.html</code>这样的形式存在，但主页的 <code>index.html</code>文件中的路径却是 <code>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</code>这样的链接存在的，结果点击此页面就出现404了。</p>
 <p>前面我还以为是不是文件名路径太长所致，后面发现有更长的文件名都可以正常访问，自然就不存在这个问题。所以想到是不是 <code>Github</code>仓库的文件出现了什么问题，但 <code>netlify</code>也是用的 <code>Github pages</code>，后面发现居然是文件名大小写问题导致的404。</p>
+<p>8月27号再补充一点，Vercel有时候会罢工，表现为在Github上更新了，而Vercel不会更新，没有任何动静，刚好用了一个月时间，碰到过2次还是3次这种情况了，只需要等上一段时间再更新Github，Vercel就正常更新了。</p>
 <h3 id="为Vercel和netlify自定义404页面"><a href="#为Vercel和netlify自定义404页面" class="headerlink" title="为Vercel和netlify自定义404页面"></a>为Vercel和netlify自定义404页面</h3><p>在主题文件夹下的 <code>\source</code>目录放置一个 <code>404.html</code>文件到此即可，最终执行 <code>hexo g</code>后在 <code>public</code>文件夹的根目录下存在 <code>404.html</code>文件即可。</p>
 <p>根据我自己的测试，现在的Vercel不需要 <code>vercel.json</code>文件，之前的办法还是在主题文件夹下的 <code>\source</code>目录新建一个 <code>vercel.json</code>文件，代码如下，官网文档说明 <code>https://vercel.com/docs/configuration#routes/advanced/custom-404</code></p>
 <pre><code>&amp;#123;
@@ -1097,7 +1098,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">36.8k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">36.9k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
