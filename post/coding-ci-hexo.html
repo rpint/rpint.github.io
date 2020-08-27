@@ -41,7 +41,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"></head>
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 
 <body>
@@ -378,14 +378,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    1.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    5 分
                 </div>
                 
 
@@ -422,17 +422,17 @@
   branch: master</code></pre>
 <p>其中<code>e.coding.net/coding用户名/hexo-blog/hexo-blog.git</code> 就是上面申请hexo-blog仓库克隆中的地址，不过这里去掉<code>https://</code>加到@后面即可。</p>
 <p>点击<code>持续集成</code>→<code>构建计划</code>→<code>自定义构建过程</code>，代码仓库选择<code>hexo-source</code>确定后，进入配置流程，选择<code>文本编辑器</code>贴入下面代码。此时，你在<code>hexo-source</code>更新文章会进行持续构建，然后push至<code>hexo-blog</code>仓库。代码如有复制不便，移步到 <code>https://gitee.com/ct2/web/blob/master/coding-ci-hexo.md</code> </p>
-<pre><code>pipeline &amp;#123;
+<pre><code>pipeline &#123;
 agent any
-stages &amp;#123;
-    stage(&#39;检出&#39;) &amp;#123;
-      steps &amp;#123;
+stages &#123;
+    stage(&#39;检出&#39;) &#123;
+      steps &#123;
         checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]],
                                             userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
-      &amp;#125;
-    &amp;#125;
-    stage(&#39;构建&#39;) &amp;#123;
-      steps &amp;#123;
+      &#125;
+    &#125;
+    stage(&#39;构建&#39;) &#123;
+      steps &#123;
         echo &#39;构建中...&#39;
         sh &#39;node -v&#39;
         sh &#39;npm install -g hexo-cli&#39;
@@ -440,62 +440,62 @@ stages &amp;#123;
         sh &#39;npm install -g hexo-generator-searchdb&#39;
         sh &#39;npm install -g&#39;
         echo &#39;构建完成.&#39;
-      &amp;#125;
-    &amp;#125;
-    stage(&#39;测试&#39;) &amp;#123;
-      steps &amp;#123;
+      &#125;
+    &#125;
+    stage(&#39;测试&#39;) &#123;
+      steps &#123;
         echo &#39;单元测试中...&#39;
         sh &#39;hexo clean&#39;
         sh &#39;hexo g &#39;
         echo &#39;单元测试完成.&#39;
-      &amp;#125;
-    &amp;#125;
-    stage(&#39;部署&#39;) &amp;#123;
-      steps &amp;#123;
+      &#125;
+    &#125;
+    stage(&#39;部署&#39;) &#123;
+      steps &#123;
         echo &#39;部署中...&#39;
         sh &#39;npm install hexo-deployer-git --save&#39;
         sh &#39;hexo deploy&#39;
         echo &#39;部署完成&#39;
-      &amp;#125;
-    &amp;#125;
-  &amp;#125;
-&amp;#125;</code></pre>
+      &#125;
+    &#125;
+  &#125;
+&#125;</code></pre>
 <h3 id="配置coding持续集成-方案2"><a href="#配置coding持续集成-方案2" class="headerlink" title="配置coding持续集成-方案2"></a>配置coding持续集成-方案2</h3><p>在《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html#toc-heading-4">配置coding持续集成-方案1</a>》中，缺点是token以明文形式在日志中输出，而coding是支持提供环境变量保密配置的。</p>
 <p>过程如下，把下面代码替换上面中的代码，然后参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html#toc-heading-2">Coding持续集成自动同步到GitHub</a>》中的 <code>配置Coding-Ci</code>这一小节，即可完成配置。</p>
-<pre><code>pipeline &amp;#123;
- agent &amp;#123;
-   docker &amp;#123;
+<pre><code>pipeline &#123;
+ agent &#123;
+   docker &#123;
      image &#39;lenyuadmin/hexo&#39;
-   &amp;#125;
+   &#125;
 
- &amp;#125;
- stages &amp;#123;
-   stage(&#39;检出&#39;) &amp;#123;
-     steps &amp;#123;
+ &#125;
+ stages &#123;
+   stage(&#39;检出&#39;) &#123;
+     steps &#123;
        checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]], userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])
-     &amp;#125;
-   &amp;#125;
-   stage(&#39;环境&#39;) &amp;#123;
-     steps &amp;#123;
+     &#125;
+   &#125;
+   stage(&#39;环境&#39;) &#123;
+     steps &#123;
        echo &#39;构建中...&#39;
        sh &#39;npm config set registry http://mirrors.cloud.tencent.com/npm/&#39;
        sh &#39;npm install&#39;
        sh &#39;hexo -v&#39;
        echo &#39;构建完成.&#39;
-     &amp;#125;
-   &amp;#125;
-   stage(&#39;生产&#39;) &amp;#123;
-     steps &amp;#123;
+     &#125;
+   &#125;
+   stage(&#39;生产&#39;) &#123;
+     steps &#123;
        echo &#39;生产中...&#39;
        sh &#39;hexo clean&#39;
        sh &#39;hexo g&#39;
        echo &#39;生产完成.&#39;
-     &amp;#125;
-   &amp;#125;
-   stage(&#39;部署&#39;) &amp;#123;
-     steps &amp;#123;
+     &#125;
+   &#125;
+   stage(&#39;部署&#39;) &#123;
+     steps &#123;
        echo &#39;部署中...&#39;
-       dir(path: &#39;public&#39;) &amp;#123;
+       dir(path: &#39;public&#39;) &#123;
          sh &#39;ls&#39;
          sh &#39;git init&#39;
          sh &#39;git config user.name $USER_NAME&#39;
@@ -503,12 +503,12 @@ stages &amp;#123;
          sh &#39;git add -A&#39;
          sh &#39;git commit -m \&#39;init\&#39;&#39;
          sh &#39;git push -u -f &quot;$USER_PROJECT&quot; master:master&#39;
-       &amp;#125;
+       &#125;
        echo &#39;部署完成&#39;
-     &amp;#125;
-   &amp;#125;
- &amp;#125;
-&amp;#125;</code></pre>
+     &#125;
+   &#125;
+ &#125;
+&#125;</code></pre>
 <p>USER_NAME=填写你的名称；<br>USER_EMAIL=填写你的邮件；<br>USER_PROJECT=https://子账号名:子账号的密码@项目地址，其中就是方案1中<code>_config.yml</code>配置文件中的 <code>repo:</code>的地址 <code>https://令牌用户名:访问令牌@e.coding.net/coding用户名/hexo-blog/hexo-blog.git</code>,此时你还可以删除<code>_config.yml</code>配置中的repo等字段。</p>
 
             </div>
@@ -1172,7 +1172,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">36.9k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">38.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

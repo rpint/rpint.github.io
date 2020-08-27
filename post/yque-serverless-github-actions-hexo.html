@@ -41,7 +41,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"></head>
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 
 <body>
@@ -411,11 +411,11 @@ import requests
 
 def main_handler(event, context):
     r = requests.post(&quot;https://api.github.com/repos/用户名/私有仓库名/dispatches&quot;,
-    json = &amp;#123;&quot;event_type&quot;: &quot;start&quot;&amp;#125;,
-    headers = &amp;#123;&quot;User-Agent&quot;:&#39;curl/7.52.1&#39;,
+    json = &#123;&quot;event_type&quot;: &quot;start&quot;&#125;,
+    headers = &#123;&quot;User-Agent&quot;:&#39;curl/7.52.1&#39;,
               &#39;Content-Type&#39;: &#39;application/json&#39;,
               &#39;Accept&#39;: &#39;application/vnd.github.everest-preview+json&#39;,
-              &#39;Authorization&#39;: &#39;token Github访问Token&#39;&amp;#125;)
+              &#39;Authorization&#39;: &#39;token Github访问Token&#39;&#125;)
 
     if r.status_code == 204:
         return &quot;This&#39;s OK!&quot;
@@ -448,14 +448,14 @@ def main_handler(event, context):
 <li>用记事本打开<code>package.json</code>文件，可以在<code>  &quot;dependencies&quot;:</code> 字段中看到<code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code></li>
 <li>接着配置如下代码</li>
 </ul>
-<pre><code class="yaml">&quot;yuqueConfig&quot;: &amp;#123;
+<pre><code class="yaml">&quot;yuqueConfig&quot;: &#123;
     &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;,
     &quot;login&quot;: &quot;你的语雀名，我这里的是ccne2020&quot;,
     &quot;repo&quot;: &quot;你的语雀知识库名，我这里的是hexoblog&quot;,
     &quot;mdNameFormat&quot;: &quot;title&quot;,
     &quot;postPath&quot;: &quot;source/_posts/yuque&quot;,
     &quot;onlyPublished&quot;: false
-  &amp;#125;,</code></pre>
+  &#125;,</code></pre>
 <ul>
 <li>着在 <code> &quot;scripts&quot;:</code> 字段下加入如下代码</li>
 </ul>
@@ -464,29 +464,29 @@ def main_handler(event, context):
 <li>下面开始百度搜索 <code>json在线检查</code> 找一个检查json的网站打开，复制你文件的内容检查一遍看看能不能通过，能通过才可以用。</li>
 <li>如果你的知识库中没有文章的话，这是可以先发一篇文章。我的整个 <code>package.json</code> 文件内容如下：</li>
 </ul>
-<pre><code class="yaml">&amp;#123;
+<pre><code class="yaml">&#123;
   &quot;name&quot;: &quot;hexo-site&quot;,
   &quot;version&quot;: &quot;0.0.0&quot;,
   &quot;private&quot;: true,
-  &quot;scripts&quot;: &amp;#123;
+  &quot;scripts&quot;: &#123;
     &quot;start&quot;: &quot;yuque-hexo clean &amp;&amp; yuque-hexo sync &amp;&amp; hexo clean &amp;&amp; hexo generate&quot;,
     &quot;build&quot;: &quot;hexo generate&quot;,
     &quot;clean&quot;: &quot;hexo clean&quot;,
     &quot;deploy&quot;: &quot;hexo deploy&quot;,
     &quot;server&quot;: &quot;hexo server&quot;
-  &amp;#125;,
-&quot;yuqueConfig&quot;: &amp;#123;
+  &#125;,
+&quot;yuqueConfig&quot;: &#123;
     &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;,
     &quot;login&quot;: &quot;ccne2020&quot;,
     &quot;repo&quot;: &quot;hexoblog&quot;,
     &quot;mdNameFormat&quot;: &quot;title&quot;,
     &quot;postPath&quot;: &quot;source/_posts/yuque&quot;,
     &quot;onlyPublished&quot;: false
-  &amp;#125;,
-  &quot;hexo&quot;: &amp;#123;
+  &#125;,
+  &quot;hexo&quot;: &#123;
     &quot;version&quot;: &quot;4.2.1&quot;
-  &amp;#125;,
-  &quot;dependencies&quot;: &amp;#123;
+  &#125;,
+  &quot;dependencies&quot;: &#123;
     &quot;hexo&quot;: &quot;^4.2.1&quot;,
     &quot;hexo-autonofollow&quot;: &quot;^1.0.1&quot;,
     &quot;hexo-deployer-git&quot;: &quot;^2.1.0&quot;,
@@ -501,12 +501,12 @@ def main_handler(event, context):
     &quot;hexo-server&quot;: &quot;^1.0.0&quot;,
     &quot;hexo-wordcount&quot;: &quot;^6.0.1&quot;,
     &quot;yuque-hexo&quot;: &quot;^1.6.5&quot;
-  &amp;#125;,
-  &quot;devDependencies&quot;: &amp;#123;
+  &#125;,
+  &quot;devDependencies&quot;: &#123;
     &quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.9&quot;,
     &quot;hexo-generator-sitemap&quot;: &quot;^2.0.0&quot;
-  &amp;#125;
-&amp;#125;</code></pre>
+  &#125;
+&#125;</code></pre>
 <h3 id="Github-Pages配置"><a href="#Github-Pages配置" class="headerlink" title="Github Pages配置"></a>Github Pages配置</h3><ul>
 <li>按理说，你应该具备此仓库，并且已经存放了hexo网站文件，如果没有，那么则创建一个以 <code>你的github用户名.github.io</code> 的公开仓库即可。</li>
 <li>下面打开git，没有的话去官网下载一个 <code>https://git-scm.com/downloads</code> ，可参见《<a href="https://www.tangruiping.com/post/github-actions-hexo.html#toc-heading-4">Github Actions自动部署Hexo博客</a>》中的 <code>密钥生成</code> 这一小节。</li>
@@ -567,7 +567,7 @@ jobs:
     - name: Setup Hexo Dependencies and Generate Public Files
       env:
     # from: 这里的YUQUE_TOKEN: $不能随意改
-        YUQUE_TOKEN: $&amp;#123;&amp;#123; secrets.YQ_TOKEN &amp;#125;&amp;#125;
+        YUQUE_TOKEN: $&#123;&#123; secrets.YQ_TOKEN &#125;&#125;
       run: |
         npm install hexo-cli -g
         npm install yuque-hexo -g
@@ -578,11 +578,11 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        deploy_key: $&amp;#123;&amp;#123; secrets.YUQUE_GIT_HEXO &amp;#125;&amp;#125;
+        deploy_key: $&#123;&#123; secrets.YUQUE_GIT_HEXO &#125;&#125;
         external_repository: Github用户名/Pages仓库
         publish_branch: master
         publish_dir: ./public
-        commit_message: $&amp;#123;&amp;#123; github.event.head_commit.message &amp;#125;&amp;#125;</code></pre>
+        commit_message: $&#123;&#123; github.event.head_commit.message &#125;&#125;</code></pre>
 <p>最后在Serverless中点击测试，如果成功的话应该可以看到 <code>This&#39;s OK!</code>。在语雀中无论删除文章，更新文章，新发布文章，都一定要选择 <code>文档有较大更新，推送给关注知识库的人</code> 才能触发这系列操作。</p>
 <p>针对语雀图片无法正常显示的解决办法，找到主题的 <code>layout</code> 文件夹中的 <code>post.ejs</code> 文件中加上一句 <code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</code>可解决此问题。</p>
 <h3 id="最后总结"><a href="#最后总结" class="headerlink" title="最后总结"></a>最后总结</h3><p>另外github actions可能对触发操作做了一定限制，因此不要频繁点击测试，可能会导致失败问题。我自己的感觉是前面我一分钟点击七八次都能通过测试，后面莫名其妙就失败了，猜想与此有关，然后过了几分钟再次点击，测试又通过。在一个我怀疑跟墙有关，反正很玄学。</p>
@@ -1246,7 +1246,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">36.9k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">38.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

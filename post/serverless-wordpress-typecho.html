@@ -41,7 +41,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"></head>
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 
 <body>
@@ -440,18 +440,18 @@ ACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre>
 <p>然后在WordPress主题<code>functions.php</code>追加如下代码：复制代码如有不便请来此处<code>https://gitee.com/ct2/web/blob/master/serverless-wordpress-typecho.md</code></p>
 <pre><code>//http转https
 add_filter(&#39;get_header&#39;, &#39;fanly_ssl&#39;);
-function fanly_ssl()&amp;#123;
-   if( is_ssl() )&amp;#123;
-       function fanly_ssl_main ($content)&amp;#123;
+function fanly_ssl()&#123;
+   if( is_ssl() )&#123;
+       function fanly_ssl_main ($content)&#123;
            $siteurl = get_option(&#39;siteurl&#39;);
            $upload_dir = wp_upload_dir();
            $content = str_replace( &#39;http:&#39;.strstr($siteurl, &#39;//&#39;), &#39;https:&#39;.strstr($siteurl, &#39;//&#39;), $content);
            $content = str_replace( &#39;http:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), &#39;https:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), $content);
            return $content;
-       &amp;#125;
+       &#125;
        ob_start(&quot;fanly_ssl_main&quot;);
-   &amp;#125;
-&amp;#125;</code></pre>
+   &#125;
+&#125;</code></pre>
 <p>在wp-config.php追加如下代码</p>
 <pre><code>$_SERVER[&#39;HTTPS&#39;] = &#39;on&#39;;
 define(&#39;FORCE_SSL_LOGIN&#39;, true);
@@ -1155,7 +1155,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">36.9k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">38.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管

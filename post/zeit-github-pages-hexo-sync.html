@@ -41,7 +41,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.0.2"></head>
+<meta name="generator" content="Hexo 5.1.1"></head>
 
 
 <body>
@@ -419,14 +419,14 @@
 <p>8月27号再补充一点，Vercel有时候会罢工，表现为在Github上更新了，而Vercel不会更新，没有任何动静，刚好用了一个月时间，碰到过2次还是3次这种情况了，只需要等上一段时间再更新Github，Vercel就正常更新了。</p>
 <h3 id="为Vercel和netlify自定义404页面"><a href="#为Vercel和netlify自定义404页面" class="headerlink" title="为Vercel和netlify自定义404页面"></a>为Vercel和netlify自定义404页面</h3><p>在主题文件夹下的 <code>\source</code>目录放置一个 <code>404.html</code>文件到此即可，最终执行 <code>hexo g</code>后在 <code>public</code>文件夹的根目录下存在 <code>404.html</code>文件即可。</p>
 <p>根据我自己的测试，现在的Vercel不需要 <code>vercel.json</code>文件，之前的办法还是在主题文件夹下的 <code>\source</code>目录新建一个 <code>vercel.json</code>文件，代码如下，官网文档说明 <code>https://vercel.com/docs/configuration#routes/advanced/custom-404</code></p>
-<pre><code>&amp;#123;
+<pre><code>&#123;
  &quot;version&quot;: 2,
  &quot;routes&quot;: [
-   &amp;#123; &quot;handle&quot;: &quot;filesystem&quot; &amp;#125;,
-   &amp;#123; &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; &amp;#125;
+   &#123; &quot;handle&quot;: &quot;filesystem&quot; &#125;,
+   &#123; &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; &#125;
  ]
-&amp;#125;</code></pre>
-<h3 id="Netlify跳转到网站主页"><a href="#Netlify跳转到网站主页" class="headerlink" title="Netlify跳转到网站主页"></a>Netlify跳转到网站主页</h3><p>Netlify默认给一个二级域名，如xxx..netlify.app，直接访问此域名并不会跳转到你自定义的域名，因此需要新建一个 <code>netlify.toml</code> 文件，写上如下内容，放到网站根目录，或者放到 <code>themes\这里是主题名称\source</code>即可。</p>
+&#125;</code></pre>
+<h3 id="Netlify跳转到网站主页"><a href="#Netlify跳转到网站主页" class="headerlink" title="Netlify跳转到网站主页"></a>Netlify跳转到网站主页</h3><p>Netlify默认给一个二级域名，如xxx.netlify.app，直接访问此域名并不会跳转到你自定义的域名，因此需要新建一个 <code>netlify.toml</code> 文件，写上如下内容，放到网站根目录，或者放到 <code>themes\这里是主题名称\source</code>即可。</p>
 <pre><code>[[redirects]]
 from = &quot;https://xxx.netlify.app/*&quot;
 to = &quot;https://www.tangruiping.com/:splat&quot;
@@ -1098,7 +1098,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">36.9k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">38.2k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
