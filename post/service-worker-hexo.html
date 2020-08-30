@@ -390,7 +390,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    739
+                    806
                 </div>
                 
 
@@ -407,7 +407,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>简单说<code>Service Worker</code>是可以控制Web服务器和浏览器之间的一个<code>中间件</code>，跟HTTP缓存，cookie缓存类似，不过它可以给开发者更大的自由，进行控制使得网页可以离线访问。</p>
+                <p><code>Service Worker</code>是什么，详细的不说自己搜。</p>
+<p>简单说<code>Service Worker</code>是可以控制Web服务器和浏览器之间的一个<code>中间件</code>，跟HTTP缓存，cookie缓存类似，不过它可以给开发者更大的自由，进行控制使得网页可以离线访问。</p>
 <p>当然，想要离线，本篇教程并不能做到，除非你访问了所有页面然后离线或许可以。</p>
 <p>启用的前提是必须网站全站都是走HTTPS，然后注册<code>sw.js</code>，我直接在<code>Hexo主题</code>下<code>\layout\_partial\head.ejs</code>文件加入如下代码，也可以到此复制<code>https://gitee.com/ct2/web/blob/master/sw-registered.js</code></p>
 <pre><code>&lt;script&gt;
@@ -461,7 +462,7 @@ function(event) &#123;return event.waitUntil(self.skipWaiting())
 self.addEventListener(&quot;activate&quot;,
 function(event) &#123;return event.waitUntil(self.clients.claim())
 &#125;)</code></pre>
-<p>注意到上面代码首行的<code>importScripts(&quot;/js/sw-toolbox.js&quot;);</code>，这里还需要引入一个文件，这个文件我是放在<code>\source\js\sw-toolbox.js</code>文件内如看在此访问<code>https://gitee.com/ct2/web/blob/master/sw-toolbox.js</code></p>
+<p>注意到上面代码首行的<code>importScripts(&quot;/js/sw-toolbox.js&quot;);</code>，这里还需要引入一个文件，这个文件我是放在<code>\source\js\sw-toolbox.js</code>文件内可到此访问<code>https://gitee.com/ct2/web/blob/master/sw-toolbox.js</code></p>
 <p>因为<code>Service Workers</code> 原生API的功能较少，引入<code>sw-toolbox.js</code>来实现缓存控制，有五种策略：</p>
 <blockquote>
 <p>toolbox.networkFirst<br>先尝试获取服务器中的资源并更新本地缓存，如果未获取到，再使用本地已缓存的资源。</p>
@@ -470,6 +471,7 @@ function(event) &#123;return event.waitUntil(self.clients.claim())
 <p>toolbox.cacheOnly<br>只从缓存中获取资源，无缓存则失败(配合预缓存使用)</p>
 <p>toolbox.networkOnly<br>只使用网络请求，适合于动态内容。</p>
 </blockquote>
+<p>最后，没什么情况应该就是启用成功了，打开浏览器的控制台，查看网络一栏，F5刷新网页看看，是不是可以在传输一栏看到<code>Service Worker</code>字样呢？</p>
 
             </div>
             <hr>
@@ -859,8 +861,9 @@ function(event) &#123;return event.waitUntil(self.clients.claim())
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            简单说Service Worker是可以控制Web服务器和浏览器之间的一个中间件，跟HTTP缓存，cookie缓存类似，不过它可以给开发者更大的自由，进行控制使得网页可以离线访问。
-当然，想要离线，本篇教程并不能做到，除非你访问了所有页面然
+                            Service Worker是什么，详细的不说自己搜。
+简单说Service Worker是可以控制Web服务器和浏览器之间的一个中间件，跟HTTP缓存，cookie缓存类似，不过它可以给开发者更大的自由，进行控制使得网页可以离线访问。
+当
                         
                     </div>
                     <div class="publish-info">

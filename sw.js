@@ -6,13 +6,15 @@ var contentCacheName = "content" + cacheVersion;
 var vendorCacheName = "vendor" + cacheVersion; 
 var maxEntries = 100; /* 最大缓存数量 */
 var maxAgeSeconds = 60*60*1; /* 最大缓存时间，单位(s) */
-self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
+self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
     origin: /noscos.nos-eastchina1\.126\.net/,
     cache: {
         name: staticImageCacheName,
         maxEntries: maxEntries
       }
   });
+/*
+*/
 self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
     origin: /www\.tangruiping\.com/,
     cache: {
@@ -20,6 +22,7 @@ self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
        maxEntries: maxEntries
 }
   });
+
 self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
     origin: /d33wubrfki0l68\.cloudfront\.net/,
     cache: {
@@ -28,8 +31,9 @@ self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
 }
   });
 
+
 /* 缓存cdn静态资源 */
-self.toolbox.router.get("/gh/(.*)", self.toolbox.fastest, {origin: /cdn\.jsdelivr\.net/,});
+self.toolbox.router.get("/gh/(.*)", self.toolbox.cacheFirst, {origin: /cdn\.jsdelivr\.net/,});
 
 /* Google Analytics & baidu & Valine */
 self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {origin: /(www\.google-analytics\.com|ssl\.google-analytics\.com)/,
@@ -54,9 +58,9 @@ self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
 });
 
 
-/* NoCache */
+/* NoCache 
 self.toolbox.router.get("/sw.js",self.toolbox.networkFirst);
-
+*/
 self.addEventListener("install",
 function(event) {return event.waitUntil(self.skipWaiting())
 });
