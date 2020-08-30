@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.tangruiping.com/post/service-worker-hexo.html</loc>
+    
+    <lastmod>2020-08-30</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://www.tangruiping.com/post/hexo-markdown-rendering-problem.html</loc>
     
     <lastmod>2020-08-28</lastmod>

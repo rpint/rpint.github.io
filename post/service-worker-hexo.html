@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Coding持续集成自动同步到GitHub, 唐瑞平,瑞平笔记,唐瑞平日志">
+    <meta name="keywords" content="启用Service Worker为Hexo博客再次加速, 唐瑞平,瑞平笔记,唐瑞平日志">
     <meta name="description" content="自强不息  厚德载物">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -13,7 +13,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="canonical" href="https://www.tangruiping.com/post/coding-sync-github.html">
+    <link rel="canonical" href="https://www.tangruiping.com/post/service-worker-hexo.html">
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175458473-1"></script>
@@ -28,7 +28,7 @@
 </script>
 
 
-    <title>Coding持续集成自动同步到GitHub | 唐瑞平</title>
+    <title>启用Service Worker为Hexo博客再次加速 | 唐瑞平</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="https://noscos.nos-eastchina1.126.net/libs/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/libs/awesome/css/all.css">
@@ -225,12 +225,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/coding-sync.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://noscos.nos-eastchina1.126.net/trpic/service-worker-hexo.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Coding持续集成自动同步到GitHub</h1>
+                    <h1 class="description center-align post-title">启用Service Worker为Hexo博客再次加速</h1>
                 </div>
             </div>
         </div>
@@ -376,21 +376,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-07-26
+                    2020-08-30
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-17
+                    2020-08-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    739
                 </div>
                 
 
@@ -407,45 +407,69 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="Coding持续集成概述"><a href="#Coding持续集成概述" class="headerlink" title="Coding持续集成概述"></a>Coding持续集成概述</h3><p>这篇还是需要在本地处理好静态网站推送到coding，如果不想在本地环境用hexo生成好静态网站，可以试试《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p>
-<p>如果Github访问总是不太稳定，可以试试《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p>
-<p>一直以来，本站都是以 <code>GitHub</code>为主， <code>Coding</code>为辅，但每次更新网站文章，都需要部署两次，有点麻烦。尽管我用 <code>Windows脚本语言</code>实现了双击一次自动部署一个站点，双击两次全部搞定。</p>
-<p>但今天发现可以通过 <code>Coding</code>来实现同步到 <code>GitHub</code>上，当然还是要试试看。早上发现一篇文章是关于 <code>GitHub</code>自动推送到 <code>Coding</code>的，但需要借助 <code>zeit now</code>来实现，而且过程有点复杂对于我来说，最要紧的它不是从 <code>Coding</code>→ <code>GitHub</code>。</p>
-<h3 id="配置Coding-Ci"><a href="#配置Coding-Ci" class="headerlink" title="配置Coding-Ci"></a>配置Coding-Ci</h3><p>首先进入 <code>Coding</code>官网找到 <code>持续集成</code>中的 <code>构建计划</code>，然后点击 <code>新建构建计划配置</code>，然后在 <code>选择构建计划模版</code>中找到 <code>自定义构建过程</code>，或者通过 <code>Ctrl+F</code>搜索 <code>Jenkinsfile</code>看看，应该也能快速找到。</p>
-<p>确定后进入 <code>自定义构建过程 模版</code>，代码仓库下的代码源选择 <code>Coding</code>，使用静态配置的Jenkinsfile，然后确定后进入 <code>配置流程</code>，选择 <code>文本编辑器</code>。</p>
-<p>这时候先暂停一会，得先去登录 <code>GitHub</code>，定位到如此网址 <code>https://github.com/settings/profile</code>，点击 <code>Developer settings</code>，新建一个<strong>token</strong>，然后勾选 <code>repo</code>后确定申请，记下这个token。</p>
-<p><img src="https://noscos.nos-eastchina1.126.net/trpic/github-token.jpg" alt="github token"></p>
-<p>然后粘贴下面代码到文本编辑器中保存一下，如果复制不便可进入 <code>https://gitee.com/ct2/web/blob/master/coding-sync-github.md</code>复制。</p>
-<pre><code>pipeline &#123;
- agent any
- stages &#123;
-   stage(&#39;检出&#39;) &#123;
-     steps &#123;
-       checkout([
-         $class: &#39;GitSCM&#39;,
-         branches: [[name: env.GIT_BUILD_REF]],
-         userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]
-       ])
-     &#125;
-   &#125;
-   stage(&#39;推送部署&#39;) &#123;
-     steps &#123;
-       echo &#39;正在推送文件...&#39;
-       sh &#39;git fetch $FETCH&#39;
-       sh &#39;git push -f $FETCH HEAD:master&#39;
-       echo &#39;已完成推送.&#39;
-     &#125;
-   &#125;
- &#125;
-&#125;</code></pre>
-<p>这个时候我们来配置一下环境变量， <code>https://用户名:token@github.com/用户名/仓库名.git</code>，这里的用户名为你github的用户名。这段配好后，看下面图，添加到环境变量，勾选保密，这样就不会把token在构建日志中输出了，提高了安全性。</p>
-<p><img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-config.jpg" alt="coding-ci添加环境变量"></p>
-<p>这样就算完成了。进入 <code>coding</code>中的代码仓库，用 <code>web</code>上传一个文件看看，然后你会发现后台自动进行构建，此时你打开 <code>GitHub</code>的代码仓库，刷新一下看看，如果成功的话，通过 <code>coding</code>网页上传的文件在 <code>GitHub</code>上也会出现，删除刚上传的这个文件也会发现 <code>GitHub</code>中的文件被删除了。</p>
-<h3 id="Coding-Ci免费额度"><a href="#Coding-Ci免费额度" class="headerlink" title="Coding-Ci免费额度"></a>Coding-Ci免费额度</h3><p>不过 <code>Coding</code>持续集成是有一定免费额度的，就在<code>持续集成</code>中的 <code>构建节点</code>中即可看到，每周构建次数200次，也足够用了。同样目前一个仓库是 <code>2 GiB</code>，在仓库设置中可以看到。</p>
-<p>如此一来，即可每次生成好网站文件后，还可以通过coding的网页上实现文件和文件夹的上传更新，对于非程序员来讲，有时候通过web端上传可能对新手更为友好。</p>
-<p>尽管 <code>Github</code>也能实现网页端的文件和文件夹的上传，但稳定性似乎不如 <code>Coding</code>的网页版上传，不过 <code>Github Pages</code>的服务倒是比 <code>Coding Pages</code>要稳定些，对于我这边的网络来说。</p>
-<p>在强调一点，由于 <code>coding</code>是不需要 <code>CNAME</code>文件的，如果这个时候coding中没有 <code>CNAME</code>，那么就会自动删除 <code>Github</code>的 <code>CNAME</code>，导致 <code>Github Pages</code> 无法正常访问，解决办法就是在coding代码仓库根目录也放置一个 <code>CNAME</code>文件，并且文件内容填写你的域名即可，不需要写 <code>http</code>协议。</p>
-<p>最后你还可以通过《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》，目前（2020年），国内访问Vercel的速度还是很不错的。</p>
+                <p>简单说<code>Service Worker</code>是可以控制Web服务器和浏览器之间的一个<code>中间件</code>，跟HTTP缓存，cookie缓存类似，不过它可以给开发者更大的自由，进行控制使得网页可以离线访问。</p>
+<p>当然，想要离线，本篇教程并不能做到，除非你访问了所有页面然后离线或许可以。</p>
+<p>启用的前提是必须网站全站都是走HTTPS，然后注册<code>sw.js</code>，我直接在<code>Hexo主题</code>下<code>\layout\_partial\head.ejs</code>文件加入如下代码，也可以到此复制<code>https://gitee.com/ct2/web/blob/master/sw-registered.js</code></p>
+<pre><code>&lt;script&gt;
+  if (&#39;serviceWorker&#39; in navigator) &#123;
+      window.addEventListener(&#39;load&#39;, function () &#123;
+          navigator.serviceWorker.register(&#39;/sw.js&#39;).then(function (registration) &#123;
+              console.log(&#39;ServiceWorker registration successful with scope: &#39;, registration.scope);
+          &#125;).catch(function (err) &#123;
+              console.log(&#39;ServiceWorker registration failed: &#39;, err);
+          &#125;);
+      &#125;);
+  &#125;
+&lt;/script&gt;</code></pre>
+<p>在网站根目录添加<code>sw.js</code>文件，但还没有生成静态页面，因此我把<code>sw.js</code>文件放在主题的<code>source</code>文件夹下，代码内容如下，复制不便请借一步说话<code>https://gitee.com/ct2/web/blob/master/sw.js</code></p>
+<pre><code>importScripts(&quot;/js/sw-toolbox.js&quot;);
+var cacheVersion = &quot;-17104&quot;;
+var staticImageCacheName = &quot;image&quot; + cacheVersion;
+var staticAssetsCacheName = &quot;assets&quot; + cacheVersion;
+var contentCacheName = &quot;content&quot; + cacheVersion;
+var vendorCacheName = &quot;vendor&quot; + cacheVersion; 
+var maxEntries = 70; /* 最大缓存数量 */
+var maxAgeSeconds = 60*60*1; /* 最大缓存时间，单位(s) */
+/* 自行修改相应域名 */
+self.toolbox.router.get(&quot;/(.*)&quot;, self.toolbox.networkFirst, &#123;
+    origin: /img\.tangruiping\.com/,
+    cache: &#123;
+        name: staticImageCacheName,
+        maxEntries: maxEntries
+      &#125;
+  &#125;);
+self.toolbox.router.get(&quot;/(.*)&quot;, self.toolbox.networkFirst, &#123;
+    origin: /www\.tangruiping\.com/,
+    cache: &#123;
+       name: contentCacheName,
+       maxEntries: maxEntries
+&#125;
+  &#125;);
+
+
+/* 缓存cdn静态资源，自行修改对于你的静态文件资源路径 */
+/* cdn.tangruiping.com/lib/中存放静态文件资源则有如下写法 */
+self.toolbox.router.get(&quot;/lib/(.*)&quot;, self.toolbox.fastest, &#123;origin: /cdn\.tangruiping\.com/,&#125;);
+
+
+/* NoCache */
+self.toolbox.router.get(&quot;/sw.js&quot;,self.toolbox.networkFirst);
+
+self.addEventListener(&quot;install&quot;,
+function(event) &#123;return event.waitUntil(self.skipWaiting())
+&#125;);
+self.addEventListener(&quot;activate&quot;,
+function(event) &#123;return event.waitUntil(self.clients.claim())
+&#125;)</code></pre>
+<p>注意到上面代码首行的<code>importScripts(&quot;/js/sw-toolbox.js&quot;);</code>，这里还需要引入一个文件，这个文件我是放在<code>\source\js\sw-toolbox.js</code>文件内如看在此访问<code>https://gitee.com/ct2/web/blob/master/sw-toolbox.js</code></p>
+<p>因为<code>Service Workers</code> 原生API的功能较少，引入<code>sw-toolbox.js</code>来实现缓存控制，有五种策略：</p>
+<blockquote>
+<p>toolbox.networkFirst<br>先尝试获取服务器中的资源并更新本地缓存，如果未获取到，再使用本地已缓存的资源。</p>
+<p>toolbox.cacheFirst<br>如果请求资源已缓存，则使用缓存资源。否则请求网络资源，并更新本地缓存。</p>
+<p>toolbox.fastest<br>同时请求缓存和网络资源，先请求到的资源会先使用。这个策略总是会发起网络请求，如果当网络请求成功时，缓存将会被更新。</p>
+<p>toolbox.cacheOnly<br>只从缓存中获取资源，无缓存则失败(配合预缓存使用)</p>
+<p>toolbox.networkOnly<br>只使用网络请求，适合于动态内容。</p>
+</blockquote>
 
             </div>
             <hr>
@@ -471,7 +495,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://www.tangruiping.com/post/coding-sync-github.html">https://www.tangruiping.com/post/coding-sync-github.html</a>
+                    <a href="https://www.tangruiping.com/post/service-worker-hexo.html">https://www.tangruiping.com/post/service-worker-hexo.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -821,27 +845,28 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/post/zeit-github-pages-hexo-sync.html">
+                <a href="/post/service-worker-hexo.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/zeit-github.jpg" class="responsive-img" alt="Vercel Zeit now自动部署Github为hexo博客加速">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/service-worker-hexo.jpg" class="responsive-img" alt="启用Service Worker为Hexo博客再次加速">
                         
-                        <span class="card-title">Vercel Zeit now自动部署Github为hexo博客加速</span>
+                        <span class="card-title">启用Service Worker为Hexo博客再次加速</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Zeit Github Cloudflare Netlify速度对比 Zeit now不知道什么时候改名为 Vercel了，又好像被收购了。今下午发现 zeit的访问速度不错，故此跃跃欲试，看看能不能再次为博客提速。
-毕竟在墙外，想要让博客
+                            简单说Service Worker是可以控制Web服务器和浏览器之间的一个中间件，跟HTTP缓存，cookie缓存类似，不过它可以给开发者更大的自由，进行控制使得网页可以离线访问。
+当然，想要离线，本篇教程并不能做到，除非你访问了所有页面然
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-27
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-30
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -854,6 +879,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -876,24 +902,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/post/cloudflare-cdn-github-pages.html">
+                <a href="/post/hexo-markdown-rendering-problem.html">
                     <div class="card-image">
                         
-                        <img src="https://noscos.nos-eastchina1.126.net/trpic/cloudflare-ssl.jpg" class="responsive-img" alt="CloudFlare CDN GitHub Pages">
+                        <img src="https://noscos.nos-eastchina1.126.net/trpic/hexo.jpg" class="responsive-img" alt="在Hexo的Markdown中大括号出现渲染问题">
                         
-                        <span class="card-title">CloudFlare CDN GitHub Pages</span>
+                        <span class="card-title">在Hexo的Markdown中大括号出现渲染问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            如果觉得CloudFlare CDN对国内加速不够明显，推荐看看《Vercel Zeit now自动部署Github为hexo博客加速》
-托管在GitHub Pages为何要托管于 GitHub上，因为没有备案。在国内，域名不备案都无法解析
+                            在8月10号我升级为hexo5.0版本，还在《Hexo Hugo Vuepress Gatsby静态网站生成器的选择》中提到Hexo升级的速度略有提升。
+而今天发现，某些文章中的代码出现了渲染问题，比如在《Coding持续集成自动部署Hex
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-08-27
                             </span>
                         <span class="publish-author">
                             
@@ -912,10 +938,6 @@
                     
                     <a href="/tags/HEXO/">
                         <span class="chip bg-color">HEXO</span>
-                    </a>
-                    
-                    <a href="/tags/CDN/">
-                        <span class="chip bg-color">CDN</span>
                     </a>
                     
                     <a href="/tags/%E7%BD%91%E7%AB%99/">
