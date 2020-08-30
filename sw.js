@@ -13,24 +13,8 @@ self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
         maxEntries: maxEntries
       }
   });
-/*
 
-self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
-    origin: /www\.tangruiping\.com/,
-    cache: {
-       name: contentCacheName,
-       maxEntries: maxEntries
-}
-  });
 
-self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
-    origin: /d33wubrfki0l68\.cloudfront\.net/,
-    cache: {
-       name: contentCacheName,
-       maxEntries: maxEntries
-}
-  });
-*/
 
 /* 缓存cdn静态资源 */
 self.toolbox.router.get("/gh/(.*)", self.toolbox.cacheFirst, {origin: /cdn\.jsdelivr\.net/,});
