@@ -5,7 +5,7 @@ var staticAssetsCacheName = "assets" + cacheVersion;
 var contentCacheName = "content" + cacheVersion;
 var vendorCacheName = "vendor" + cacheVersion; 
 var maxEntries = 100; /* 最大缓存数量 */
-var maxAgeSeconds = 60*60*24; /* 最大缓存时间，单位(s) */
+var maxAgeSeconds = 60*60*1; /* 最大缓存时间，单位(s) */
 self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
     origin: /noscos.nos-eastchina1\.126\.net/,
     cache: {
@@ -20,11 +20,18 @@ self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
        maxEntries: maxEntries
 }
   });
+self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
+    origin: /d33wubrfki0l68\.cloudfront\.net/,
+    cache: {
+       name: contentCacheName,
+       maxEntries: maxEntries
+}
+  });
 
 /* 缓存cdn静态资源 */
 self.toolbox.router.get("/gh/(.*)", self.toolbox.fastest, {origin: /cdn\.jsdelivr\.net/,});
 
-/* Google Analytics and Valine */
+/* Google Analytics & baidu & Valine */
 self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {origin: /(www\.google-analytics\.com|ssl\.google-analytics\.com)/,
     cache: {
         name: vendorCacheName,
