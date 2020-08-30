@@ -15,7 +15,6 @@ self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
   });
 
 
-
 /* 缓存cdn静态资源 */
 self.toolbox.router.get("/gh/(.*)", self.toolbox.cacheFirst, {origin: /cdn\.jsdelivr\.net/,});
 
