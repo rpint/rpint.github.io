@@ -232,7 +232,7 @@
 
 <script>
     // 每天切换 banner 图.  Switch banner image every day.
-    $('.bg-cover').css('background-image', 'url(https://noscos.nos-eastchina1.126.net/libs/medias/banner/4.jpg)');
+    $('.bg-cover').css('background-image', 'url(https://noscos.nos-eastchina1.126.net/libs/medias/banner/0.jpg)');
 </script>
 
 
@@ -941,6 +941,19 @@
             
             
             <br>
+
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').then(function (registration) {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }).catch(function (err) {
+              console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+  }
+</script>
+
 
             <br>
             

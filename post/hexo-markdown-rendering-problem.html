@@ -371,7 +371,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-27
+                    2020-08-28
                 </div>
                 
 
@@ -432,7 +432,7 @@ unicode: 13.0</code></pre>
 <p>前几天的宝塔漏洞事件，如果不是追求最新的版本，估计不会有那么多人中招，软件不一定是最新版本就是最好，尽管最近版本会修复之前的一些问题或漏洞，但也会引入新的问题。</p>
 <p>刚开时怀疑是不是主题问题的时候，还特意去主题开发者的博客看了看他有没有在问题，发现并没有，而且还发现人家用的还是hexo3.9的版本。</p>
 <p>尽管今天所发生的hexo问题，不能算作Hexo的bug问题，而是版本和主题之间的兼容性问题。升级之前的时候我还特意翻看了hexo官网的更新信息，好像是提到了什么转义的问题，不知道是不是与此有关。</p>
-<h3 id="再升级hexo版本"><a href="#再升级hexo版本" class="headerlink" title="再升级hexo版本"></a>再升级hexo版本</h3><p>哎，白扯这么多蛋了，看来在问题可能还真是Hexo的bug，我上面还说是版本与主题的兼容性问题。去hexo官网瞧了一眼，发现8月22号更新到5.1.0版本，于是我就想着要不试试最新版本看看。</p>
+<h3 id="再升级hexo版本"><a href="#再升级hexo版本" class="headerlink" title="再升级hexo版本"></a>再升级hexo版本</h3><p>哎，白扯这么多蛋了，看来在问题可能还真是Hexo的bug，我上面还说是版本与主题的兼容性问题。去hexo官网瞧了一眼，发现8月22号更新到5.1.0版本（虽然下面更新到5.1.1版，但官网没有列出），于是我就想着要不试试最新版本看看。</p>
 <p>结果更新到最新版本，<code>hexo v</code>信息如下：</p>
 <pre><code>hexo: 5.1.1
 hexo-cli: 4.2.0
@@ -1125,6 +1125,19 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             
             
             <br>
+
+<script>
+  if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+          navigator.serviceWorker.register('/sw.js').then(function (registration) {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }).catch(function (err) {
+              console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+  }
+</script>
+
 
             <br>
             
