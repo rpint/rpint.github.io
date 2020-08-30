@@ -58,9 +58,9 @@ self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
 });
 
 
-/* NoCache 
-self.toolbox.router.get("/sw.js",self.toolbox.networkFirst);
-*/
+/* NoCache */
+self.toolbox.router.get("/sw.js",self.toolbox.cacheFirst);
+
 self.addEventListener("install",
 function(event) {return event.waitUntil(self.skipWaiting())
 });
