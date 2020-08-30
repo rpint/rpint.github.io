@@ -1,4 +1,4 @@
-importScripts("/js/sw-toolbox.js");
+importScripts("https://static-1252739229.cos.ap-chengdu.myqcloud.com/libs/js/sw-toolbox.js");
 var cacheVersion = "-17104";
 var staticImageCacheName = "image" + cacheVersion;
 var staticAssetsCacheName = "assets" + cacheVersion;
