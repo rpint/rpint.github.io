@@ -2,6 +2,575 @@
 <search> 
   
   
+    
+    <entry>
+      <title>在Hexo的Markdown中大括号出现渲染问题</title>
+      <link href="/post/hexo-markdown-rendering-problem.html"/>
+      <url>/post/hexo-markdown-rendering-problem.html</url>
+      
+        <content type="html"><![CDATA[<p>在8月10号我升级为hexo5.0版本，还在《<a href="https://www.tangruiping.com/post/hexo-hugo-vuepress-gatsby.html">Hexo Hugo Vuepress Gatsby静态网站生成器的选择</a>》中提到Hexo升级的速度略有提升。</p><p>而今天发现，某些文章中的代码出现了渲染问题，比如在《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》中&lt;配置coding持续集成-方案&gt;这两段代码中的花括号就出现了渲染错误，直接以<code>&amp;#123</code>和<code>&amp;#125</code>分别代替了左花括号和右花括号。</p><p>依稀记得之前是没有这个问题的，那么应该不是主题所致，为了验证，特意下载了主题包不做任何改动，问题依旧出现。</p><h3 id="回退hexo版本"><a href="#回退hexo版本" class="headerlink" title="回退hexo版本"></a>回退hexo版本</h3><p>于是就回退Hexo版本为4.2.1，问题得以解决。我是直接拿之前备份文件进行恢复回退版本的，因此备份文件中有一个<code>canonical-link</code>插件没有安装，安装后，发现问题又出现了，如此反复几次，问题依旧出现，然后我就把问题归结为Hexo版本和这个插件都能导致花括号的渲染问题。</p><p>正当我想要用其他插件来替代此插件的时候，我查看了一下Hexo版本，发现又变成<code>hexo5.0.2</code>，就有点纳闷了，难道是重新安装插件的时候自动升级了hexo不成，可也没有看见Hexo升级的信息。</p><blockquote><p>在本地测试的时候，推荐使用<code>hexo clean &amp;&amp; hexo s</code>这样的命令，一定要先清理掉缓存。</p></blockquote><p>于是又重复，这次想起了<code>package.json</code>文件中的<code>&quot;version</code>和<code>hexo</code>字段还是原来的<code>5.0.2</code>的信息，因此可能是这样导致的，故而删除后在重新安装插件，结果每次插件一安装好，就不能运行Hexo，出现错误如下：</p><pre><code>ERROR Cannot find module &#39;hexo&#39; from &#39;D:\website\HexoWeb&#39;ERROR Local hexo loading failed in D:\website\HexoWebERROR Try running: &#39;rm -rf node_modules &amp;&amp; npm install --force&#39;</code></pre><p>最后运行了<code>npm install --force</code>后然后在安装<code>canonical-link</code>插件，然后在执行<code>hexo v</code>查看版本信息，发现版本终于是4.2.1，本地测试后，问题得以解决。目前版本信息如下：</p><pre><code>hexo: 4.2.1hexo-cli: 4.0.0os: Windows_NT 10.0.17763 win32 x64node: 12.18.3v8: 7.8.279.23-node.39uv: 1.38.0zlib: 1.2.11brotli: 1.0.7ares: 1.16.0modules: 72nghttp2: 1.41.0napi: 6llhttp: 2.0.4http_parser: 2.9.3openssl: 1.1.1gcldr: 37.0icu: 67.1tz: 2019cunicode: 13.0</code></pre><p>那么，这个花括号的渲染问题，就是这次升级Hexo版本所致，还好我把网站中稍长点的代码信息都在<code>Gitee</code>上也存有一份，主要是方便访客复制，因此对之前参照某些文章的访客不至于造成严重的使用问题。</p><p>那就暂时用回<code>Hexo4.2.1</code>，待看看今后主题会不会修复此问题，待修复后再升级。网上搜到应该可以修改<code>node_modules</code>中的文件信息解决，我没尝试，而且那篇文章也是在2020年1月份的文章，Hexo版本未必相同，解决过程也过于麻烦，最主要是怕今后万一又出现什么问题，你还得考虑是不是你修改过<code>node_modules</code>中的文件所致。而且时间久了，还可能遗忘过你所做的修改，这不我也害怕遗忘今天发生的这个情况，故此赶紧水一篇文章来压压惊，好提醒今后的自己。</p><p>前几天的宝塔漏洞事件，如果不是追求最新的版本，估计不会有那么多人中招，软件不一定是最新版本就是最好，尽管最近版本会修复之前的一些问题或漏洞，但也会引入新的问题。</p><p>刚开时怀疑是不是主题问题的时候，还特意去主题开发者的博客看了看他有没有在问题，发现并没有，而且还发现人家用的还是hexo3.9的版本。</p><p>尽管今天所发生的hexo问题，不能算作Hexo的bug问题，而是版本和主题之间的兼容性问题。升级之前的时候我还特意翻看了hexo官网的更新信息，好像是提到了什么转义的问题，不知道是不是与此有关。</p><h3 id="再升级hexo版本"><a href="#再升级hexo版本" class="headerlink" title="再升级hexo版本"></a>再升级hexo版本</h3><p>哎，白扯这么多蛋了，看来在问题可能还真是Hexo的bug，我上面还说是版本与主题的兼容性问题。去hexo官网瞧了一眼，发现8月22号更新到5.1.0版本（虽然下面更新到5.1.1版，但官网没有列出），于是我就想着要不试试最新版本看看。</p><p>结果更新到最新版本，<code>hexo v</code>信息如下：</p><pre><code>hexo: 5.1.1hexo-cli: 4.2.0os: Windows_NT 10.0.17763 win32 x64node: 12.18.3v8: 7.8.279.23-node.39uv: 1.38.0zlib: 1.2.11brotli: 1.0.7ares: 1.16.0modules: 72nghttp2: 1.41.0napi: 6llhttp: 2.0.4http_parser: 2.9.3openssl: 1.1.1gcldr: 37.0icu: 67.1tz: 2019cunicode: 13.0</code></pre><p>发现上述所说的渲染问题解决了，早知道我直奔官网，然后升级，不行再考虑回退版本，也不至于浪费掉这么多时间。此刻想起了手机行业的一个梗，方向错了。</p><p>如果不总是追求更新，晚一个月升级就是直接从4.2.1升级到5.1.1，也就碰不见这个问题，这就是代价啊。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>jsdelivr 出现 Failed to fetch version info for  原因分析</title>
+      <link href="/post/jsdelivr-failed-to-fetch-version-info-for.html"/>
+      <url>/post/jsdelivr-failed-to-fetch-version-info-for.html</url>
+      
+        <content type="html"><![CDATA[<p>今早起来发现采用jsdelivr加载静态资源的链接访问出现了<code>404</code>，取其中一个404状态的链接单独访问，出现<code>Failed to fetch version info for GithubName/仓库名 </code>。</p><p>奇怪的是，同一个仓库下，有的链接却没有问题，而本站的链接，也有一个静态文件出现404。而本站的链接跟前面的链接不是同一个Github用户，并且我也没做什么改动。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/jsdelivr-404.jpg" alt="jsdelivr 404"></p><p>于是Google搜索，看到有人说是release包大于50MB导致，特意下载查看大小，压缩包只有17MB，解压后不到45MB，不管如何都没超出50MB的范围，可见也不是这个原因导致。</p><p>如果是<code>release</code>包大的问题导致，那么本站的release包肯定不大，解压都不超过10MB，又继续搜索，见有人说是github仓库许久不更新的原因，两个月不更新就会出现这个状况。</p><p>但我的前几天才更新了，都不到一个礼拜，可见也不大可能是这个原因。但还是重新推送了一次，更新下看看，后面果然不行。</p><p>大概又过了十多分钟后，发现问题自己解决了。但本站的那个静态文件还是404，并且不是同一个Github用户，出现这个问题的原因我猜想有两种情况。</p><p>第一种情况，就是<code>jsdelivr</code>的节点问题，获取不到Github文件信息，版本信息，这种可能性是最大。</p><p>第二种情况，可能与你网站访问有关，我前面的两个网站，主要用来测试，因此日常没有任何访问量，可能是因为好几天没有访问，<code>CDN节点</code>把<code>缓存</code>给清理了，导致现在访问一下不能获取文件信息。</p><p>不过，第二种猜想也经不起推敲，如果是这样，那么本站站点就不应该出现任何<code>jsdelivr</code>的404链接，因为昨天晚上我才推送文章更新了，并且自己访问了。</p><p>因此我还是倾向于第一种情况，版本号我直接用的是<code>@latest</code>。测试的两网站分别是<code>Wordpress</code>网站和<code>Hugo</code>网站，Wordpress的静态文件全部是404，Hugo网站的静态文件70%是404，而这两个网站的静态文件资源都是存放到一个Github仓库。</p><p>Wordpress用的是<code>Serverless</code>搭建了，为了减少云函数计算的调用次数，我把静态文件都用<code>jsdelivr cdn</code>加速了。想体验serverless搭建博客的可参考《<a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html">Serverless云函数计算搭建Typecho和Wordpress网站</a>》</p><p>不清楚<code>jsdelivr</code>背后的原理，问题比较玄的还不止这一次。之前，我的静态文件链接都是没有取用版本号的形式来用的，也能正常使用。后来某一天，发现忽然都不能访问了，全部404，搜索后发现可能是链接没有指定版本号的缘故，于是立马添加版本号然后指定，问题得以解决。</p><p>而后我又时不时的手动测试，加版本号和不加版本号访问，都能正常，并且排除浏览器缓存问题。给我的感觉好像是加了版本号访问稳定些的样子，而今天的这个问题，我指定其他版本号也不能访问，去掉版本号还是404。</p><p>所以猜测是<code>jsdelivr</code>用的<code>网宿节点</code>，而网宿的某些节点出现问题导致的状况。如果你直接搜索<code>jsdelivr挂了</code>，会出现不少相关的讨论话题。</p><p>如果你的站点访问量大，最好准备另一套CDN作为备用。而静态网站解决这个问题的方法也很简单，就是复制一份主题，改写静态资源调用的相关文件，写好你的备用CDN链接即可。如果卦了，及时更新即可。当然你也可以选择一个跟jsdelivr相似的CDN<code>statically.io</code>，不过这个CDN目前没有国内节点，访问速度也不算快。</p><p>还可以采用本地一套配置，Coding上配置另一套，比如本地走的是jsdelivr cdn路线，那么在coding上我配置的是七牛的CDN，如果jsdelivr不正常了，只需在coding发动一次更新即可。具体还得参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》和《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》两篇文章，需要用到Coding的<code>持续集成</code>推送到Github，然后由<code>Github Actions</code>来执行<code>Hexo g</code>生成静态网页推送到<code>Github Pages</code>。</p><p>文章都写完了才想起了，当故障发生的时候，我应该在移动和电信网络之间切换看看，会不会出现同样的状况。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CDN </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>宝塔面板漏洞事件和未来运维架构</title>
+      <link href="/post/bt-bug-next-devops.html"/>
+      <url>/post/bt-bug-next-devops.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="事件起因"><a href="#事件起因" class="headerlink" title="事件起因"></a>事件起因</h3><p>昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。</p><p>21点过后打开电脑，见Q群也有人讨论这事，就想着试试看，到底是怎么回事。于是就借用<code>知道创宇</code>的工具，找到了几个站点，还真可以采用<code>IP:888/pma</code>这样的形式直接访问<code>phpmyadmin</code>管理的MySQL数据库。</p><p>而且权限之大可以做任何操作，直接删库都OK。尽管宝塔官网采用短信的形式通知用户及时更新修复，但总有人不重视这些问题，即便是在今上午，还是有站点没有做任何修复，甚至是现在我写文章的傍晚，某些网站还可以采用上面形式可直接访问数据库。</p><p>更详细的分析我也说不了，网上有些文章分析的也挺好，还从代码对比层面讲了它改动的业务逻辑。我想从另一个角度谈谈对此次事件的看法。</p><h3 id="什么是宝塔面板"><a href="#什么是宝塔面板" class="headerlink" title="什么是宝塔面板"></a>什么是宝塔面板</h3><p>什么是宝塔，这里的宝塔并不是宝塔镇河妖的宝塔，而是方便快速构建程序运行环境的一种程序面板。</p><p>一般来讲，一个网站需要运行环境，网站就是Website，因此离不开<code>Web服务器</code>程序，如<code>Nginx</code>，<code>Apache HTTP</code>。再看网站是由什么语言程序写的，如果是<code>PHP语言</code>写的，那么还需要<code>PHP环境</code>，而这些语言写的网站都是属于动态类型的网站，还得有个数据库，如<code>MySQL</code>。这三者具备了，得看你网站运行在什么系统上，如果是<code>Linux系统</code>，那么这一套组合就可以简称为<code>LNMP</code>或者<code>LAMP</code>，LAMP和LNMP的区别是用Apache还是Nginx而已。</p><p>而宝塔面板就是快速方便的搭建一套LAMP或者LNMP环境，当然你得先在Linux系统上安装好宝塔，然后由宝塔编译安装其他三个程序并且管理它们，简单说这就是<code>Linux面板</code>的作用。</p><p>而这一次的漏洞就是在管理环境出现了逻辑问题，导致数据库可直接被访问。</p><h3 id="对宝塔漏洞事件的看法"><a href="#对宝塔漏洞事件的看法" class="headerlink" title="对宝塔漏洞事件的看法"></a>对宝塔漏洞事件的看法</h3><p>只要是人写的代码，就会有漏洞，只要是人，就可能出现业务逻辑的BUG。而宝塔出了这么大档子事，犯得还是这么低级的错误，要说没有这样的声音，才是奇怪。</p><p>其实就算是微软，也都有人说Windows不安全，我用Linux之类的声音。不管什么事件，一旦发生，总会出现两种完全不同的声音，我想这才符合中国古代哲学的辩证思想。有阴就有阳，有人说可以，就有人说不可以。</p><p>至于谁对谁错，在某种程度上，反而不是那么重要。我更关注的是如果一件事情发生，可怕的是只有一种声音。</p><p>从昨天到今天，看到不少人说早就不用宝塔了，LNMP一键脚本它不香吗？也有的说，已经不用宝塔好久了，早几年就改用XX面板了。还有的说，今后再也不用宝塔了。总之，这些都算得上抵制或者嘲讽的声音吧。当然也有不少理智人说该用还得用，我倒是倾向于后者观点。</p><p>原因也很简单，不是所有人都是开发者和运维工程师，时间一久，很容易忘记操作步骤和某些细节。如果要处理点什么，改点什么，可能需要临时查阅笔记或者搜索引擎。这对非程序员和运维人员来说，是很麻烦也很费时间，而且时间费了未必就能解决，解决了下次遇见可能又需要重复一次查阅。</p><p>听说，这次事件中，还有几个政府网站也遭了殃。看来，帮政府管理计算机资产的人，也是图方便，另一方面很可能是水平有限。</p><p>就自己检索到的几个网站来看，用来做PC站点的反而少，多是面向移动端做小程序。或许也能说明，这些小程序的运营者，还不够有实力聘请专业的运维人员，而是自己用宝塔，研究研究，非计算机专业的人也较容易上手。</p><p>声音不同，是因为立场不同，看问题的角度自然就不一样。即便这次有不少人被删库，对宝塔也不会造成多大的冲击。因为方便容易远胜于安全，而且宝塔也不是一点都不安全，对于他们来说，没有宝塔，环境都搭建不来，那招人来做，流出的都是真金白银。</p><p>权衡之后，自然该用还是得用。我自己之前，设立了好几套密码，过于复杂，为了安全，对于不同网站采用不同密码，安全性是提高了不少，但费脑力。稍微久点不登录的站点，就想不起来是哪一套密码了。后面采用密码管理器解决后，就再也不用记密码，所以我现在QQ密码微信密码都记不住了。你看，任何事情都有它的两面性。</p><h3 id="面向未来的运维架构"><a href="#面向未来的运维架构" class="headerlink" title="面向未来的运维架构"></a>面向未来的运维架构</h3><p>目前（2020年8月）宝塔官网写的是历经200多个版本的迭代，100多项服务器管理功能，400万安装，1000+中大型企业使用。</p><p>这个成绩看着是挺不错的，但我依旧不看好运维面板的未来，随着<code>Serverless架构</code>的推进，未来更是一种“无服务化”的运维模式，开发者只需对代码进行更新迭代即可，无需关注服务器的运行状况。</p><p>如果说<code>Serverless</code>没能挑起这个大梁，那么必将有其他类似产品出现，这是一种趋势。如同在云计算之前，几乎所有运维都要面临机房，网络设备，硬件设备打交道。而今，随着云计算的普及，多数运维人员只需要打开阿里云，腾讯云的页面，点击鼠标即可完成对服务器的申请和配置，并不需要亲自去机房部署，只有少数面向机房运维的才会接触这些。</p><p>尽管Serverless现在存在很多问题，有很多不完善，但并代表这个模式不行。因为很多软件程序的设计一开始就不是为了serverless架构而设计的，想要完全与之兼容，肯定是需要时间。</p><p>另外，随着云原生的推进，相信<code>Serverless</code>在未来会有更好的展现。之前在《<a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html">Serverless云函数计算搭建Typecho和Wordpress网站</a>》中讲到，搭建个人站点的wordpress和typecho几乎没什么问题，就是伪静态方面不好解决。</p><p>而且，阿里云都有一键安装<code>Wordpress</code>到<code>Serverless</code>如果把<code>HTTPS</code>问题和<code>伪静态</code>问题解决了，难道不比宝塔方便？十年前，虚拟主机还要考虑单线，双线问题，现在你还会考虑吗？同理，现在你还考虑服务器是几G几核心的问题，未来就不需再考虑了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 运维 </tag>
+            
+            <tag> 安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>个人博客SEO流量及搜索引擎问题现状</title>
+      <link href="/post/blog-seo-page-view-search-engine.html"/>
+      <url>/post/blog-seo-page-view-search-engine.html</url>
+      
+        <content type="html"><![CDATA[<p>10年前很喜欢听一首歌名叫做越长大越孤单的歌曲，现在是越长大时间越快。一不留神，就有十多天没有更新博客了。还是之前那句话，没有折腾，哪来的东西更新博客呢？</p><p>今天是这也学不进，那也学不进，不如就写点什么好了。也不只是今天静不下心，现在是越来越难静下心，学习能力和注意力感觉也不如从前，好在换来的是思想比之前要开阔许多。</p><p>下面就谈谈自己博客流量的状况吧！</p><h3 id="不擅长写作"><a href="#不擅长写作" class="headerlink" title="不擅长写作"></a>不擅长写作</h3><p>也是上个月底，潜心折腾了<code>Hexo</code>相关的各种技术。于是就有了连续8天发文的经历，感觉还挺爽的。主要是因为折腾这些偏向技术类的比较有东西可写，哪怕就是记录一遍自己的过程，也能有几千字。</p><p>对于我这种不擅长写作的人来讲，那8天感觉确实挺不错。中学时代800字作文用上一个小时也要绞尽脑汁，磨磨蹭蹭。而这类文章，大概记录一次自己的操作就远超800字，哈哈。</p><p>本来我也不打算写的，想自己简单的写点记录存档语雀上面，但可能是年纪增长的缘故，写着写着就变得详细起来，这里也补上一句，深怕今后操作的时候想不起来，那句写的也不够详细，又增添些字。</p><p>记录着记录着就想着不如稍微整理编排下，放到网站上来好了。一个是说不定有可能帮助个别人，一个是博客也好久没有东西可以更新，可以写，就写点吧。</p><p>于是才有了天天折腾天天写的那几天，写完之后自己还要阅读一遍，检查有没有错别字或语病之类的问题，感觉还挺费时间的，而且就我这水平，有时候检查一遍还不能完全发现问题，对病句的修复能力也很弱鸡。</p><p>尽管每次敲击键盘的时候，感觉良好没有任何错别字，但每次写完检查一遍几乎都能找到可以修改的地方。我想，这可能是人脑的缘故吧。会主动忽略掉某些细节，或者说个别文字颠倒过来也不影响阅读的这一种能力。所以，既有它的好处，也有它的坏处。</p><p>在一个是书写<code>MD格式</code>的文档，多数时候我直接就用记事本来写文章，在要插入图片的时候，就觉得挺麻烦，首先要找图片，然后要上传到对象存储取得URL，最后还要以<code>Markdown</code>格式来书写方可正确插入图片。</p><p>所以我上次连续更新的文章，配图都不多，尽可能用语言描述位置所在，对我来说是方便。更意识到，想要长期坚持一件事情，哪怕再简单，都会变得极为不容易。</p><p>之前我玩动态网站的时候也发现一个问题，就是一个网站或说博客刚开时搭建的时候，文章发的都是很勤快，不到三月更新频率明显降低，一年之后，要不就是网站大变样，要不就是打不开了。</p><p>总是，这是多数人的一种“通病”，另一个就是玩博客之初，最先不断选择博客程序，比如我之前还体验过一把JAVA的某些博客程序，比如<code>Halo,JPress,Tale,solo</code>等，后面还是换回了<code>Wordpress</code>。</p><p>早在2015年的时候，就看上了知更鸟的<code>begin主题</code>，一直没有建站，但现在建好站了，却又不觉得这主题有当初那么喜爱了，故而又开始折腾主题。</p><p>写作水平真的是不行，写着写着好像就写偏了，看来不适合闲聊。</p><p>最后，我就特意购买了与我同名的域名，感觉用静态来构建，就权当给未来的自己在闲暇时翻阅翻阅，看看年轻的时候在干什么，看看那年那月那时候的水准。</p><p>于是我去年写的文章都是偏向于自己对某些事物的认知所发出的感叹和观点，也就是说并不打算写些如前面几篇有偏向技术类的文章，就想着权当个人笔记和日志来用。</p><h3 id="博客流量问题"><a href="#博客流量问题" class="headerlink" title="博客流量问题"></a>博客流量问题</h3><p>不得不说，人还是比较容易健忘的，去年写百度账号相关的那篇文章，里面的很多细节，我现在竟然有些想不起来。因都是这样的文章，所以博客几乎不可能有什么流量，自己又不具备自带流量。</p><p>好在有了几篇Hexo相关的文章后，网站每天有那么几个访问，而且都是来自谷歌搜索。默认把搜索引擎路线给解析到Netlify上，必应和谷歌都很快抓取了我的新文章，可百度死活不动，真是雷打不动。</p><p>在百度站长那里诊断，也是可以正常爬取的，直到前些天，我发现百度对本站首页快照有了新的快照时间，这说明百度能正常爬取，不知道是什么原因，就是不愿意收录你的。</p><p>不过也无所谓，在IT从业人员中，百度的口碑并不好，发现很多访问来源还都来自必应。切换路线也不到一个月，在看看，如果百度还是雷打不动，要不就放弃百度，要不就单独为百度添加一条别的路线看看。</p><p>百度口碑不好是因为百度总是喜欢优先把自己的产品排名在前，比如百度知道，百度文库，百度百家号，百度经验。自己的产品排名靠前我想一般人都不会有意见，有意见的是排名靠前的这些玩意儿都不是用户想要的信息和资料。</p><p>反之，我用谷歌，就很方便在前三条找到我需要的东西。而百度，我都差不多养成一个前三不看的习惯了。</p><p>但谷歌并非常人能用，否则，百度的占有率肯定会进一步下跌。所以，想要做SEO，对于面向中文用户群体来说，百度是不能放弃的。</p><h3 id="闭环生态"><a href="#闭环生态" class="headerlink" title="闭环生态"></a>闭环生态</h3><p>以前个人网站还可以靠广告联盟获得一点收益，现在个人站长，特别是博客，就是自娱自乐，或相濡以沫，几乎很难靠广告盈利，就算有点广告费，可能都不够给服务器续费。</p><p>因此，也有不少站长开始搞起公众号，另一边靠搜索引擎获取流量。这倒也没什么问题，但公众号竞争力也大，非常大，所以也有部分站长开始发挥“智慧”，阅读全文还需关注公众号，搞个把下载链接放到公众号，需要关注回复关键词才可获取链接。</p><p>当然，毕竟人家花心思和精力写的东西，设置一定门槛也是可以理解。但无疑是降低了用户体验，百度一搜是自己产品居多，好不容易找到篇文章对自己有帮助，结果还要去关注一波公众号。</p><p>这个就跟之前为了安全，打着以安全的名义来提升自己的APP启动次数，<code>Web版</code>要不就是阉割版，要不就需要APP扫码认证登录，即便是在手机端还需要打开APP阅读全文，用户体验着实差劲。都是为了KPI，为了业绩，无所不为。</p><p>再说公众号是闭环生态，很多东西放在公众号上，搜索引擎是搜索不到的（或许搜狗除外），这就导致一些不错的资源和信息，只能在公众号上面找，在微信搜一搜中去找。</p><p>这又导致一个恶性循环，本来搜索体验就不怎么好，结果某些较好的信息还不开放让搜索引擎检索，导致搜索体验更差。如果说腾讯还想做搜索引擎的话，那就不能只靠微信来为其获取流量，而是在搜狗的基础上，做进一步的提升。</p><p>尽管百度体验不好，但说实话，除了谷歌外，中文搜索还真没有其他能比得上百度的。如果腾讯愿意在搜索上发力，那么就不能只指望搜狗，还得继续优化搜狗搜索结果，只要能跟百度搜索结果相差无几，那么凭借微信客户端和公众号的整合，还是很有发展空间的。</p><p>有时候我也在想，人工智能得发展到什么地步，搜索的结果才会以语音或视频的形式，并且还能自动截取对你有用的部分呈现在你面前，否则，还是以图文为主。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网站 </tag>
+            
+            <tag> SEO </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo Hugo Vuepress Gatsby静态网站生成器的选择</title>
+      <link href="/post/hexo-hugo-vuepress-gatsby.html"/>
+      <url>/post/hexo-hugo-vuepress-gatsby.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="静态网站生成器有哪些"><a href="#静态网站生成器有哪些" class="headerlink" title="静态网站生成器有哪些"></a>静态网站生成器有哪些</h3><p>静态网站相比对是动态网站，而动态网站则不用说了，目前互联网各大平台可以说都是属于动态网站类型。用户基数大，总是要考虑运营的，而用户运营是运营必不可少的一环节。</p><p>静态网站的交互性过于薄弱，因此不适合构建大型网站。更适合官方文档，企业网站，或者喜欢“极客”风的个人博客用户。而优点则是安全性好，加载速度快，有多大流量就能撑起多少用户。</p><p>因事先生成好html相关文件，所以不用担心数据查询等问题导致的性能瓶颈。要事先生成好这些html页面文件，就得有静态网站生成器（Static site generators 缩写 SSG）这样的工具。</p><p>就用户基数比较大的有Hexo，Hugo，Gatsby，Vuepress，Jekyll。另外还有Pelican，Metalsmith，Octopress，Pelican，Middleman，DocPad，Wintersmith，Cactus，HubPress，MkDocs，Docsify等，实在太多了，根据数不过来。</p><p>名字中带Doc的适合的的场景也很明显，适合有较为明显的层级展现关系的，比如书籍，应用文档之类的。</p><h3 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h3><p>我最开始接触静态网站就是Hexo，但最后网站上线用的却是Hugo。衡量用户的多少，用百度指数，谷歌趋势都不够直观的看到数据。</p><p>因此，我们就看看Github上的<code>stars</code>数量吧。</p><ul><li>Stars 数量：31K</li><li>官网：<a href="https://hexo.io/zh-cn/">https://Hexo.io/zh-cn/</a></li><li>Hexo Github：<a href="https://github.com/Hexojs/Hexo">https://github.com/Hexojs/Hexo</a></li></ul><p>跟Hugo相比，Hexo的生成速度实在不是一个数量级的。根据Hexo核心成员的说法，<code>Benchmark</code>数据是300篇文章15s，1000篇文章45s。</p><p>毕竟说的是<code>基准数据</code>，我自己直接体验是155篇文章，用时35s，从敲下<code>Hexo g</code>命令后开始计时一直到完成，总共35秒，总共字数是486.4K字。</p><p>我用的是Hexo4.2.1（hexo-cli: 3.1.0）的版本，看官网动态，Hexo5.0速度又有小幅度提升，到时候我在看看同样的文章，同样安装了搜索插件，sitemap等插件看看同时多少。</p><p>8月10日更新为hexo5.0.2（hexo-cli: 4.2.0）用时比之前快了2~3秒。</p><blockquote><p>hexo与hexo-cli的区别是hexo-cli创建工程后就由hexo模块复制静态页面的生成预览之类的工作。CLI = Command Line Interface 命令行界面</p></blockquote><h3 id="Hugo"><a href="#Hugo" class="headerlink" title="Hugo"></a>Hugo</h3><p>很多人都说Hugo的速度独步天下，确实也是这么回事，跟Hexo相比对，Hugo同样的文章字数，不到1s就搞定。</p><p>说Hugo的速度和Hexo不在一个数量级上，看来并不冤枉。最开始接触这类静态网页生成器的时候，对Hugo印象好不是因为速度快，那时候也没什么文章，所以速度体现不出来，就差几秒而已。</p><p>给我印象最深的是Hugo只需一个<code>二进制</code>文件即可搞定这一些，让我觉得非常干净，而且容易上手。不像Hexo还要npm一堆东西才能用。不过缺陷也很明显，功能性的东西需要一定的动手能力，不如Hexo能够安装插件解决来的便利。</p><ul><li>Stars 数量：45.9K</li><li>官网：<a href="https://gohugo.io/">https://goHugo.io</a></li><li>Hugo Github：<a href="https://github.com/goHugoio/Hugo">https://github.com/goHugoio/Hugo</a></li></ul><p>我一直以为用Hugo的人少，看来是中文用户中用Hugo的人少，看Stars的数量比Hexo高出不少呢。所以这就带来一个问题，如果只是喜欢静态网站而不是专业的程序员，应当说Hexo对中文用户支持更友好，毕竟开发出Hexo的就是台湾人。</p><p>构建一个博客，刚开始少不了换主题，而hugo很多的主题都是外国人开发的，如果看中了某款主题，还需自己“汉化”后才能使用。对比而言，Hexo有着丰富的中文主题，这一点是其他所有都不能与之比拟的优势。</p><h3 id="VuePress"><a href="#VuePress" class="headerlink" title="VuePress"></a>VuePress</h3><p>VuePress是<code>VUE</code>来驱动的（还有Nuxt），而VUE则是<code>前端</code>三大框架（Angular、React、Vue）之一。严格意义上说，我最初折腾的就是VuePress，是因为折腾一次失败了，才转向Hexo，从而发现了Hugo。</p><p>因此，我对VuePress没什么太大的感触，唯一的感触就是对新手上手难度可能比Hexo，Hugo大些。现在好些了，一搜有不少VuePress的教程，之前就只有2篇，翻来覆去就那么2篇VuePress的相关教程。过了一年，下载了些主题再次试了下Vuepress，渲染速度不比Hexo快，初步印象觉得有些笨重，可能也是因为习惯了Hexo的方式，对Vuepress不大好理解。</p><ul><li>Stars 数量：17.1K</li><li>官网：<a href="https://vuepress.vuejs.org/zh/">https://vuepress.vuejs.org/zh/</a></li><li>VuePress Github：<a href="https://github.com/vuejs/vuepress">https://github.com/vuejs/vuepress</a></li></ul><p>主题不多，就官网默认的那一款主题我都还蛮喜欢的，也正因为如此，所以一开始就从VuePress下手折腾。</p><p>而且具有SPA（单页应用），一次加载好所需的文件，切换其他页面由JS应用代码直接请求渲染，无需整体刷新。，体验起来，速度倒是挺不错的。但也因为是这种原因，所以文章越多，JS脚本也越多，那生成的文件也越多，体积也会稍稍变大。</p><h3 id="Gatsby"><a href="#Gatsby" class="headerlink" title="Gatsby"></a>Gatsby</h3><ul><li>Stars 数量：46.3K</li><li>官网：<a href="https://www.gatsbyjs.org/">https://www.gatsbyjs.org/</a></li><li>Gatsby Github：<a href="https://github.com/gatsbyjs/gatsby">https://github.com/gatsbyjs/gatsby</a></li></ul><p>看到比Hexo，Hugo都还高的Stars数量，是挺出乎我这个外行人的意料。因为看见用Gatsby搭建的博客确实不多，至少在我浏览的印象中，Hexo是排第一的，其次是Hugo。</p><p>如果你是搞React的就非常适合用了，或者说用React框架的人都用Gatsby的多。而且功能非常强大，丰富的插件系统可以让你从CMS，SaaS服务，数据库以及API等渠道拉去数据。（它应该与Next.js做比对）</p><p>它的功能强大，但来的的问题是依赖也挺多的，属于重量级别的。没有一定编程基础的人，非常不建议使用Gatsby。对于一个博客，能有自己的内容输出是为首要，而至于用什么搭建，这些只是用来实现的工具罢了。</p><p>但很多刚开时折腾网站或者博客的人，包括我，都是喜欢先折腾一把用什么工具搭建，是<code>WordPress</code>还是<code>Typecho</code>，还是<code>Ghost</code>，然后转向<code>静态网站</code>了还是想着到底是Hexo，还是Hugo。</p><p>选定好工具后，又开始折腾主题，这几乎是每一个人的必经之路。</p><h3 id="Jekyll"><a href="#Jekyll" class="headerlink" title="Jekyll"></a>Jekyll</h3><p>Jekyll这个工具我从未使用过，不大了解，要不是把Hexo生成好的站点托管在<code>Github pages</code>上，我都不知道有这个工具。因Jekyll由Ruby构建，并且集成到了Github Pages中。</p><p>如果你是WordPress用户，想尝试静态网站，而Jekyll则可以通过importer来做这些事（hexo也有类似插件）。当然，强大的WordPress生态系统也有专门用来全站静态化的插件来实现网站静态化。</p><ul><li>Stars 数量：41K</li><li>官网：<a href="https://jekyllrb.com/">https://jekyllrb.com/</a></li><li>Jekyll Github：<a href="https://github.com/jekyll/jekyll">https://github.com/jekyll/jekyll</a></li></ul><p>看来偏见无处不在，我一直以为Hexo是拥有最多的静态网站用户群体数，可从<code>Github Stars</code>数量来衡量的话，Hexo不但不能屈居第二，反倒是倒数第二。</p><p>又再一次出乎我的意料，只能说环境和接触面决定了你的眼界和认识。这段时间忽然重视起博客来，就写了几篇文章，未来相信会有一段时间，又要停更很久了吧。</p><p>不折腾，就没有东西可写，这话倒是不假。</p><p>如果想了解更多的静态站点和<code>GitHub Stars</code>可参见<code>https://www.staticgen.com</code>，StaticGen是专业对开源静态网站生成器所做的排行榜。想了解前端生态圈的对比可以翻阅<code>https://risingstars.js.org/</code></p><h3 id="间接解决Hexo生成慢的问题"><a href="#间接解决Hexo生成慢的问题" class="headerlink" title="间接解决Hexo生成慢的问题"></a>间接解决Hexo生成慢的问题</h3><p>Hexo生成文章慢是因为执行了<code>hexo g</code>命令后不能马上有结果，需要一个过程，几秒到几十秒不等，而这个时候你就需得等到它执行完毕才能执行下一条命令。</p><p>如果我们把这个过程放到云端去处理，比如我都是直接把文章<code>push</code>到Coding上，然后再让Coding自动push给github，最后触发<code>Github Actions</code>来处理完成后推送到Github Pages上。而这一过程都是全自动，在本地写好脚本双击一次执行<code>git push</code>，然后就让他在云端处理好了。如果你不是那种写完文章后立马就要自己看一遍的话，可以说这是Hexo较为完美的解决方案。</p><p>至于如何完成这两步，可分别参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》和《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》这两篇文章。其他如Hugo，VuePress等也可以这么用，区别大概就是Actions脚本的不同罢了。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hexo博客Valine评论系统IP邮箱泄露问题和解决方法</title>
+      <link href="/post/valine-ip-email-privacy.html"/>
+      <url>/post/valine-ip-email-privacy.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="Valine评论系统IP邮箱泄露问题"><a href="#Valine评论系统IP邮箱泄露问题" class="headerlink" title="Valine评论系统IP邮箱泄露问题"></a>Valine评论系统IP邮箱泄露问题</h3><p><code>Valine评论系统</code>一直都挺好用的，是大多数静态站点首选的评论系统，比如<code>Hexo,Hugo</code>等。并且不少主题都集成了此功能，轻量化，没有多余的修饰，。用<code>LeanCloud</code>的数据库存储评论，要修改评论或者删除评论，直接登录<code>LeanCloud</code>操作数据库即可完成，这意味着所有的评论数据是完全掌握在自己手里。</p><p>但前几天无意间看到<code>Valine评论系统</code>关于隐私的问题，当时也没怎么在意，今天进入了某个Gridea生成的站点，下面有不少评论，就想起了前些天的看到关于Valine评论的问题。</p><p>于是就试试看，果不其然，发现问题有点严重，如果会写爬虫的话，爬一下这些数据，能收集不少信息呢。尽管这些信息看起来不是那么致命的，主要是邮箱，IP地址这两项问题。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/valine-ip.jpg" alt="Valine评论系统IP邮箱泄露"></p><p>之前我并不知道存在这个问题，也一直习惯不填写邮箱评论，这就是Valine评论系统的有点，甚至都无需填写用户名，直接评论即可提交。在问题没有解决之前，还是建议每一个在Valine上面评论的留言者直接随意命名个昵称即可，如果你不介意IP被泄露的话。</p><p>只有这样才可把风险降到最低，特别是图中的留言者，填写的还是QQ邮箱，相当于把IP和QQ告诉人家了，还是谨慎点为好。</p><p>目前在最新的 1.4.14版本还是存在这个问题的。Github也有人反馈了此问题，暂没见官方回应，不知道下个版本会不会解决此问题。否则，还真没有较好的评论系统，<code>来必力</code>在韩国，加载稍微有些慢，需登录账户评论。虽然可以支持多种登录方式（如QQ，微博，微信，百度，豆瓣），还有些也都是需要账户的，如果不是程序员或者IT从业者，普通人根本就没有这些账户，实在是提高了评论的门槛。</p><h3 id="Valine评论系统IP邮箱泄露解决方法"><a href="#Valine评论系统IP邮箱泄露解决方法" class="headerlink" title="Valine评论系统IP邮箱泄露解决方法"></a>Valine评论系统IP邮箱泄露解决方法</h3><p>刚刚又去看了一眼<code>Github Issues</code>发现有回应，其解决方法如下：</p><blockquote><p>  访问 LeanCloud 控制台 &gt; 存储 &gt; 结构化数据<br>  选择 Comment Class，分别点击 mail 和 ip 相应字段的下拉菜单，选择编辑<br>  勾选”客户端不可见”后，客户端发起查询的时候，返回的结果将不包含这个字段<br><strong>注意</strong><br>  如果设置 mail 客户端不可见，将不会显示评论者的 Gravatar，转为显示默认头像。<br>  目前想到的办法是新增一个可见字段存储 mail 的 MD5，需要改 Valine 源码，还需要处理现有数据。</p></blockquote><p>进入控制台找到后发现无法改动，第一反难道又是节点问题？第二反应是浏览器兼容性问题？后来自己研究了下，发现是<code>LeanCloud</code>控制台的版本问题，在右上方的帮助下关掉新版即可解决。</p><p>小公司产品就是小公司产品，这么疏忽，就敢上线，做测试的到底在干嘛？上次他们公司的华东节点都挂掉不知道多久，都没人修复，后面我都跑去注册了国际版用，在《<a href="https://www.tangruiping.com/post/update-on-the-hexo-theme.html">hexo主题更新和valine评论系统问题</a>》有讲过。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+            <tag> 安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Serverless云函数计算搭建Typecho和Wordpress网站</title>
+      <link href="/post/serverless-wordpress-typecho.html"/>
+      <url>/post/serverless-wordpress-typecho.html</url>
+      
+        <content type="html"><![CDATA[<p>听闻<code>Serverless</code>很久了，前几天还用它玩过下Hexo《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》。</p><p>因此也早有想法把WordPress和Typecho这样的博客程序运行在serverless上。而这一次的搭建都是来源于<code>https://github.com/awesome-fc/fc-wordpress</code>提供的教程和安装包。</p><p>昨夜摸索了三个小时终于得以成功，现在简单介绍下自己的配置过程。</p><p>根据前面提到的教程安装好<code>nodejs</code>和<code>funcraf</code>两工具，然后下载它的<code>fc-wordpress</code>，也可以网页下载好后解压到某个目录。</p><p><code>funcraf</code>我是用的二进制文件，下载好后是一个exe文件，在系统环境变量中指定这个文件名所在的具体位置即可，比如我的是 <code>D:\fc\fun.exe</code> ，然后把下载好的文件也放入此处，这时候文件和文件夹结构如下：</p><ul><li>fc-web-mysql文件夹</li><li>fc-web-sqlite文件夹</li><li>png文件夹可以没有</li><li>fun.exe</li><li>.gitignore</li><li>README.md</li></ul><h3 id="配置阿里云"><a href="#配置阿里云" class="headerlink" title="配置阿里云"></a>配置阿里云</h3><p>第一步，开通阿里的函数计算，我都忘记我什么时候开通了。需要注意下地区，我的目前是上海区，这个区域是要写到.env配置中的。</p><p>第二步，开通文件存储，选择按量付费即可。</p><p>关于备案问题，如果你的域名在阿里云有备案，则无用担心此问题。如果在腾讯云备案，但没有在阿里云接入备案，具体咨询阿里云客服了解。我目前（2020年8月）咨询的结果是，不但要在阿里云<code>接入备案</code>，而且函数计算还不能申请<code>备案服务号</code>，得购买ESC产品（或者能取得备案服务号的产品）才可以。什么是备案服务号，可以参见《<a href="https://www.tangruiping.com/post/personal-website-icp-beian-faq.html">个人网站ICP备案常见问题</a>》。</p><p>如果没有备案想体验的话，那就不要选择大陆区域，或者用阿里云系统提供的域名。</p><p>目前（2020年8月）腾讯云也要接入备案的，但腾讯云提供函数计算的备案服务号，折算下来需要110元人民币这样，而这些购买的资源有效时常为5年。</p><blockquote><p>Serverless 备案要求：备案本身不收取任何费用，但通过 Serverless 方式备案需购买云函数5000万次调用次数包与40万GBs资源用量包</p></blockquote><p>关于百度云和华为云，肯定也是要接入备案了，我没去了解。因为这是<code>工信部</code>的规定，而不是云服务商能决定的，差别主要在于备案服务号如何取得的问题。</p><h3 id="配置-env文件"><a href="#配置-env文件" class="headerlink" title="配置.env文件"></a>配置.env文件</h3><p>我采用Mysql数据库，所以我进入到<code>fc-web-mysql</code>文件夹中的.env去配置它。复制一份<code>.env_example</code> 改名为 <code>.env</code> ，如果Windows上无法直接这样改名，可通过7z压缩后修改文件名再解压。</p><p>记事本打开它，配置有如下</p><pre><code>DEFAULT_REGION=云函数所在区域cn-shanghai,我这里是上海ACCOUNT_ID=阿里云账户IDENDPOINT=云函数的地址https://阿里云账户ID.cn-shanghai.fc.aliyuncs.comACCESS_KEY_ID=云函数的ACCESS_KEY_IDACCESS_KEY_SECRET=云函数的ACCESS_KEY_SECRET</code></pre><p><img src="https://noscos.nos-eastchina1.126.net/trpic/fc-index.jpg" alt="函数计算"></p><p>这些需要填写的都在函数计算的页面可查看到，其中自定义的域名用CANME解析到图中的 <code>公网 Endpoint：</code> ,比如我用打算用<code>fc.tangruiping.com</code>来做网站，现在就把此域名CANME解析到图中的 <code>公网 Endpoint：</code> 即可。</p><h3 id="配置index-php"><a href="#配置index-php" class="headerlink" title="配置index.php"></a>配置index.php</h3><p>主要修改此处 <code>$host = &quot;fc.tangruiping.com&quot;;  </code> </p><h3 id="配置template-yml"><a href="#配置template-yml" class="headerlink" title="配置template.yml"></a>配置template.yml</h3><p>主要修改三个地方，第一个是<code>LogConfig:</code>下的<code>Project:</code>，这一个你要重新命名，要跟别人都不同，具体看下图。<br><img src="https://noscos.nos-eastchina1.126.net/trpic/template-yml.jpg" alt="配置template.yml"></p><p>最后一处就是<code>DomainName</code>跟<code>index.php</code>修改的域名一样，都为<code>fc.tangruiping.com</code>。</p><h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>如此配置好这三项，如需添加Typecho或着WordPress的主题，可在<code>\fc-web-mysql\.fun\nas\auto-default\fc-wp-mysql\wordpress</code>中添加好，改写好，为了避免出现其他情况，第一次我建议你啥都别动，直接部署即可。</p><p>如果你想部署typecho，就把<code>Wordpress</code>文件夹下的文件删除，把<code>Typecho</code>的文件放进来即可。但WordPress文件夹名字不要随意改动。</p><p>在命令行中进入<code>fc-web-mysql</code>文件夹中，执行如下三条命令即可搞定。</p><p><code>fun nas init</code>  初始化 NAS，</p><p><code>fun nas sync</code>  上传文件到 NAS</p><p><code>fun deploy</code>  部署</p><p>完成后，访问<code>fc.tangruiping.com</code>即可看到安装界面，而这就跟其他传统的LNMP或LAMP环境中安装WordPress和Typecho是一样的。</p><h3 id="开启全程HTTPS"><a href="#开启全程HTTPS" class="headerlink" title="开启全程HTTPS"></a>开启全程HTTPS</h3><p>首先进入你的阿里云函数计算页面，注意下你左上方的区域，不要选错了区域，不然找不到你的域名。找到自定义域名这个选项，开启HTTPS，自己申请证书填写好。</p><p>然后在WordPress主题<code>functions.php</code>追加如下代码：复制代码如有不便请来此处<code>https://gitee.com/ct2/web/blob/master/serverless-wordpress-typecho.md</code></p><pre><code>//http转httpsadd_filter(&#39;get_header&#39;, &#39;fanly_ssl&#39;);function fanly_ssl()&#123;   if( is_ssl() )&#123;       function fanly_ssl_main ($content)&#123;           $siteurl = get_option(&#39;siteurl&#39;);           $upload_dir = wp_upload_dir();           $content = str_replace( &#39;http:&#39;.strstr($siteurl, &#39;//&#39;), &#39;https:&#39;.strstr($siteurl, &#39;//&#39;), $content);           $content = str_replace( &#39;http:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), &#39;https:&#39;.strstr($upload_dir[&#39;baseurl&#39;], &#39;//&#39;), $content);           return $content;       &#125;       ob_start(&quot;fanly_ssl_main&quot;);   &#125;&#125;</code></pre><p>在wp-config.php追加如下代码</p><pre><code>$_SERVER[&#39;HTTPS&#39;] = &#39;on&#39;;define(&#39;FORCE_SSL_LOGIN&#39;, true);define(&#39;FORCE_SSL_ADMIN&#39;, true);</code></pre><p>然后再次同步到NAS，再次部署即可更新，每次部署，函数计算中的域名都会默认变为HTTP，自行手动改回去。</p><p><del>最后在WordPress设置中也修改一下，但以HTTPS的方式进行访问就走HTTPS协议，如果以HTTP方式访问就走HTTP协议。还是没办法让HTTP重定向到HTTPS，这点没能解决。</del></p><p>可用<code>really-simple-ssl</code>插件解决此问题，所以上面代码应该不需要配置就能解决，如果不行那就用上代码+插件。</p><p>Typecho开启HTTPS方法，站点根目录下的<code>config.inc.php</code>文件中加入下面代码，但依旧没办法支持HTTP重定向到HTTPS，WordPress用插件可以解决，但Typecho就没有这样的插件了，需要在函数层面解决。</p><pre><code> /** 开启HTTPS */define(&#39;__TYPECHO_SECURE__&#39;,true);</code></pre><h3 id="采用Serverless的问题"><a href="#采用Serverless的问题" class="headerlink" title="采用Serverless的问题"></a>采用Serverless的问题</h3><p>网站没办法伪静态，如果是老网站迁移，则可能无法对应上原有地址，导致SEO排名问题，若是新站，则可以考虑。</p><p>热启动后加载时间稍慢，”第一页”通常需要1.5~2.5s的等待时间，注意不是冷启动。</p><p>这里的第一页指的是第一个加载的资源文件，而不是网站的主页。</p><p>而伪静态，反正按照常规在后台设置是行不通的。而Serverless也没办法像Apache，Nginx之类的自行配置，不知道有没有其他的办法。</p><p>至于加载时间，我是反复多次在普通压测的情况下，打开网站的时间如下图所示，为Typecho程序。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/serverless-typecho-time.jpg" alt="网页各个页面加载时间情况"></p><p>压测结束后，我再次打开这些页面，发生时间还更慢了，好几次加载的第一页都超过了3s。不过，这一切的前提，都是在我用的其他区域的数据库所测试的结果。</p><p>我的阿里函数计算是上海区域，我的数据库是在北京区域，同时上面还部署有其他站点，这或多或少也会影响点，再看上面教程给了demo的速度也是在1.5s左右。<strong>已经验证出结果了，确实我的跨区域数据库影响甚大，采用下面的SQLite时间还短些</strong>。没具体测试，看浏览器的热启动时间有时候可以不到1s了。</p><p>另外，还可以去函数计算的日志中看调用的情况。日志默认开通，但需配置日志仓库和工程，并且授权函数计算写日志的权限。最好了解下日志服务，虽然有免费额度，但是不多，超出部分则收取费用。</p><p>为了缩小误差，我又特意安装了使用了<code>SQLite3</code>的数据库安装Typecho，结果出乎我意料，冷启动时间不到6秒，而WordPress默认设置是12秒以上，甚至是15秒，热启动的时间基本在200~400毫秒左右，其余都一样，只有数据库不一样。</p><p>而后又把WordPress安装到Serverless上，用的是MySQL数据库，发现结果并没有比Typecho用MySQL数据库慢，甚至还要快一丢丢，这超出了我的能力范围，我无法解释，只能称之为玄学。</p><h3 id="SQLite3数据库安装"><a href="#SQLite3数据库安装" class="headerlink" title="SQLite3数据库安装"></a>SQLite3数据库安装</h3><p>如果<code>MySQL</code>数据库的方式你安装成功了，那么<code>SQLite3</code>则还需要PHP环境，而用SQLite3的好处是，不需要你另外花钱购买数据库了，如果你之前没有数据库，而一直都是用着静态网站的话。</p><p><code>Sqlite3</code>数据库是同博客程序安装到<code>NAS文件存储</code>上的，相当于网站和数据库直接是本地通信，能减少访问数据库时间。不过Sqlite没办法做多并发写入，多并发读取倒不是什么问题，因此对于个人博客完全不用担心。</p><p>首先你的系统需要PHP环境，到<code>https://windows.php.net/download/</code>下载，选择<code>Thread Safe</code>下的ZIP下载即可。然后解压到某个目录，配置Path项的环境变量，把路径指向为你的PHP所在目录，重新打开命令窗口执行<code>php -v</code>即可看到php的版本号。</p><p>在php的文件夹下，复制一份<code>php.ini-development</code>文件重命名为<code>php.ini</code>，记事本打开配置它。</p><p>搜索<code>extension_dir</code>，把<code>;extension_dir = &quot;./&quot;</code>改为<code>extension_dir = &quot;./ext&quot;</code>即可，注意<code>;</code>表示注释，得去掉。</p><p>搜索<code>extension=pdo_sqlite</code>，去掉注释。</p><p>其余参考开头的那篇教程即可，仅适用于WordPress安装，若要用SQLite3安装typecho则需自己改造。</p><p>还是简单说一下我的改造过程吧，把Typecho的文件替换掉WordPress的文件，这一步跟前面用MySQL安装Typecho是一样的，修改hosts文件，暂时把自定义域名指向<code>127.0.0.1</code>，然后进到<code>fc-web-sqlite\.fun\nas\auto-default\fc-wp-sqlite\wordpress</code>目录下执行<code>php -S 0.0.0.0:80</code>命令本地安装好typecho和SQLite3数据库的链接，完成后在<code>usr</code>文件夹下看到一个<code>.db</code>的数据库文件，我这里的名字为<code>my0908.db</code>,回到上一级目录打开<code>config.inc.php</code>文件，找到<code>定义数据库参数</code>这一段，可以看到它指向的数据库路径，我这里把它改为<code>  &#39;file&#39; =&gt; &#39;../usr/my0908.db&#39;,</code>。（为了安全，我建议把文件名弄长一些）</p><p>在复制一份<code>config.inc.php</code>文件改名为<code>config.inc-sqlite3.php</code>，打开它，把数据库的指向路径修改为<code>  &#39;file&#39; =&gt; &#39;./usr/0908.db&#39;,</code>，跟前面的相比少了个点号。</p><p>在打开<code>index.php</code>文件把<code>config.inc.php</code>替换为<code>config.inc-sqlite3.php</code>即可完成改造。</p><p>因为数据库在本地，路径只能是相对的，而相对的位置又不一样，只好通此种办法巧妙解决。或者获取NAS上的绝对路径填写，就不用如此修改。对于SQLite3数据库的管理和查看，推荐这个可视化工具<a href="http://www.sqlitebrowser.org/">DB Browser for SQLite</a></p><h3 id="Fun工具命令"><a href="#Fun工具命令" class="headerlink" title="Fun工具命令"></a>Fun工具命令</h3><p>查看NAS上的文件<code>fun nas ls -a nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas ls -a nas://fc-wp-mysql/mnt/auto/wordpress</code> 可查看WordPress文件夹下的文件，用这个<code>fun nas ls -a nas:///mnt/auto/wordpress</code>也行。</p><p>删除NAS上的文件<code>fun nas rm -r nas://你的服务名/服务中的本地路径</code>，比如<code>fun nas rm -r nas://fc-wp-mysql/mnt/auto/wordpress/wp-content/themes/twentynineteen</code>删除WordPress自带的一个主题</p><p>复制文件<code>fun nas cp nas:///mnt/auto/wordpress/robots.txt D:\</code> 复制NAS的文件到本地的D盘，反之<code>fun nas cp D:\robots.txt nas:///mnt/auto/wordpress/</code>则是复制robots.txt文件到NAS的WordPress文件夹下，然后可通过上面的命令查看即可。复制文件夹上传加上参数<code>-r</code>就好。</p><h3 id="自动部署WordPress到Serverless"><a href="#自动部署WordPress到Serverless" class="headerlink" title="自动部署WordPress到Serverless"></a>自动部署WordPress到Serverless</h3><p>如果觉得上面的还是有难度，那么进入阿里云的函数计算中的应用中心，选择创建应用模板，找到<code>无服务器 WordPress 网站</code>这一项开始创建，为了确保一次性搞定，你得预先把域名CANME解析到函数计算域名上，参见《<a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html#toc-heading-2">配置.env文件</a>》这里的域名解析，然后点击部署即可。成功后，浏览器上输入你绑定的域名即可安装WordPress程序。</p><p>跟手动相比，没办法用SQLite3数据库，没办法用Typecho博客，不过通过挂载NAS替换相应的文件应该也可以做到这些，但这跟手动相比又有何区别呢？</p><p>如果不想用了，删除应用，删除时间长达1小时左右。虽然慢点，但是很安心，会自动删除VPC，NAS，还有ECS下的安全组列。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网站 </tag>
+            
+            <tag> 备案 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</title>
+      <link href="/post/github-coding-ci-cd-hexo-cdn.html"/>
+      <url>/post/github-coding-ci-cd-hexo-cdn.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="网站优化"><a href="#网站优化" class="headerlink" title="网站优化"></a>网站优化</h3><p>国内和国外隔着一堵墙，无论如何你都没办法快速绕过它。对于我来说，在域名没有备案的情况下，本站算是差不多已经优化到极限了。</p><p>但就在刚刚，我的移动数据流量打开加载十余秒，差不多算是超时了，要彻底解决这个问题，只有备案，无其他路可走。</p><p>好在，同之前相比，速度已经有了明显提升，也总算没白费这个折腾劲儿。有一点感受是对网站理解又稍微深刻了些许。</p><h4 id="CDN加速"><a href="#CDN加速" class="headerlink" title="CDN加速"></a>CDN加速</h4><p>比如，之前在CDN中有CORS（跨域请求）这一项不理解，当然现在也不是很理解，至少知道如果没有正确配置它，会导致类似于字体文件这类资源没办法在浏览器上正常加载。</p><p>尽管状态码为200，但资源大小确实零字节，后面设置了后才得以解决。之前没有遇到这个情况，所以也就不知道具体有什么用，反正没设置也能用。</p><p>既然谈到了CDN，那么就在谈谈CDN中的回源，源站等问题。比如我的网站主域名为<code>www.tangruiping.com</code>，不带<code>www</code>的<code>tangruiping.com</code>做301跳转到带<code>www</code>的。</p><p>现在我的网站是纯静态站点，原来是托管在<code>Github Pages</code>，但因为访问较慢，我接入CDN来为其加速。原来的访问过程是<code>用户→www.tangruiping.com→Github pages</code>，接入了CDN后就变成<code>用户→www.tangruiping.com→CDN→Github pages</code>。</p><p>那么此时，我的源站地址则为<code>Github Pages</code>地址，回源Host则是<code>www.tangruiping.com</code>。而CDN中常说的加速域名，就是<code>www.tangruiping.com</code>。而<code>源站地址</code>一定不能和<code>加速域名</code>相同，而<code>加速域名</code>可以和<code>回源Host</code>一样。</p><h4 id="CDN前端库"><a href="#CDN前端库" class="headerlink" title="CDN前端库"></a>CDN前端库</h4><p>因为是静态网站，很多的<code>css样式</code>，<code>js脚本</code>，字体等都可以走CDN，本质上跟前面说的CDN加速没啥区别性。</p><p>不同的是，前面的CDN加速需要自己把静态资源传入到对象存储也好，或者其他地方也好，在接入CDN加速。而CDN前端库则是自带有很多这样的资源，直接调用即可。</p><p>一来不需要你备案域名，二来还是免费使用，不用担心被人恶意刷流量等问题。当然即便是没有备案，还是可以通过云服务商自带的域名实行加速，目前阿里腾讯是提供域名。七牛则是默认30天回收，管它叫测试域名。又拍云则没有，其他云没用过。</p><p>百度的前端公共库现已关闭，腾讯的资源少之又少，又拍云的老之又老，好像没有听过阿里有前端公共库，不过阿里持有七牛股份，勉强算阿里的吧。</p><p>360有个由奇舞团主导的，还有个bootcdn的，相比之下，360略胜。不过360的前端公共库也是几经曲折，而bootcdn的有时候我这边加载贼慢。字节跳动也有个前端库，现把他们都列入下表。</p><table><thead><tr><th>七牛</th><th>网址</th></tr></thead><tbody><tr><td>七牛</td><td><a href="https://www.staticfile.org/">https://www.staticfile.org/</a></td></tr><tr><td>字节跳动</td><td><a href="https://cdn.bytedance.com/">https://cdn.bytedance.com/</a></td></tr><tr><td>360</td><td><a href="https://cdn.baomitu.com/">https://cdn.baomitu.com</a></td></tr><tr><td>Bootcdn</td><td><a href="https://cdn.bootcdn.net/">https://cdn.bootcdn.net</a></td></tr></tbody></table><p>以上这几个前端库还是比较全的，推荐顺序也是从上到下。还有一个要单独拿出来说，那就是真正能做到全球都有节点的<a href="https://cdn.jsdelivr.net/">jsdelivr</a>， 我不知道如何给它排名，因为很多人有点滥用，比如用它给Github加速。（跟jsdelivr相似的还有<code>statically.io</code>）</p><p>还可以用它加速存储在Github上的图片，文件等。不知道今后会不会被墙，尽管在国内是有正规的ICP备案。当然它也有加载不了的时候，这个时候，怎么办？</p><h3 id="coding持续集成github持续部署"><a href="#coding持续集成github持续部署" class="headerlink" title="coding持续集成github持续部署"></a>coding持续集成github持续部署</h3><p>对于网站的更新，我目前采用两个更新点，一个是Hexo本地处理好后通过git push到coding，让coding-ci到github pages上，再由Netlify和Vercel自动导入他们的站点进行多站点部署。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/website-process.jpg" alt="本站流程"></p><p>如图所示，还可以直接在语雀上更新文章使得自动部署到hexo博客，具体可以参见《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p><p>但我不习惯这样更新，另外也可以在coding上自动处理好hexo项目，然后输出到coding pages仓库，再一次持续集成后推送到github pages仓库，这样做跟前面直接把hexo源码推送到github 私有仓库通过github actions功能推送到github pages是一样的。</p><p>不过一个是由github来完成，一个是由coding来完成，而这样一来反而多消耗了一次持续集成的次数，每周200次的额度，折算一半还有100次，也足够用了，但觉得没必要如此。</p><p>所以我采用的还是图中前面两个方案，既然是此方案，那么我就可以稍微做点差异化的处理。比如在主题目录下的_config.yml配置文件中，本地的用jsdelivr前端库，coding上的用七牛前端库，这样既可做到在不同地方更新，生成后的网站加载的前端资源是不一样的。</p><p>缺点是文章之间可能需要手动同步一下，不然会不一致，不过影响也不是很大，像这几天每天一篇文章的更新频率，那是几乎没有的事儿。</p><p>如果想了解本地Hexo处理好后让coding自动推送到Github的可以参见《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》这篇文章。</p><p>如果想让coding处理好hexo项目可参见《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》，再结合前面的《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》即可搞定。</p><p>如果觉得Coding额度不够用，想试试<code>Github Actions</code>每月2000分钟的额度，或想体验一下Github的持续集成可参考《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p><p>要真折算成分钟，Coding每周200次，每次最大时长30分钟，折算下来一个月最高是24000分钟，但问题是hexo所需时长不多，按次数计算则不如<code>Github Actions</code>了。</p><p>如果不用github做后台更新文章，或者也不想用coding为后台更新文章，就习惯语雀优良的Markdown书写体验，则可以试试《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》</p><h3 id="多解析路线"><a href="#多解析路线" class="headerlink" title="多解析路线"></a>多解析路线</h3><p>不管从哪里做入口，最终都汇聚到<code>Github Pages</code>上，但有比Github访问速度更好的静态站点，肯定要试试咯。因此使用<code>Netlify</code>和<code>Vercel</code>做补充，然后顺带也把<code>CloudFlare</code>上。Netlify自动部署github pages比较简单，其中Netlify的注意事项和Vercel (zeit now)的项目导入可参考《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》</p><p>如此一来，那么则有Coding Pages，Github Pages，Netlify，Vercel四个站点，而CDN路线则有CloudFlare和腾讯云做备用路线，其中Netlify，Vercel也自带CDN节点的。另2个备用CDN线路，可以把上面四个站点作为源站。Coding是被腾讯收购了，用的都是腾讯云的服务器，因此腾讯云的CDN可设置为coding pages为源站，另外腾讯云CDN还支持备用线路，可在Netlify，Vercel中选取一个即可。不过如果用<code>Coding pages</code>的话，注意选取图中的方案1和方案4，不然是不会在<code>Coding pages</code>上有文件生成的。</p><p>在《<a href="https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html">CloudFlare CDN GitHub Pages</a>》中说过，CF是可以采用CANME解析的，而不必NS解析，因此用国内的DNS解析即可，则可以把移动路线，电信路线，联通路线分别解析到不同的站点，至于如何解析，则需要用网站测速工具测试一下做个参考。</p><p>比如本站目前电信路线走的是Vercel，联通路线走的是Github Pages，移动路线走的是Netlify，搜索引擎路线则自己考虑，如果过于分散，可以不便于<code>Let&#39;s Encrypt</code>的续期。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> CDN </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Coding持续集成自动部署Hexo博客</title>
+      <link href="/post/coding-ci-hexo.html"/>
+      <url>/post/coding-ci-hexo.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="流程介绍"><a href="#流程介绍" class="headerlink" title="流程介绍"></a>流程介绍</h3><p>前面写了一篇文章《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》，是可以通过Github本身自带的持续集成功能来处理hexo项目，从而免去了在本地执行这项操作，只需要在Github上编写Markdown文档即可实现自动部署到hexo博客。</p><p>这篇文章也是这个思路，但用的是coding自带的持续集成功能，那么跟《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》有什么区别呢？</p><p>区别还是有的，《Coding持续集成自动同步到GitHub》这篇文章用的还是需要在本地执行<code>hexo g</code>命令生成好后，再通过<code>git push</code>到<code>Coding Pages</code>仓库，从而触发coding的持续集成自动同步到<code>Github Pages</code>仓库。</p><p>这样，既可以通过coding的持续集成推送到coding pages仓库，再次触发coding pages的文件自动同步到github pages，就能做到一次更新完成两个<code>节点</code>的部署。</p><h3 id="coding申请与创建"><a href="#coding申请与创建" class="headerlink" title="coding申请与创建"></a>coding申请与创建</h3><p>首先注册coding，需要验证你手机号，这点没有github方便。然后新建一个项目，选择项目模板为代码托管项目即可。</p><p>项目名称随意，项目标志我这里命名为<code>hexo-blog</code>，这个用来存放<code>hexo g</code>后生成的静态网页文件，如果你已经有了，则不需要再创建。</p><p>然后点击代码仓库，快速初始化仓库，勾选<code>启用README.md文件初始化仓库</code>后进行初始化。点击<code>代码仓库</code>默认的就是你刚创建的这个仓库，点击右边靠上的<code>克隆</code>记下你的地址，后面repo的时候会用到。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/coding-create.jpg" alt="coding新建仓库"></p><p>同样再次<code>新建代码仓库</code>，不需要新建项目了，仓库名称我这里为<code>hexo-source</code>，仓库类型为<code>GIT仓库</code>，勾选<code>启用 README.md 文件初始化项目</code>确认完成，这个是用来存放hexo的源文件，比如博客主题之类的hexo必须文件。</p><p>再次找到项目下的<code>项目设置</code>，在左下角，点击进入<code>项目与成员</code>→<code>功能开关</code> ,全部都开启它，在继续点击左侧的<code>开发者选项</code>→<code>项目令牌</code>→<code>新建项目令牌</code>，令牌名称自己填写，过期时间自己酌情选择。</p><p>在代码仓库权限中为<code>hexo-blog</code>勾选<code>读写.推送至代码仓库</code>权限后新建令牌。记下令牌的<code>用户名</code>和<code>密码</code>。</p><h3 id="上传代码"><a href="#上传代码" class="headerlink" title="上传代码"></a>上传代码</h3><p>将Hexo源文件传入到<code>hexo-source</code>仓库，源文件有如下文件和文件夹：</p><ul><li>scaffolds文件夹</li><li>source文件夹</li><li>themes文件夹</li><li>_config.yml</li><li>package.json</li><li>package-lock.json</li></ul><h3 id="配置coding持续集成-方案1"><a href="#配置coding持续集成-方案1" class="headerlink" title="配置coding持续集成-方案1"></a>配置coding持续集成-方案1</h3><p>配置<code>_config.yml</code>文件，也可以先配置好在上传，也可以在coding上修改。</p><pre><code class="yaml">deploy:  type: git  repo: https://令牌用户名:访问令牌@e.coding.net/coding用户名/hexo-blog/hexo-blog.git  branch: master</code></pre><p>其中<code>e.coding.net/coding用户名/hexo-blog/hexo-blog.git</code> 就是上面申请hexo-blog仓库克隆中的地址，不过这里去掉<code>https://</code>加到@后面即可。</p><p>点击<code>持续集成</code>→<code>构建计划</code>→<code>自定义构建过程</code>，代码仓库选择<code>hexo-source</code>确定后，进入配置流程，选择<code>文本编辑器</code>贴入下面代码。此时，你在<code>hexo-source</code>更新文章会进行持续构建，然后push至<code>hexo-blog</code>仓库。代码如有复制不便，移步到 <code>https://gitee.com/ct2/web/blob/master/coding-ci-hexo.md</code> </p><pre><code>pipeline &#123;agent anystages &#123;    stage(&#39;检出&#39;) &#123;      steps &#123;        checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]],                                            userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])      &#125;    &#125;    stage(&#39;构建&#39;) &#123;      steps &#123;        echo &#39;构建中...&#39;        sh &#39;node -v&#39;        sh &#39;npm install -g hexo-cli&#39;        sh &#39;npm install hexo --save&#39;        sh &#39;npm install -g hexo-generator-searchdb&#39;        sh &#39;npm install -g&#39;        echo &#39;构建完成.&#39;      &#125;    &#125;    stage(&#39;测试&#39;) &#123;      steps &#123;        echo &#39;单元测试中...&#39;        sh &#39;hexo clean&#39;        sh &#39;hexo g &#39;        echo &#39;单元测试完成.&#39;      &#125;    &#125;    stage(&#39;部署&#39;) &#123;      steps &#123;        echo &#39;部署中...&#39;        sh &#39;npm install hexo-deployer-git --save&#39;        sh &#39;hexo deploy&#39;        echo &#39;部署完成&#39;      &#125;    &#125;  &#125;&#125;</code></pre><h3 id="配置coding持续集成-方案2"><a href="#配置coding持续集成-方案2" class="headerlink" title="配置coding持续集成-方案2"></a>配置coding持续集成-方案2</h3><p>在《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html#toc-heading-4">配置coding持续集成-方案1</a>》中，缺点是token以明文形式在日志中输出，而coding是支持提供环境变量保密配置的。</p><p>过程如下，把下面代码替换上面中的代码，然后参考《<a href="https://www.tangruiping.com/post/coding-sync-github.html#toc-heading-2">Coding持续集成自动同步到GitHub</a>》中的 <code>配置Coding-Ci</code>这一小节，即可完成配置。</p><pre><code>pipeline &#123; agent &#123;   docker &#123;     image &#39;lenyuadmin/hexo&#39;   &#125; &#125; stages &#123;   stage(&#39;检出&#39;) &#123;     steps &#123;       checkout([$class: &#39;GitSCM&#39;, branches: [[name: env.GIT_BUILD_REF]], userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]])     &#125;   &#125;   stage(&#39;环境&#39;) &#123;     steps &#123;       echo &#39;构建中...&#39;       sh &#39;npm config set registry http://mirrors.cloud.tencent.com/npm/&#39;       sh &#39;npm install&#39;       sh &#39;hexo -v&#39;       echo &#39;构建完成.&#39;     &#125;   &#125;   stage(&#39;生产&#39;) &#123;     steps &#123;       echo &#39;生产中...&#39;       sh &#39;hexo clean&#39;       sh &#39;hexo g&#39;       echo &#39;生产完成.&#39;     &#125;   &#125;   stage(&#39;部署&#39;) &#123;     steps &#123;       echo &#39;部署中...&#39;       dir(path: &#39;public&#39;) &#123;         sh &#39;ls&#39;         sh &#39;git init&#39;         sh &#39;git config user.name $USER_NAME&#39;         sh &#39;git config user.email $USER_EMAIL&#39;         sh &#39;git add -A&#39;         sh &#39;git commit -m \&#39;init\&#39;&#39;         sh &#39;git push -u -f &quot;$USER_PROJECT&quot; master:master&#39;       &#125;       echo &#39;部署完成&#39;     &#125;   &#125; &#125;&#125;</code></pre><p>USER_NAME=填写你的名称；<br>USER_EMAIL=填写你的邮件；<br>USER_PROJECT=https://子账号名:子账号的密码@项目地址，其中就是方案1中<code>_config.yml</code>配置文件中的 <code>repo:</code>的地址 <code>https://令牌用户名:访问令牌@e.coding.net/coding用户名/hexo-blog/hexo-blog.git</code>,此时你还可以删除<code>_config.yml</code>配置中的repo等字段。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>语雀文章用Serverless自动部署到Hexo博客</title>
+      <link href="/post/yque-serverless-github-actions-hexo.html"/>
+      <url>/post/yque-serverless-github-actions-hexo.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="流程和概述"><a href="#流程和概述" class="headerlink" title="流程和概述"></a>流程和概述</h3><p>流程大概为： <code>语雀webhook→Serverless→Github Actions→Github Pages</code></p><p>本身用 <code>Github Actions→Github Pages</code> 即可完成在线更新文章，或者说通过Github网页写文章实现自动化部署到hexo静态博客。但习惯用语雀来记录笔记，或者有类似需求的，便可在语雀文档中写文章从而实现自动化部署到 <code>Github Pages</code>静态博客上。</p><h3 id="Serverless配置"><a href="#Serverless配置" class="headerlink" title="Serverless配置"></a>Serverless配置</h3><ul><li>你得先有腾讯云或者阿里云账户，没有注册的话，这些注册需要验证手机，甚至实名认证。这里以腾讯云为例，在腾讯云中开通<code>Serverless</code>（无服务架构），有叫函数计算，有叫云函数，总之都围绕它展开做的产品。</li><li>新建云函数，函数名称自己随意，运行环境 <code>Python2.7</code> 创建方式 <code>空白函数</code> ，点击高级设置，启用 <code>运行角色</code> 为 <code>SCF_QcsRole</code> </li><li>点击完成后，在 <code>函数代码→函数管理</code> 复制如下代码做相应修改，没有Github账户或者私有仓库待会创建后来修改也可以。</li></ul><blockquote><p>先去登录 GitHub，定位到如此网址 <code>https://github.com/settings/profile</code> ，点击 Developer settings，新建一个token，然后勾选 repo后确定申请。或点击查看《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Github申请token</a>》，然后填写好。</p></blockquote><p>下面所有代码都可在 <code>https://gitee.com/ct2/web/blob/master/yque-serverless-github-actions-hexo.md</code>中，更便于复制。</p><pre><code class="python"># -*- coding: utf8 -*-import requestsdef main_handler(event, context):    r = requests.post(&quot;https://api.github.com/repos/用户名/私有仓库名/dispatches&quot;,    json = &#123;&quot;event_type&quot;: &quot;start&quot;&#125;,    headers = &#123;&quot;User-Agent&quot;:&#39;curl/7.52.1&#39;,              &#39;Content-Type&#39;: &#39;application/json&#39;,              &#39;Accept&#39;: &#39;application/vnd.github.everest-preview+json&#39;,              &#39;Authorization&#39;: &#39;token Github访问Token&#39;&#125;)    if r.status_code == 204:        return &quot;This&#39;s OK!&quot;    else:        return r.status_code</code></pre><ul><li><p>特别注意的是 <code>&#39;Authorization&#39;: &#39;token bc9aa5a5dfa324545007eab6c1865d&#39;</code> 这样形式存在的。</p></li><li><p>触发方式如下，没有可以在触发管理中新建触发管理。</p></li><li><ul><li>触发方式：API 网关触发器</li><li>API 服务类型：新建 API 服务</li><li>API 服务：SCF_API_SERVICE</li><li>请求方法：ANY</li><li>发布环境：发布</li><li>鉴权方法：免鉴权</li><li>启动集成响应：未启用</li></ul></li><li><p>在 <code>触发管理</code> 中能看到访问路径，记下这个访问路径，我们要写入语雀中去</p></li></ul><h3 id="语雀配置"><a href="#语雀配置" class="headerlink" title="语雀配置"></a>语雀配置</h3><ul><li>没有账户点击这里<a href="https://www.yuque.com/login?platform=wechat&inviteToken=d250cce7a9bfb322880f20b1d1c4cdc4cbb69ea97c42f510d2ad4c28a19e0be5">申请语雀</a>账户，注册成功后在知识库中新建一个知识库，权限选择互联网可见，知识库名称自己命名，比如我这里为 <code>tohexo</code></li><li>然后点击右上角头像设置刚新建的知识库，在知识库信息中便可修改路径，比如我的全路径为  <code>https://www.yuque.com/ccne2020/hexoblog</code> 留意下这个链接，待会后面会取用这个链接中的相关信息。</li><li>在知识库的开发者中，网页路径为 <code>https://www.yuque.com/你的语雀用户名/知识库用户名/settings/webhooks</code>  填入上面云函数的访问路径，名称自己写，然后把 <code>仅主动推送更新触发</code> ， <code>发布文档</code> ， <code>更新文档</code> ， <code>删除文档</code> 都勾选上点击添加</li><li>在点击右上角头像，点击 <code>个人设置</code>→ <code>token</code> → <code>新建</code> ，用途自己填写，这里勾选 <code>读取你的知识库</code> <code>读取你的文档</code> 后创建，记下这串token，后面要填写在Github私有仓库中。</li><li>因为要用到 <code>yuque-hexo</code> 插件，因此不妨在本地执行以下 <code>npm install yuque-hexo --save</code> 好让hexo的 <code>package.json</code> 中写有 <code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code> 这样的字段。</li><li>用记事本打开<code>package.json</code>文件，可以在<code>  &quot;dependencies&quot;:</code> 字段中看到<code>&quot;yuque-hexo&quot;: &quot;^1.6.5&quot;</code></li><li>接着配置如下代码</li></ul><pre><code class="yaml">&quot;yuqueConfig&quot;: &#123;    &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;,    &quot;login&quot;: &quot;你的语雀名，我这里的是ccne2020&quot;,    &quot;repo&quot;: &quot;你的语雀知识库名，我这里的是hexoblog&quot;,    &quot;mdNameFormat&quot;: &quot;title&quot;,    &quot;postPath&quot;: &quot;source/_posts/yuque&quot;,    &quot;onlyPublished&quot;: false  &#125;,</code></pre><ul><li>着在 <code> &quot;scripts&quot;:</code> 字段下加入如下代码</li></ul><pre><code class="yaml">  &quot;start&quot;: &quot;yuque-hexo clean &amp;&amp; yuque-hexo sync &amp;&amp; hexo clean &amp;&amp; hexo generate&quot;,</code></pre><ul><li>下面开始百度搜索 <code>json在线检查</code> 找一个检查json的网站打开，复制你文件的内容检查一遍看看能不能通过，能通过才可以用。</li><li>如果你的知识库中没有文章的话，这是可以先发一篇文章。我的整个 <code>package.json</code> 文件内容如下：</li></ul><pre><code class="yaml">&#123;  &quot;name&quot;: &quot;hexo-site&quot;,  &quot;version&quot;: &quot;0.0.0&quot;,  &quot;private&quot;: true,  &quot;scripts&quot;: &#123;    &quot;start&quot;: &quot;yuque-hexo clean &amp;&amp; yuque-hexo sync &amp;&amp; hexo clean &amp;&amp; hexo generate&quot;,    &quot;build&quot;: &quot;hexo generate&quot;,    &quot;clean&quot;: &quot;hexo clean&quot;,    &quot;deploy&quot;: &quot;hexo deploy&quot;,    &quot;server&quot;: &quot;hexo server&quot;  &#125;,&quot;yuqueConfig&quot;: &#123;    &quot;baseUrl&quot;: &quot;https://www.yuque.com/api/v2&quot;,    &quot;login&quot;: &quot;ccne2020&quot;,    &quot;repo&quot;: &quot;hexoblog&quot;,    &quot;mdNameFormat&quot;: &quot;title&quot;,    &quot;postPath&quot;: &quot;source/_posts/yuque&quot;,    &quot;onlyPublished&quot;: false  &#125;,  &quot;hexo&quot;: &#123;    &quot;version&quot;: &quot;4.2.1&quot;  &#125;,  &quot;dependencies&quot;: &#123;    &quot;hexo&quot;: &quot;^4.2.1&quot;,    &quot;hexo-autonofollow&quot;: &quot;^1.0.1&quot;,    &quot;hexo-deployer-git&quot;: &quot;^2.1.0&quot;,    &quot;hexo-generator-archive&quot;: &quot;^1.0.0&quot;,    &quot;hexo-generator-category&quot;: &quot;^1.0.0&quot;,    &quot;hexo-generator-index&quot;: &quot;^1.0.0&quot;,    &quot;hexo-generator-search&quot;: &quot;^2.4.0&quot;,    &quot;hexo-generator-tag&quot;: &quot;^1.0.0&quot;,    &quot;hexo-renderer-ejs&quot;: &quot;^1.0.0&quot;,    &quot;hexo-renderer-marked&quot;: &quot;^3.0.0&quot;,    &quot;hexo-renderer-stylus&quot;: &quot;^1.1.0&quot;,    &quot;hexo-server&quot;: &quot;^1.0.0&quot;,    &quot;hexo-wordcount&quot;: &quot;^6.0.1&quot;,    &quot;yuque-hexo&quot;: &quot;^1.6.5&quot;  &#125;,  &quot;devDependencies&quot;: &#123;    &quot;hexo-generator-baidu-sitemap&quot;: &quot;^0.1.9&quot;,    &quot;hexo-generator-sitemap&quot;: &quot;^2.0.0&quot;  &#125;&#125;</code></pre><h3 id="Github-Pages配置"><a href="#Github-Pages配置" class="headerlink" title="Github Pages配置"></a>Github Pages配置</h3><ul><li>按理说，你应该具备此仓库，并且已经存放了hexo网站文件，如果没有，那么则创建一个以 <code>你的github用户名.github.io</code> 的公开仓库即可。</li><li>下面打开git，没有的话去官网下载一个 <code>https://git-scm.com/downloads</code> ，可参见《<a href="https://www.tangruiping.com/post/github-actions-hexo.html#toc-heading-4">Github Actions自动部署Hexo博客</a>》中的 <code>密钥生成</code> 这一小节。</li><li>git执行 <code>ssh-keygen -f YUQUE_GIT_HEXO</code> 一路回车即可得到两个文件</li><li>打开此仓库的<code>Settings→Deploy keys→Add deploy key</code> ，Title字段填写 <code>YUQUE_GIT_HEXO.PUB</code> ，Key就把公钥，就是带.PUB后缀名的文件内容粘贴到此，同时一定要勾选 <code>Allow write access</code> </li><li>因为我这里是用网页上传来实现，需要手动这般操作。</li></ul><h3 id="Github-Private配置"><a href="#Github-Private配置" class="headerlink" title="Github Private配置"></a>Github Private配置</h3><ul><li><p>这个Github Private是你创建的一个私有库，用来存放hexo所需文件的仓库。</p></li><li><p>打开此仓库的<code>Settings→Secrets→New Secrets</code> ，这里的 <code>Name</code> 字段要填写为 <code>YUQUE_GIT_HEXO</code> ， <code>Value</code> 字段填写前面生成的 <code>YUQUE_GIT_HEXO</code> 文件中的内容。</p></li><li><p>还记得语雀配置中的token吗？现在也重复上述操，而这里的<code>Name</code> 字段填写为<code>YQ_TOKEN</code> 如果你填写的不是这个值，那么请在Github Actions的脚本代码做修改。</p></li><li><p>然后上传hexo所需文件，直接用网页上传亦可，文件有如下：</p></li><li><ul><li>scaffolds文件夹</li><li>source文件夹</li><li>theme文件夹</li><li>_config.yml</li><li>package.json</li><li>package-lock.json</li></ul></li></ul><h4 id="配置Github-Actions脚本"><a href="#配置Github-Actions脚本" class="headerlink" title="配置Github Actions脚本"></a>配置Github Actions脚本</h4><ul><li>在仓库中点击 <code>Actions--&gt;Set up a workflow yourself</code> 粘贴如下代码后做相应修改即可</li></ul><pre><code class="yaml"># workflow namename: Yuque To Github Pages# 当有 push 到仓库和外部触发的时候就运行on: [push, repository_dispatch]# YQ_TOKEN# YUQUE_GIT_HEXOjobs:  deploy:    name: Deploy Hexo Public To Pages    runs-on: ubuntu-latest    env:      TZ: Asia/Shanghai    steps:    # check it to your workflow can access it    # from: https://github.com/actions/checkout    - name: Checkout Repository master branch      uses: actions/checkout@master    # from: https://github.com/actions/setup-node    - name: Setup Node.js 10.x      uses: actions/setup-node@master      with:        node-version: &quot;10.x&quot;    # from https://github.com/x-cold/yuque-hexo    - name: Setup Hexo Dependencies and Generate Public Files      env:    # from: 这里的YUQUE_TOKEN: $不能随意改        YUQUE_TOKEN: $&#123;&#123; secrets.YQ_TOKEN &#125;&#125;      run: |        npm install hexo-cli -g        npm install yuque-hexo -g        npm install        npm run start    # from https://github.com/peaceiris/actions-gh-pages    - name: Deploy      uses: peaceiris/actions-gh-pages@v3      with:        deploy_key: $&#123;&#123; secrets.YUQUE_GIT_HEXO &#125;&#125;        external_repository: Github用户名/Pages仓库        publish_branch: master        publish_dir: ./public        commit_message: $&#123;&#123; github.event.head_commit.message &#125;&#125;</code></pre><p>最后在Serverless中点击测试，如果成功的话应该可以看到 <code>This&#39;s OK!</code>。在语雀中无论删除文章，更新文章，新发布文章，都一定要选择 <code>文档有较大更新，推送给关注知识库的人</code> 才能触发这系列操作。</p><p>针对语雀图片无法正常显示的解决办法，找到主题的 <code>layout</code> 文件夹中的 <code>post.ejs</code> 文件中加上一句 <code>&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot; /&gt;</code>可解决此问题。</p><h3 id="最后总结"><a href="#最后总结" class="headerlink" title="最后总结"></a>最后总结</h3><p>另外github actions可能对触发操作做了一定限制，因此不要频繁点击测试，可能会导致失败问题。我自己的感觉是前面我一分钟点击七八次都能通过测试，后面莫名其妙就失败了，猜想与此有关，然后过了几分钟再次点击，测试又通过。在一个我怀疑跟墙有关，反正很玄学。</p><p>现在可以尝试在语雀中发布一篇文章应该可以触发一系列操作。经过反复摸索和练习，终得以成功，但我好像并不喜欢这样的写作方式，可能是与我习惯有关吧！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Github Actions自动部署Hexo博客</title>
+      <link href="/post/github-actions-hexo.html"/>
+      <url>/post/github-actions-hexo.html</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>阅读此篇文章之前，需具备hexo本地环境的搭建，会用<code>git push</code>到Github Pages上使得静态网站可以访问这样的能力。</p></blockquote><p>同样，《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》还可以试试用Coding-Ci来做这个事情。</p><p> <code>Github Actions</code>做的事情，就是替代你之前在本地构建Hexo环境，并且每次更新还要git推送一次，而现在这一切都放到服务器端来处理，这使得你随时随地都可以发表博客文章，只要有设备能链接上Github即可。</p><p>而之前你不但要有链接的上的设备，还要有hexo的运行环境，如果在别的电脑来坐这个事情，那么过程必将是繁琐的，而且就算同步也不好使，因没法在移动端实现吧？</p><p>下面开始着手 <code>Github Actions</code>的实现，自己也折腾了许久才得以完成。</p><h3 id="安装hexo必要插件"><a href="#安装hexo必要插件" class="headerlink" title="安装hexo必要插件"></a>安装hexo必要插件</h3><p> <code>Github Actions</code>用的是deploy 方式，得先在本地安装一下此插件 <code>npm install hexo-deployer-git --save</code> </p><p>如果你还有其他的插件，一并安装，这些信息应该会更新到 <code>package.json</code> 和 <code>package-lock.json</code> 两文件，我之前失败可能是与此相关。如果有gulp这样的插件，可能还要写入部署配置文件中去 <code>deploy.yml</code></p><h3 id="配置-config-yaml"><a href="#配置-config-yaml" class="headerlink" title="配置_config.yaml"></a>配置_config.yaml</h3><p>在Hexo项目根目录配置文件 <code>_config.yaml</code>中加入如下代码配置，这个文件不是主题里面的那个，请注意。</p><pre><code>deploy: type: git repo: git@github.com:Github用户名/Github用户名.github.io.git branch: master</code></pre><h3 id="密钥生成和Github配置"><a href="#密钥生成和Github配置" class="headerlink" title="密钥生成和Github配置"></a>密钥生成和Github配置</h3><h4 id="密钥生成"><a href="#密钥生成" class="headerlink" title="密钥生成"></a>密钥生成</h4><p>用git命令生成公私秘钥 <code>ssh-keygen -f github-actions-key</code>如果你不知道密钥文件文件生成到哪里，可以用 <code>dir</code>命令回车看看当前目录存在哪些文件，或者 <code>cd /d/</code> 这样就进入D盘根目录，执行上述命令生成即可，一路回车到底<br>完事后应该可以看到一个不带后缀名的文件和一个带 <code>.pub</code> 后缀名的文件。</p><p>如果你严格执行了我上述命令，那么文件名分别是 <code>github-actions-key</code> 和 <code>github-actions-key.pub</code> 通常前者文件大于后者。</p><h4 id="Github配置"><a href="#Github配置" class="headerlink" title="Github配置"></a>Github配置</h4><p>先去github创建一个Private仓库，同时你已经有公开的github pages仓库，这种仓库一般是 <code>你的github用户名.github.io</code> 命名的，并且这个仓库已经存在问题，使得通过 <code>你的github用户名.github.io</code>可访问。</p><p>配置 <code>github-actions-key.pub</code>公钥，登录你的github，在右上角点击你的头像后，点击 <code>Settings–&gt;SSH and GPG keys</code> 把公钥文件的内容粘贴进去。</p><p>配置 <code>github-actions-key</code>私钥，找到你的Private仓库，在仓库中点击 <code>Settings-&gt;Secrets</code> 把私钥的内容添加进去，此时 <code>Name</code>中要严格填写 <code>HEXO_DEPLOY_PRIVATE_KEY</code> 否则就要修改 <code>deploy.yml</code> 相应代码。</p><p>文章中的 <code>–&gt;</code>表示下一步的意思。</p><h3 id="Github-Actions配置"><a href="#Github-Actions配置" class="headerlink" title="Github Actions配置"></a>Github Actions配置</h3><p> <code>Github Actions</code>是在你创建的Private仓库中，把hexo源文件传到此仓库，源文件有如下，当然你也可以试试网页版直接上传这些文件和文件夹。</p><ul><li>scaffolds文件夹</li><li>source文件夹</li><li>theme文件夹</li><li>_config.yml</li><li>package.json</li><li>package-lock.json</li></ul><p>最后在Private仓库点击 <code>Actions→set up a workflow yourself</code> 对下面的代码做相应修改，粘贴进去，文件名我命名为 <code>deploy.yml</code>然后提交，便会自动开始运行。<br>下面代码指定了时区，不然可能会导致你用今天的日期写一篇文章后，尽管自动更新了，文章依旧不发表的问题，因为默认的时区比我们这里慢上好几个小时。下面代码还可在这里查看，更易于复制 <code>https://gitee.com/ct2/web/blob/master/github-actions-hexo.md</code></p><pre><code># workflow namename: Hexo Github Actions# master branch on push, auto runon:push:  branches:    - masterjobs:build:  runs-on: ubuntu-latest  steps:    # check it to your workflow can access it    # from: https://github.com/actions/checkout    - name: Checkout Repository master branch      uses: actions/checkout@master    # from: https://github.com/actions/setup-node    - name: Setup Node.js 10.x      uses: actions/setup-node@master      with:        node-version: &quot;10.x&quot;    - name: Setup Hexo Dependencies      run: |        npm install hexo-cli -g        npm install    - name: Setup Deploy Private Key      env:        HEXO_DEPLOY_PRIVATE_KEY: $&#123;&#123; secrets.HEXO_DEPLOY_PRIVATE_KEY &#125;&#125;      run: |        sudo timedatectl set-timezone &quot;Asia/Shanghai&quot;        mkdir -p ~/.ssh/        echo &quot;$HEXO_DEPLOY_PRIVATE_KEY&quot; &gt; ~/.ssh/id_rsa         chmod 600 ~/.ssh/id_rsa        ssh-keyscan github.com &gt;&gt; ~/.ssh/known_hosts    - name: Setup Git Infomation      run: |        git config --global user.name &#39;Github用户名&#39;         git config --global user.email &#39;Github注册邮箱&#39;    - name: Deploy Hexo      run: |        hexo clean        hexo generate         hexo deploy</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Vercel Zeit now自动部署Github为hexo博客加速</title>
+      <link href="/post/zeit-github-pages-hexo-sync.html"/>
+      <url>/post/zeit-github-pages-hexo-sync.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="Zeit-Github-Cloudflare-Netlify速度对比"><a href="#Zeit-Github-Cloudflare-Netlify速度对比" class="headerlink" title="Zeit Github Cloudflare Netlify速度对比"></a>Zeit Github Cloudflare Netlify速度对比</h3><p> <code>Zeit now</code>不知道什么时候改名为 <code>Vercel</code>了，又好像被收购了。今下午发现 <code>zeit</code>的访问速度不错，故此跃跃欲试，看看能不能再次为博客提速。</p><p>毕竟在墙外，想要让博客有好的访问速度，还是很难的，国内网络环境特别复杂。这几天用网站测速工具看了看，发现移动线路并不是很理想，差不多一片红。</p><p>尽管采用了优化线路的 <code>cloudflare</code>，移动访问速度依旧不是很理想，特别是到了晚上。于是就把 <code>netlify</code>也用了起来，因为印象中对 <code>netlify</code>一直不是很好，一年多前用着就感觉不如不如 <code>Github</code>，可能那时候我是联通网络的缘故吧，昨天才是发现 <code>netlify</code>移动网络挺不错的。</p><p>下面两图是两个不同网站对移动线路的测试图，做对比的默认走的是 <code>cloudflare</code>未经优化的网络，可见相比之下， <code>netlify</code>目前在国内的移动网络访问速度还是不错的。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/yd-netlify-cloudflare-ce8.jpg" alt="移动netlify-cloudflare_ce8"></p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/yd-netlify-cloudflare-boce.jpg" alt="移动netlify-cloudflare_boce"></p><p>同样，跟 <code>Vercel</code>或者说 <code>zeit</code>对比， <code>netlify</code>也很给力，如下图。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/yd-netlify-zeit-ce8.jpg" alt="移动netlify-zeit_ce8"></p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/yd-netlify-zeit-boce.jpg" alt="移动netlify-zeit_boce"></p><p>需要说明的是这个测速，只能当做参考，哪怕过几分钟测试，就会有很大出入。比如上图boce网站测的移动netlify平均不到1s，但过一分钟再次测试，可能就达到了7s，经过自己多次对测试， <code>netlify&gt;zeit&gt;cloudflare</code>，但没有找到好的线路来优化 <code>cloudflare</code>，故此这里是未优化的 <code>cloudflare</code>。</p><p>电信网络就稍好些，自己多次对比发现， <code>zeit&gt;cloudflare</code>，这里的 <code>cloudflare</code>是特挑的优化线路。联通的情况是 <code>zeit稍好于Github pages&gt;cloudflare</code>，而联通的 <code>cloudflare</code>线路跟电信的一样。</p><h3 id="Vercel-自动部署-Github-pages"><a href="#Vercel-自动部署-Github-pages" class="headerlink" title="Vercel 自动部署 Github pages"></a>Vercel 自动部署 Github pages</h3><p> <code>Vercel</code> 可以通过 <code>Github</code>账户登录或者直接用邮箱验证登录，似乎不同于普通网站的账户密码登录。步骤也算简单，跟netlify差不多，直接导入你的 <code>Github pages</code>仓库即可，不需要选择模板导入。</p><p>在导入的过程中，需要注意一点，默认选择其他即可，不要选择 <code>hexo</code>，如果你的<code>hexo</code>没有在电脑端生成好的话，想在云端生成，才应选 <code>hexo</code>。如果这样，那么你应该导入的是<code>hexo</code>的主题等文件。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/vercel-project.jpg" alt="vercel-project"></p><p>我最开始看到有 <code>hexo</code>选项就直接选择了，结果总是不成功，后面删除重新选择其他即可，因为我的站点是在本地生成好了，然后通过coding持续集成到 <code>Github</code>仓库。</p><p>然后可绑定自定义域名，建议用 <code>CNAME</code>解析就好，不需要NS接入，解析好后会 <code>Vercel</code>会自动申请 <code>Let&#39;s Encrypt</code>证书，为了能够确保成功申请，一定要选择默认解析，而不要用其他的如境外解析路线。</p><p>最终搞定后，发现有几个页面点击访问出现404，心里有点失落，电信路线极为优秀的 <code>zeit now</code>，为何会出现404，其他的倒也没有问题。</p><p>我第一反应是缓存问题，但 <code>zeit now</code>尽管有 <code>CDN节点</code>，但缓存也不是我们可以控制的。因为有很多奇怪的问题，都是 <code>CDN缓存</code>引起的。</p><p>最终还是解决了这个问题，问题出现在文件名的大小写问题上。我昨天为了优化<code>hexo</code>博客，发现如果网址 URL中带有大写的名称，在访问的时候会进行一次301重定向，这无疑也增加了一点时间。</p><p>于是我就把文件名改为小写，结果在 <code>Github</code> pages仓库中，文件名还是以 <code>Cloudflare-CDN-Github-Pages.html</code>这样的形式存在，但主页的 <code>index.html</code>文件中的路径却是 <code>https://www.tangruiping.com/post/cloudflare-cdn-github-pages.html</code>这样的链接存在的，结果点击此页面就出现404了。</p><p>前面我还以为是不是文件名路径太长所致，后面发现有更长的文件名都可以正常访问，自然就不存在这个问题。所以想到是不是 <code>Github</code>仓库的文件出现了什么问题，但 <code>netlify</code>也是用的 <code>Github pages</code>，后面发现居然是文件名大小写问题导致的404。</p><p>8月27号再补充一点，Vercel有时候会罢工，表现为在Github上更新了，而Vercel不会更新，没有任何动静，刚好用了一个月时间，碰到过2次还是3次这种情况了，只需要等上一段时间再更新Github，Vercel就正常更新了。</p><h3 id="为Vercel和netlify自定义404页面"><a href="#为Vercel和netlify自定义404页面" class="headerlink" title="为Vercel和netlify自定义404页面"></a>为Vercel和netlify自定义404页面</h3><p>在主题文件夹下的 <code>\source</code>目录放置一个 <code>404.html</code>文件到此即可，最终执行 <code>hexo g</code>后在 <code>public</code>文件夹的根目录下存在 <code>404.html</code>文件即可。</p><p>根据我自己的测试，现在的Vercel不需要 <code>vercel.json</code>文件，之前的办法还是在主题文件夹下的 <code>\source</code>目录新建一个 <code>vercel.json</code>文件，代码如下，官网文档说明 <code>https://vercel.com/docs/configuration#routes/advanced/custom-404</code></p><pre><code>&#123; &quot;version&quot;: 2, &quot;routes&quot;: [   &#123; &quot;handle&quot;: &quot;filesystem&quot; &#125;,   &#123; &quot;src&quot;: &quot;/(.*)&quot;, &quot;status&quot;: 404, &quot;dest&quot;: &quot;/404.html&quot; &#125; ]&#125;</code></pre><h3 id="Netlify跳转到网站主页"><a href="#Netlify跳转到网站主页" class="headerlink" title="Netlify跳转到网站主页"></a>Netlify跳转到网站主页</h3><p>Netlify默认给一个二级域名，如xxx.netlify.app，直接访问此域名并不会跳转到你自定义的域名，因此需要新建一个 <code>netlify.toml</code> 文件，写上如下内容，放到网站根目录，或者放到 <code>themes\这里是主题名称\source</code>即可。</p><pre><code>[[redirects]]from = &quot;https://xxx.netlify.app/*&quot;to = &quot;https://www.tangruiping.com/:splat&quot;status = 301force = true[[redirects]]from = &quot;http://www.tangruiping.com/*&quot;to = &quot;https://www.tangruiping.com/:splat&quot;status = 301force = true</code></pre><p>最后这里提供Hexo更多的玩法：<br>《<a href="https://www.tangruiping.com/post/yque-serverless-github-actions-hexo.html">语雀文章用Serverless自动部署到Hexo博客</a>》<br>《<a href="https://www.tangruiping.com/post/coding-sync-github.html">Coding持续集成自动同步到GitHub</a>》<br>《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》<br>《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Coding持续集成自动同步到GitHub</title>
+      <link href="/post/coding-sync-github.html"/>
+      <url>/post/coding-sync-github.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="Coding持续集成概述"><a href="#Coding持续集成概述" class="headerlink" title="Coding持续集成概述"></a>Coding持续集成概述</h3><p>这篇还是需要在本地处理好静态网站推送到coding，如果不想在本地环境用hexo生成好静态网站，可以试试《<a href="https://www.tangruiping.com/post/github-actions-hexo.html">Github Actions自动部署Hexo博客</a>》</p><p>如果Github访问总是不太稳定，可以试试《<a href="https://www.tangruiping.com/post/coding-ci-hexo.html">Coding持续集成自动部署Hexo博客</a>》</p><p>一直以来，本站都是以 <code>GitHub</code>为主， <code>Coding</code>为辅，但每次更新网站文章，都需要部署两次，有点麻烦。尽管我用 <code>Windows脚本语言</code>实现了双击一次自动部署一个站点，双击两次全部搞定。</p><p>但今天发现可以通过 <code>Coding</code>来实现同步到 <code>GitHub</code>上，当然还是要试试看。早上发现一篇文章是关于 <code>GitHub</code>自动推送到 <code>Coding</code>的，但需要借助 <code>zeit now</code>来实现，而且过程有点复杂对于我来说，最要紧的它不是从 <code>Coding</code>→ <code>GitHub</code>。</p><h3 id="配置Coding-Ci"><a href="#配置Coding-Ci" class="headerlink" title="配置Coding-Ci"></a>配置Coding-Ci</h3><p>首先进入 <code>Coding</code>官网找到 <code>持续集成</code>中的 <code>构建计划</code>，然后点击 <code>新建构建计划配置</code>，然后在 <code>选择构建计划模版</code>中找到 <code>自定义构建过程</code>，或者通过 <code>Ctrl+F</code>搜索 <code>Jenkinsfile</code>看看，应该也能快速找到。</p><p>确定后进入 <code>自定义构建过程 模版</code>，代码仓库下的代码源选择 <code>Coding</code>，使用静态配置的Jenkinsfile，然后确定后进入 <code>配置流程</code>，选择 <code>文本编辑器</code>。</p><p>这时候先暂停一会，得先去登录 <code>GitHub</code>，定位到如此网址 <code>https://github.com/settings/profile</code>，点击 <code>Developer settings</code>，新建一个<strong>token</strong>，然后勾选 <code>repo</code>后确定申请，记下这个token。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/github-token.jpg" alt="github token"></p><p>然后粘贴下面代码到文本编辑器中保存一下，如果复制不便可进入 <code>https://gitee.com/ct2/web/blob/master/coding-sync-github.md</code>复制。</p><pre><code>pipeline &#123; agent any stages &#123;   stage(&#39;检出&#39;) &#123;     steps &#123;       checkout([         $class: &#39;GitSCM&#39;,         branches: [[name: env.GIT_BUILD_REF]],         userRemoteConfigs: [[url: env.GIT_REPO_URL, credentialsId: env.CREDENTIALS_ID]]       ])     &#125;   &#125;   stage(&#39;推送部署&#39;) &#123;     steps &#123;       echo &#39;正在推送文件...&#39;       sh &#39;git fetch $FETCH&#39;       sh &#39;git push -f $FETCH HEAD:master&#39;       echo &#39;已完成推送.&#39;     &#125;   &#125; &#125;&#125;</code></pre><p>这个时候我们来配置一下环境变量， <code>https://用户名:token@github.com/用户名/仓库名.git</code>，这里的用户名为你github的用户名。这段配好后，看下面图，添加到环境变量，勾选保密，这样就不会把token在构建日志中输出了，提高了安全性。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-config.jpg" alt="coding-ci添加环境变量"></p><p>这样就算完成了。进入 <code>coding</code>中的代码仓库，用 <code>web</code>上传一个文件看看，然后你会发现后台自动进行构建，此时你打开 <code>GitHub</code>的代码仓库，刷新一下看看，如果成功的话，通过 <code>coding</code>网页上传的文件在 <code>GitHub</code>上也会出现，删除刚上传的这个文件也会发现 <code>GitHub</code>中的文件被删除了。</p><h3 id="Coding-Ci免费额度"><a href="#Coding-Ci免费额度" class="headerlink" title="Coding-Ci免费额度"></a>Coding-Ci免费额度</h3><p>不过 <code>Coding</code>持续集成是有一定免费额度的，就在<code>持续集成</code>中的 <code>构建节点</code>中即可看到，每周构建次数200次，也足够用了。同样目前一个仓库是 <code>2 GiB</code>，在仓库设置中可以看到。</p><p>如此一来，即可每次生成好网站文件后，还可以通过coding的网页上实现文件和文件夹的上传更新，对于非程序员来讲，有时候通过web端上传可能对新手更为友好。</p><p>尽管 <code>Github</code>也能实现网页端的文件和文件夹的上传，但稳定性似乎不如 <code>Coding</code>的网页版上传，不过 <code>Github Pages</code>的服务倒是比 <code>Coding Pages</code>要稳定些，对于我这边的网络来说。</p><p>在强调一点，由于 <code>coding</code>是不需要 <code>CNAME</code>文件的，如果这个时候coding中没有 <code>CNAME</code>，那么就会自动删除 <code>Github</code>的 <code>CNAME</code>，导致 <code>Github Pages</code> 无法正常访问，解决办法就是在coding代码仓库根目录也放置一个 <code>CNAME</code>文件，并且文件内容填写你的域名即可，不需要写 <code>http</code>协议。</p><p>最后你还可以通过《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》，目前（2020年），国内访问Vercel的速度还是很不错的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CloudFlare CDN GitHub Pages</title>
+      <link href="/post/cloudflare-cdn-github-pages.html"/>
+      <url>/post/cloudflare-cdn-github-pages.html</url>
+      
+        <content type="html"><![CDATA[<p>如果觉得CloudFlare CDN对国内加速不够明显，推荐看看《<a href="https://www.tangruiping.com/post/zeit-github-pages-hexo-sync.html">Vercel Zeit now自动部署Github为hexo博客加速</a>》</p><h3 id="托管在GitHub-Pages"><a href="#托管在GitHub-Pages" class="headerlink" title="托管在GitHub Pages"></a>托管在GitHub Pages</h3><p>为何要托管于 <code>GitHub上</code>，因为没有备案。在国内，域名不备案都无法解析到国内的云服务商上面，那么此域名就无法适用于国内的云服务。</p><p>当然也可以自己做内网穿透，放到树莓派等ARM架构的小型服务器上。我之前想先折腾，但近些年来越来越没有这种折腾的精神，故此托管于 <code>GitHub Pages</code>。</p><p>因为 <code>GitHub Pages</code>是国内程序员的聚集地，也是很多开源项目的托管地，所以 <code>GitHub Pages</code>对程序员尤为重要。或许因此原因，尽管 <code>GitHub Readme</code>文件中有很多违规内容，至少对于我们国家来说是违规的，然并没有完全被 <code>墙掉</code>。</p><p>这也使得我较为放心的把自己的站点放在上面而不用担心哪天不能访问，但国内的网络环境尤为复杂。你要说不同地区，不同的网络运营商访问这样的站点速度不一样倒也还可以理解，但同一个地区，同一个运营商的网络，都会出现巨大的差异性。</p><p>以我自己为例，我连接 <code>中国移动带宽</code>的WIFI，可以访问，用纯数据流量的 <code>中国移动网络</code>，却不能访问。当然也不是一直不能访问，只要稍微了解”墙“这玩意，就知道类似于这些站点，不同地区，不同网络，不同时间段，情况都大有不同。</p><p>不同到我无法总结和归纳，用大家常说的话就是 <code>抽风</code>。但平常自己访问也挺慢的，快的时候较少，很玄学的说。</p><p>小破站虽然没什么访问量，但自己都没法访问，还是有些不能忍的，于是我就想起了 <code>静态资源</code>， <code>前端库</code>之类的文件进行“动静分离”。</p><p>因为本站就是一个纯静态的网站，所以不存在“动静分离”一说。故此我想说的是把 <code>静态资源</code>， <code>前端库</code>之类的文件放到国内的 <code>对象存储</code>上，这样尽可能的减少网站访问的加载时间。</p><p>经过一整天的折腾，终于把这类资源分离出来了，好在主题提供了可自定义链接，不然我一个不会前端（全端）的人，是无法搞定这样的工作。</p><p>处理好之后，赶忙 <code>push</code>到 <code>GitHub Pages</code>，自己访问测试后大失所望，我自己都不知道这个速度有没有提升。感觉好像似乎有所提升，从理论上来讲，肯定是有所提升的。</p><p>但实际情况，一个网页被浏览器访问后，它背后的工作原理还是较为复杂的，我也讲不大清。总之，浏览器得先把 <code>index.html</code>这样的文件载入到本地并且解析，然后才会根据 <code>index.html</code>文件中的内容去下载所需的资源，我想我的问题是卡在了这个 <code>index.html</code>文件上，因 <code>index.html</code>文件的加载时间无法缩减，毕竟访问的还是 <code>GitHub Pages</code>上的资源，尽管把 <code>css</code>, <code>js</code>等资源移入了国内的服务器上。</p><h3 id="CloudFlare"><a href="#CloudFlare" class="headerlink" title="CloudFlare"></a>CloudFlare</h3><p> <code>CloudFlare</code>的名气很大，免费用户都为其提供“一定”额度的 <code>DDoS</code>攻击防护，我不清楚 <code>CloudFlare</code>有没有限制额度，看官网所写的话是“DDoS 攻击防护”，没写多少防护量。</p><p>有可能是不限额度的，因为很多非法网站都是用 <code>CloudFlare</code>来做防护，这里面的非法网站很多还是个人所搭建的，我想也不大可能去付费，特别是中国用户，没有良好的付费习惯。</p><p> <code>CloudFlare</code>还和国内的百度有合作，官网是这么写的“通过与百度结成战略合作伙伴，我们创建了唯一真正整合的全球网络，为中国境内外的访问者提供快速、安全、可靠的体验。中国的互联网架构与世界其它地区不同。 中国的网络由三家主要的互联网服务提供商 (ISP) 控制 - 中国电信、中国联通、中国移动。 由于其网络之间的互连（对等互连）有限，因此经常出现拥塞，这会导致高延迟和数据包丢失。 即使在中国的 ISP 网络中（例如，北京的中国电信和广州的中国电信），网络质量也会有很大差异。因此，为了优化整个中国的内容传输，必须在中国各地拥有地理位置分散的数据中心，并与每个地区的主要 ISP 建立连接，这正是我们的中国服务为客户提供的服务。”</p><p>写的很含蓄，因为没有备案，所以无法用百度的 <code>CDN</code>和 <code>CloudFlare</code>对接，具体如何对接我也没了解过。但又按 <code>CloudFlare</code>官网描述的所说“China Network 适用于所有 Cloudflare Enterprise 客户”。看起来是需要企业用户，并且给 <code>CloudFlare</code>认证审核后才能适用，或许使用了后比我们个人用户直接这样“干用” <code>CloudFlare</code>速度要快很多吧。</p><blockquote><ul><li>注册一个 Cloudflare Enterprise 帐户。</li><li>向 Cloudflare 确认您拥有有效的 Internet 内容提供商 (ICP) 许可证。 ICP 许可证由中国工业和信息化部 (MIIT) 颁发，要在中国大陆托管或缓存在线内容，需要该许可证。 如果您目前没有 ICP 许可证，我们的“Customer Success”团队可以指导您完成申请流程。</li><li>在 Cloudflare Enterprise 帐户仪表板中，在“网络”应用下开启“启用中国”按钮。</li><li>打开 China Network 后，可以访问“Crypto”应用程序并配置您的 SSL 证书以在 China Network 上进行 HTTPS 传输。 您可以选择将私有 SSL 密钥放在我们的中国数据中心，就像在全球 Cloudflare 网络上一样。 在 China Network 上提供灵活、完整和严格的 SSL 选项。</li></ul></blockquote><p>写了这么多关于 <code>CloudFlare</code>，其目的是想说通过 <code>CloudFlare</code>的 <code>CDN</code> 功能去缓存 <code>GitHub Pages</code>上的内容，这样我就可以走 <code>CloudFlare CDN</code>路线来访问自己的网站了。</p><p>早之前就有很多人这么干，并且每天都有人这么干，我是很佩服这些人为了一个小破站，就是死活不备案，然后通过各种手段来使得自己的网站在大陆地区可访问。这样的人还是集中于 <code>IT行业</code>的从业人员，普通人造就乖乖备案了，哪经得起这么折腾。</p><p>当然，关于网站备案是不是就不折腾了？这个我之前的文章也有说过，备案也是较为麻烦的事情，麻烦一次大的，完成所有手续后是不是就万事大吉呢？</p><p>并不是，首先 <code>工信部</code>会抽查网站，这个工作主要是云服务商自查的情况较多，或许是云服务商怕被上头查到违规和空壳之类的网站，所以阿里腾讯的自查都是较为积极和激进的。</p><p>所以你备案时填写的电话不能随意改动，换了手机号要及时去更新备案信息，否则电话两次打不通，就面临撤销备案号的可能性。</p><p>说到这里，你就不难理解为何有些人死活都不备案了，或许这群人稍微偏执一些，也是因为他们可以展现自己的技术实力吧。</p><h3 id="腾讯云CDN"><a href="#腾讯云CDN" class="headerlink" title="腾讯云CDN"></a>腾讯云CDN</h3><p>在用 <code>CloudFlare</code>对接 <code>GitHub Pages</code>之前，我的第一想法是腾讯云境外CDN。去年2019对 <code>CloudFlare</code>稍作了解，发现要 <code>NS</code>方式接入才可如此再次 <code>CNAME</code> 到 <code>GitHub Pages</code>。</p><p>尽管也了解到可以通过某些站长做好的 <code>CloudFlare Partner</code>上实现 <code>CNAME</code>接入，不知道怎么地，我并未弄清楚，也没什么需求，因此就没有做过多了解和实践。</p><p>所以我以为要想通过 <code>CloudFlare</code>去缓存 <code>GitHub Pages</code>只能是 <code>NS</code>接入，而不能 <code>CNAME</code>接入，才想到腾讯云。想着如果我选择的是境外 <code>CDN</code>，应该是不需要域名备案的，果不其然，一试发现真的可以。于是我就申请了新加坡地区的 <code>对象存储</code>，并且把网站传入此桶中，在设置好 <code>自定义加速域名</code>，测试发现是OK的。</p><p>到了第二天的傍晚，我的创宇监控报警了，才发现其他地区的网络访问延迟很高，超过了我设定的阈值。而且整个下来，似乎只对我的手机单纯的用 <code>中国移动</code>数据流量有些提升，其他的网络访问也并无区别，这当然也是在预料之内的事。</p><p>到了晚上，才想起来试试 <code>CloudFlare</code>看看，并且于今早上（第三天）实现了 <code>CloudFlare</code>的 <code>CNAME</code> 接入，结果发现无限301循环。</p><p>这废了我一个小时才找到原因，原因就是 <code>CloudFlare</code>到 <code>GitHub Pages</code>这段 <code>回源</code>没有采用 <code>TLS访问</code>，解决的办法也很简单，在 <code>CloudFlare</code>中找到 <code>SSL/TLS</code>中的 <code>概述</code>，把默认的 <code>灵活</code>（加密浏览器与 Cloudflare 之间的流量）改为 <code>完全</code>（端到端加密，使用服务器上的自签名证书）即可。</p><p>去年2019年年底， <code>CloudFlare</code>还没有中文界面，不知道今年什么时候开始有了中文界面，使用起来更方便了。</p><p>但使用了 <code>CloudFlare</code>后，再去网站测速那里测速，发现情况也没好多少。之前访问某些网站就是走 <code>CloudFlare</code>的 <code>CDN</code>，也是时不时的“抽风”，有时候还不能访问。</p><p>所以这就是我为何要采用 <code>CNAME</code>接入的原因，要是 <code>NS</code>接入，我不知道 <code>CloudFlare</code>的 <code>DNS</code>能不能区别国家设置不同的解析，但可以肯定的是无法像国内的 <code>DNS</code>服务商可以设置不同运营商解析线路的。</p><p>因此我继续用国内的 <code>DNS</code>服务，或许在 <code>DNS</code>解析所用时间上还有点微弱的优势，同时我可以针对不同运营商路线设置不同解析，尽可能最大化提高此战的加载速度。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> CDN </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo主题更新和valine评论系统问题</title>
+      <link href="/post/update-on-the-hexo-theme.html"/>
+      <url>/post/update-on-the-hexo-theme.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="hexo建站程序"><a href="#hexo建站程序" class="headerlink" title="hexo建站程序"></a>hexo建站程序</h3><p><code>hexo</code>是一个静态网站生成器，可直接把网站内容以<code>html</code>页面生成好。不同于动态网站，在你访问的时候由服务器端生成好<code>html</code>页面然后发送到客户端。</p><p>类似于<code>hexo</code>这样的网页生成器还有<code>hugo</code>，但<code>hugo</code>的效率可比<code>hexo</code>高多了，要是有上百篇文章的话，<code>hexo</code>生成要等上十来秒钟或者更久，而<code>hugo</code>只需两三秒钟。</p><p>虽然<code>hexo</code>比不上<code>hugo</code>的效率，但<code>hexo</code>的主题可比<code>hugo</code>多太多了。一般玩博客的个人站长，在最初期<code>90%</code>都很重视主题，不管是动态博客还是静态博客，无一不是如此。</p><p>因此造就了主题丰富者更容易受到用户青睐，至于内容，长期坚持写的也寥寥无几。就拿自个来说，都有三个月没有更新过了。想来成年人的世界，要坚持一件兴趣不高或者没有兴趣的事情，是太不容易了。</p><h3 id="hexo主题更新"><a href="#hexo主题更新" class="headerlink" title="hexo主题更新"></a>hexo主题更新</h3><p>静态博客不比动态博客，更新主题什么的相对麻烦。这个麻烦是指静态程序得手动更新博客主题的配置文件，如果主题作者改动较大，或者你自己N久没有更新主题，可能会遇上不少麻烦。</p><p>动态网站如<code>WordPress</code>就比较好办，因为动态网站都是带有数据库系统的，很多东西如站点标题，网站描述等，都是写入到数据库中，更新的只是程序文件，对比静态网站较为方便。</p><p>而静态网站是没有数据库的，一切都是在本地生成好了上传到对象存储即可使用。因此在更新主题的时候，如站点名称，网站描述这些都是在主题配置文件中，需要你去修改的。尽管hexo带有主题配置文件<code>_config.yml</code>和站点配置文件<code>_config.yml</code>，依旧免不了逐字逐句去修改配置文件。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/hexo-v.jpg" alt="hexo版本"></p><p>所以说静态网站更新主题是一件想对麻烦的事情，同样麻烦是还有静态网站生成器的程序，比如我现在用的是<code>hexo4.0</code>，现在最新版是<code>hexo4.21</code>，差别倒是不大，如果你是从<code>2.x</code>的版本直接升级到<code>4.x</code>的版本，夸度较大，可能还会面临其他问题，而如果这个时候你使用的主题作者已停止更新，可能会造成不兼容，还得更换主题。当然这个问题，动态网站也是存在的，比如<code>php5.6</code>升级到<code>php7.3</code>可能就会造成旧版主题不适配的情况。</p><h3 id="第三方评论系统"><a href="#第三方评论系统" class="headerlink" title="第三方评论系统"></a>第三方评论系统</h3><p>我已经大半年没有更新主题了，其实时间也不算长，尽管此主题作者新版本改动了页面布局，似乎更美观。但如上所述，更新主题过于麻烦，因此我没有任何更新的动力，而且自己也过了那个折腾劲的年龄段，精力着实有限。</p><p>但最近问题出现在第三方评论系统<code>valine</code>，第三方评论系统无法正常留言。虽然本站文章内容少，至今也没一个留言的，但不能使用总感觉不爽。自己又不是搞开发的，也不懂是哪里出问题，摸索了大半小时后感觉可能是主题的问题。</p><p>情况大概是这样的，<code>LeanCloud</code>可能更新了某些设置或者链接不可使用，导致某个链接不能正常加载。于是我想着不更新主题，直接更新<code>valine</code>评论系统，结果发现问题依旧，而<code>valine</code>在4月26号有过更新。<del>因此怀疑是主题没有更新造成的</del></p><p><del>我也不清楚是什么时候出现这个问题的， 感觉也就一个月左右的事吧。于是更新了主题，结果发现问题依旧，再看主题更新时间为4月11号，故此这个问题只能等作者更新解决。</del></p><p>晚上自己又多测试了几遍，排除了主题问题，而是<code>LeanCloud</code>华东节点引起的，然后想切换到华北节点，结果发现要验证手机号，验证好手机号后创建应用又需要实名认证，这个就有点烦了，万一实名认证又不能搞定呢？为了保险起见，我单独注册了个国际版的<code>LeanCloud</code>，结果再次验证手机号后不需要实名认证，本地测试发现<code>tab.avoscloud.com</code>已经改为<code>us.avoscloud.com</code>，那就应该是OK的。</p><p>我在看别人用的这个评论系统发现加载的都是<code>avoscloud.com</code>，说明就是华北节点，而我之前创建的是华东节点，因此导致这个问题，小企业就是小企业，<code>tab.avoscloud.com</code>证书过期都没人处理。搞得我还以为是没有验证手机号和实名认证导致的呢，当然也不排除极小可能性是这个原因。</p><p>也不想把<code>valine</code>更换为<code>来比力</code>，<code>gitalk</code>，<code>disqus</code>等第三方评论系统，主要是因为<code>valine</code>评论比较方便，甚至都可以不用填写邮箱，而另外一些要不就需要账户登录，要不就在国内访问不稳定。另外<code>valine</code>可结合<code>LeanCloud</code>使用，评论数据还在自己手中掌握。</p><p>后面发现主题作者新增了迷你版的<code>valine</code>，启用这个倒是没啥问题，但看页面请求数达到了60多个，尽管很多都是表情图片的请求数，倒是很想把表情给禁用掉，无奈又不懂<code>JavaScript</code>，<del>最后决定取消评论功能</del> 既然解决了评论问题，那么还是保留此功能吧。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> HEXO </tag>
+            
+            <tag> 网站 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>换新手机之感悟</title>
+      <link href="/post/feelings-for-a-new-phone.html"/>
+      <url>/post/feelings-for-a-new-phone.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="回顾手机"><a href="#回顾手机" class="headerlink" title="回顾手机"></a>回顾手机</h4><p>原来那部手机也颇有些年头了，还记得当年用这部机子的时候，最大的感受就是快速充电。这个体验令我影响深刻。尽管当年是 <code>高通</code>旗舰 <code>处理器</code>，20W的充电功率， <code>UFS2.0</code>闪存在当年也是妥妥的 <code>旗舰机</code>。</p><p>但架不住手机行业的迅猛迭代，从 <code>单摄</code>到 <code>双摄</code>到如今的 <code>四摄</code>，充电功率也是一升再升，更有高达65W的充电功率。当然，我今年换的这部机子倒也没那高的充电功率，充电功率仅比旧机子有略微提升，闪存也只是 <code>UFS2.1</code>而不是 <code>UFS3.0</code>，但拍照却从当年的单镜头到四镜头了，CPU尽管有所提升，但更多的是新7nm制程工艺所带来的低功耗（和旧机子比），续航方面会更持久些。</p><h4 id="手机越来越卡的原因"><a href="#手机越来越卡的原因" class="headerlink" title="手机越来越卡的原因"></a>手机越来越卡的原因</h4><p>另外，手机一般都是越用越慢的，包括苹果机在内，我猜想除了国内安卓APP的安装包越来越大外，在一个就是闪存的写入放大了。闪存的 <code>写放大</code>倒是蛮复杂的，可能的原因是在手机使用的过程中频繁的擦写导致闪存出现了 <code>坏块</code>，而坏块的出现又加重的闪存的 <code>写放大</code> 。再一个是很多人喜欢把手机存储空间用满也会导致闪存读写性能下降，一般来讲最好保留20%~30%的剩余空间给主控 <code>磨损平衡</code>的余地。因为把存储空间用满会加速闪存的 <code>写放大</code>和 <code>坏块</code>的产生。</p><p>因此，旧手机早已不如刚开始时候那么 <code>流畅</code>了，而且我向来使用手机是 <code>不贴膜</code>不带套的，于去年午月十二的夜晚，手机从栏杆上跌落，屏幕全碎无法使用，后自己在淘宝购买了屏幕更换才勉强能用，而且换过的 <code>屏幕</code>不如原装好使，特别是打字的时候跟不上手速，反应慢甚至点击后也不反应，又不怕麻烦的跟淘宝店主协商换货后自己再次安装，依旧存在各种小问题。在此也不大推荐自行更换和找人更换。</p><h4 id="AI摄影"><a href="#AI摄影" class="headerlink" title="AI摄影"></a>AI摄影</h4><p>在者，如今的手机都又 <code>AI摄像</code>加持，尽管我以前对这是不屑的，但终究逃不过 <code>王境泽定律</code>（真香）。以前的观点是你拍照手机通过AI算法把后期都处理的差不多了，这照片根本就没有你自己的思想在里面，你只不过是一工具人而已，这样的照片还有何意思？苦苦用旧手机的单摄+自己 <code>后期调色</code>处理，无奈感慨工序繁杂且耗费精力，不如让手机自己给我调色好来得舒心。</p><p>当然，不管你的手机有没有 <code>AI算法</code>在里面，用手机相机拍照的时候，多多少少都有有程序为你做了一定 <code>调色处理</code>。只是如今有了 <code>AI算法</code>的加持使得更为夸张和讨喜罢了。不然 <code>ISP芯片</code>是做何用？</p><h4 id="交互设计"><a href="#交互设计" class="headerlink" title="交互设计"></a>交互设计</h4><p>然而入手了这部新手机后，给我最大的体验不是 <code>硬件</code>层面的，而是系统 <code>交互</code>层面的。因为现在的手机都是 <code>水滴屏</code>， <code>打孔屏</code>， <code>全面屏</code>，手机三按键（菜单键,主页键,返回键）也从原始时代的实体按键改为了近些年的 <code>虚拟导航栏</code>，到如今可选择性的 <code>手势导航</code>。</p><p>我体验了几天的 <code>手势导航</code>，发现某些APP的手势为了妥协系统级别的 <code>交互</code>做出了让路。因为我之前的手机我基本都是用 <code>GooglePlay</code>上的APP，好处是不会强制你升级，因此我的好些APP都是一两年不升级。不过这里表扬下 <code>手机版QQ</code>，即便在 <code>手势导航</code>下还保留了以前的手势功能，而不是如知乎一刀切，全给去掉了，现在使用新版的知乎反而不习惯。</p><h4 id="手机选择"><a href="#手机选择" class="headerlink" title="手机选择"></a>手机选择</h4><p>最后，再来说说自己选择手机的思路。在手机这个高速迭代的行业，年轻人一款手机用太久是不大可能的，而且就上面所说的闪存 <code>写入放大</code>问题，你重新 <code>刷机</code>，不更新APP都不大管用，越来越卡的问题是无法通过这些彻底解决的，只能说勉强缓解下。</p><p>一般来讲，2年左右更新一款是比较合理的，价格也不需要太贵，3K左右的就好。一来是 <code>旗舰机</code>的配置在一年后甚至半年就会下放到 <code>中端机</code>的机型上，也就是3K左右价位的手机，二来是手机降价幅度大。如无特殊需求和不是非常阔错之人，选择3K价位用2年左右，各方面都照顾的比较好，既不失体验又不会太贵。三来，更高的价格意味着更高的单机利润，其中包含更多的是 <code>品牌溢价</code>。</p><p>如入手5K甚至更贵的机子，而又舍不得2年一换，那么到1年后的 <code>中端机</code>几乎在各方面都完胜1年前的 <code>旗舰机</code>。这是这个行业高速迭代所带来的福利。当然，以上只是参考，你也可以选择半年前的 <code>旗舰机</code> 或者 <code>中端机</code>，因为这样的机子都会降了一定的售价，比如 <code>荣耀V</code>系列，网友都说明年双十一交个朋友可不是瞎说的，哈哈。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 生活 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 手机 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>实名制及网站邮箱账户问题</title>
+      <link href="/post/real-name-system-and-website-email-account-problems.html"/>
+      <url>/post/real-name-system-and-website-email-account-problems.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="互联网实名制问题"><a href="#互联网实名制问题" class="headerlink" title="互联网实名制问题"></a>互联网实名制问题</h4><p>话还得从2017年6月1号开始，中国互联网全面实行 <code>实名制</code>，当然也只是某种意义上的 <code>实名制</code>，采取的办法是验证手机号。因为现在手机号都是 <code>实名制</code>的，通过这样的认证方式，使得实名。</p><p>之所以说是某种意义上的 <code>实名制</code>，是因为这样的认证方式漏洞多多。有专业的接码平台验证，有拿别人手机号验证，就算是自己手机号，也不一定是自己身份证办理的。当然，其实身份证验证也没办法准确实名，还是可以作弊。因此现在某些平台需要 <code>活体验证</code>。</p><p>手机验证走的是折中路线，既不会那么麻烦，也有利于管理。好处是注册网站的门槛变高，账户不会滥用，对网站管理者而言是好事，可减少大量无意义的账户，如灰产批量注册。尽管如此，也只是让 <code>灰产</code>稍微提高门槛而已。如网易账户批量价格也就几毛钱一个。</p><p>但缺点就多了，一则是对于个人用户而言，注册都是自己常用的 <code>手机号</code>，APP平台、网站平台就可利用手机号群发短信营销，甚至会出售你的个人信息，按几毛到几块不等的价格出售。</p><p>二则是注册的APP、网站多了，今后换手机号的成本就提高了，特别是很多网站必须要用原手机号接收验证码后才可另外绑定 <code>新手机号</code>，一旦你在销户了 <code>手机号</code>而忘记去更改这些账户的话，那么就很扯蛋了。</p><p>如果APP、网站对你不重要还好，重要的话，这是一个极为艰难的申诉过程，一般要你上传手持身份证照片之类，这TM的感觉就是在变相收集用户 <code>个人隐私</code>，而且还不一定能够申诉成功。</p><p>过去某些网站需要手持身份证做 <code>实名认证</code>，现在少部分网站 <code>实名认证</code>不需要你上传自己的手持身份证照片，而是通过支付宝验证即可，这样既方便了用户认证流程，也有利于保护用户隐私。</p><p>因为你无法保证平台不去拿你的手持身份证照片滥用，特别的很多平台要用你手持身份证认证的时候，是不能加水印的，而且™的还是在前端显示图片，说的就是百度这个沙雕。</p><p>还有很多网站还是人工审核机制，你如何保证这些员工不会动用歪心思，拿用户的手持照片做事呢？还记得2016年爆发的女 <code>大学生裸贷</code>，很多都是手持 <code>身份证照片</code>，而这些照片在网上流出，很多人就用她们的身份证进行了各种账户认证和实名。</p><p>其实我自己是有一个构想，对于某些业务，需要涉及到 <code>实名认证+手机号</code>验证的，统一由国家机关提供认证接口，让APP和网站的运营者去调用接口即可，这样我们每个人只需要在国家所提供的平台去实名一次即可。</p><p>如果国家愿意，让支付宝提供接口做验证就更好了，因为大部分国人都有支付宝。这样一来，不但 <code>实名制</code>的更为彻底，也解决了身份证照片被滥用的问题。</p><h4 id="网易账户问题"><a href="#网易账户问题" class="headerlink" title="网易账户问题"></a>网易账户问题</h4><p>自己在10年前注册了个 <code>tangruiping**@163.om</code>邮箱，然后于今年8月底，试了一下网易手机号邮箱绑定，然后又用另一个小号邮箱 <code>tangruiping**@126.com</code>绑定，结果 <code>tangruiping**@163.om</code>手机号邮箱自动解绑。但是 <code>安全手机</code>没有自动解绑，也就是说如果你需要修改某些关键设置，需要验证前面绑定的手机号。</p><p>也是无聊，只是验证自己的猜想而已。大概一个多月过去了，发现 <code>安全手机</code>自动解绑了。时间来到了10月6号，我又对 <code>tangruiping**@163.om</code>邮箱重复上次操作，结果2个月过去了， <code>安全手机</code>再也不会解绑。</p><p>这一点再很多大公司做的都比较差劲，百度也又类似的问题，下面细说。至少你得告诉用户在开通手机号邮箱的时候，此手机号自动作为 <code>安全手机</code>。而网易至今在手机号邮箱绑定处没有相关说明，如果你不改动什么东西，可能你手机号换了都不知道自己什么时候绑定了个 <code>安全手机</code>。</p><p>结果就是你想要更换 <code>安全手机</code>，必须要原手机号验证，尽管以前设置了安全邮箱都不顶用。如果原手机号换了，那就只能申诉，这个时候就要提供身份证照片之类了，在网上也看到不少案列，尽管提供了各种资料和身份证照片，依旧没有成功，客服都是打哈哈。</p><h4 id="百度账户问题"><a href="#百度账户问题" class="headerlink" title="百度账户问题"></a>百度账户问题</h4><p>百度的账号体系互不相通， <code>百度账户</code>可用于百度网盘、百度知道， <code>百度商业账户</code>可用于百度推广、百度网盟、百度联盟、百度统计等。账号体系互不相同这点可以理解，或许有业务安全上的考量，以前阿里巴巴和淘宝账户还不相通呢。但下面我说的问题就是真不能理解了。</p><p>首先密保手机的问题就很沙雕了，今年11月20号的时候，打开 <code>百度账户</code>页面，我以前绑定了手机号，后面解绑了，那是在几年前的事儿了。但页面依旧保留着原手机号，有 <code>[验证]</code> 和 <code>[更换手机号]</code> 两个选项。</p><p>我一不小心点了下 <code>[验证]</code>，结果自动给我绑定上之前的手机号了。这™是什么操作？居然不需要接收验证码即可直接验证通过。我不知道这产品为何如此设计，同样，想要更换手机号，也只能通过申诉，而且百度很恶心的是要你下载手机百度才可以申诉。</p><p><img src="https://noscos.nos-eastchina1.126.net/trpic/baidu-center.jpg" alt="百度账户中心.JPG"></p><p>2018年用 <code>百度账户</code>登录了 <code>百度云计算</code>，绑定了手机号。结果2019年点击 <code>修改手机</code>会自动跳转到 <code>百度账户</code>中心。这是什么意思？就是说我以前 <code>百度云计算</code>的手机号跟 <code>百度账户</code>的手机号没有关系，但2019年莫名其妙的有了关系。</p><p>2018年在 <code>百度云计算</code>绑定的手机号和 <code>百度账户</code>的手机号是不一致的，2019年修改 <code>百度云计算</code>的手机号需要更换 <code>百度账户</code>的手机号，感觉很扯蛋。</p><h4 id="腾讯账户问题"><a href="#腾讯账户问题" class="headerlink" title="腾讯账户问题"></a>腾讯账户问题</h4><p>腾讯账户的问题主要体现在微信绑定的邮箱号以及小程序和公众号使用的邮箱都不能相同。这个确实体验不好，换句话说，你至少得备三个不同邮箱才可以同时搞定微信、公众号、小程序。难不成是因为腾讯邮箱有 <code>@qq.com</code> <code>@vip.qq.com</code> <code>@foxmail.com</code> 三域名，都一起用上?</p><p>阿里之前的阿里巴巴跟淘宝是不互通的，后面可以互通了，可见账户太多是不便于用户管理的。而且腾讯动不动就要微信扫描才可以进行小程序公众号的各种操作，这点体验极为不好。当然，微信本身体验也好不到哪里去。</p><p> <code>腾讯云</code>的账户体验也是极为不好的，一开始更换登录邮箱需要提交工单，同样也要提交身份证作为审核信息，我很讨厌这种动不动就管你要身份证手持照的，不过今年不知道时候可以不用上述方式，而是系统支持登录邮箱更换了。</p><p>再说 <code>财付通</code>这个玩意，估计不少人没听说或忘记了它的存在，现在的微信支付就是依托于 <code>财付通</code>。</p><p> <code>财付通</code>之前的实名信息跟QQ账户也是互不相同的，为此™的我当年办理银行卡要开通 <code>财付通</code>业务，折腾了几次都不行，就不细说了。总之，大公司业务多，账户也越是混乱不堪。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网站 </tag>
+            
+            <tag> 安全 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>个人网站ICP备案常见问题</title>
+      <link href="/post/personal-website-icp-beian-faq.html"/>
+      <url>/post/personal-website-icp-beian-faq.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="工信部备案"><a href="#工信部备案" class="headerlink" title="工信部备案"></a>工信部备案</h3><h4 id="备案前"><a href="#备案前" class="headerlink" title="备案前"></a>备案前</h4><ol><li><strong>什么是ICP备案</strong><ul><li>只要你在的网站或者说业务使用的是大陆地区的云计算，云服务产品，那么就必须在<a href="http://www.beian.miit.gov.cn/">工信部</a>备案。就好比人出生了要去上口户口。</li></ul></li><li><strong>为什么要备案</strong><ul><li>因为不备案你就无法使用大陆地区的云服务业务。虽然可以使用非大陆地区的，但非大陆地区的云服务网络国内访问不大稳定（其实是人为因素导致的不稳定，也可以说国情坏境导致的）</li><li>考量业务的重要性来决定自己的网站服务器是否选购国内还是国外地区，比如我目前这个博客，我觉得不重要，因此就丢在 <code>GitHub pages</code>上都可以</li></ul></li><li><strong>在哪里备案</strong><ul><li>一般来讲，备案都是备案到工信部下，但主流的云服务商都有代备案功能。因此也可以说在主流云服务商那里购买云服务产品然后就在那里备案。</li></ul></li><li><strong>什么是代备案</strong><ul><li>因为工信部本身并不提供云服务业务，由主流的云服务商 <code>阿里云、腾讯云、华为云、百度云、Ucloud、青云</code>代理帮用户备案信息到工信部下</li><li>并不是所有云服务商都有代备功能，如 <code>又拍云</code> 就没有</li><li>当然还有一种代备案就是个人以非法的形式帮你备案，比如你不想使用自己的身份证备案，尽管如此只是你不需要走流程，他还是需要的。</li></ul></li><li><strong>购买什么产品才可以备案</strong><ul><li>值得注意的是，并不是所有产品都可以提供代备案，比如 <code>CDN</code> 业务和 <code>对象存储</code> 业务即便你买了，也无法提供备案</li><li>要备案就必须要有 <code>备案授权码</code>，也有的叫 <code>备案服务号</code>。传闻这玩意也可以通过淘宝购买，不过我没有实践过。</li><li>一般都是用来建站，因此你购买 <code>云主机，虚拟主机，弹性Web托管</code>等即可获得备案服务号</li></ul></li><li><strong>申请备案服务号的要求</strong><ul><li>一般来讲，一台云主机可提供5个 <code>备案服务号</code>，但购买 <code>云主机</code>的时常不低于3个月</li><li>不同的云产品业务，对应的服务号个数和最低购买时长是不一样的，具体可参见各家云服务商的要求</li><li><code>备案服务号</code>不能重复使用和多次使用，如果备案服务号被成功备案，那么就无法再次使用，如果中途撤销未成功备案，那么则可继续使用</li><li>服务器续费不会增加备案服务号的申请数量，如果使用完了，只能新购服务器或购买可以获得备案服务号的产品</li></ul></li><li><strong>备案要求</strong><ul><li>每个管局的要求不相同，比如广东省和海南省的要求就不一样，海南省满16岁即可备案，广东则要18满岁。有的需要手机归属地和备案所在地一致，有的则不需要。</li><li>每个云服务商的要求也稍有不同，比如我在<a href="https://www.tangruiping.com/post/talk-about-Baidu-cloud-computing.html">说说百度云计算</a>中就说到百度云要求我提供广东的暂住证，而 <code>阿里云</code> 就不需要</li><li>不过从今年开始， <code>阿里云</code> <code>腾讯云</code>也需要了，广东管局更新规则了，去年是不需要的</li><li>更具体可以参考<a href="https://help.aliyun.com/product/35468.html">阿里云备案帮助</a>和<a href="https://cloud.tencent.com/product/ba">腾讯云备案帮助</a></li></ul></li></ol><h4 id="备案后"><a href="#备案后" class="headerlink" title="备案后"></a>备案后</h4><ol><li><strong>什么是接入备案</strong><ul><li>其实我们的备案实际上都在备案在 <strong>中华人民共和国工业和信息化部</strong> （简称工信部）名下，但工信部并不提供云计算服务，因此我们使用比如 <code>阿里云</code> 时，需要把工信部的备案信息接入到云服务商，这个就叫接入备案</li><li>当你首次备案时在 <code>阿里云</code> 代备，那么实际上是由 <code>阿里云</code> 代理帮你备案到工信部，同时在 <code>阿里云</code> 做了接入备案</li><li>如果此时你需要使用 <code>腾讯云</code>的 <code>云主机</code>，则还需要在 <code>腾讯云</code>做一次接入备案，因此使用哪家的 <code>云服务器</code>就需要在哪家做接入备案</li></ul></li><li><strong>不做其他服务商的接入备案行吗</strong><ul><li>看你使用的云服务业务，比如 <code>CDN</code> 和 <code>对象存储</code> 等业务就不需要做接入备案，但前提条件是你的域名必须已经备案过了</li><li>换言之，你的域名在 <code>阿里云</code> 接入备案了，这时候使用腾讯云 <code>CDN</code> 业务则不需要再腾讯云做接入备案</li><li><code>阿里云</code> 腾讯云的 <code>对象存储</code> 提供子域名，因此不需要自己的域名即可使用，但如 <code>七牛云</code>和 <code>又拍云</code> 走的是 <code>CDN+对象存储</code> 融合路线，不提供子域名长期使用，因此使用他们的业务时，必须有自己的备案域名绑定上去才能使用， <code>七牛云</code>目前提供一个月时限的子域名仅供测试用。</li></ul></li><li><strong>如果我有域名A在A商接入备案，域名B在B商接入备案，能把域名A使用在B商吗</strong><ul><li>看情况，如果是上面说的如 <code>CDN</code> 业务则没有限制，但如果要使用B商的 <code>云主机</code>则还得再一次把域名A接入备案到B商</li><li>尽管域名A和域名B都是你已经备案到工信部名下，都是同一主体，但域名A没有在B商接入备案就不能使用B商的某些云计算业务，如虚拟主机，云主机等</li></ul></li><li><strong>备案成功后就万事大吉了吗</strong><ul><li>并不是，首先在备案申请的时候，个人备案都做了严格限制，比如网站不能有交互（如不能开放评论系统），网站名称与备案时候申请的名称一致</li><li>但备案成功肯定是各种网站改名的，即便是个人博客也会开放评论系统的，因此各个管局每个月都会进行抽查，被抽查到的不符合的，则会联系你进行整改，联系不到的，下个月就会进行销户处理，因此你备案时候填写的手机号，不要随便更换，如果更好建议在代备案那里进行变更信息处理</li><li>如果你网站有不当信息，被查到了，也会要求整改的</li><li>如果你网站当前备案域名和备案接入商不一致，会被当做空壳网站处理，什么意思呢？</li><li>比如我备案时候的域名 <code>tangruiping.com</code> 在 <code>阿里云</code> 接入备案了，但我现在 <code>tangruiping.com</code> 的解析是 <code>GitHub pages</code>的IP，而不是 <code>阿里云</code> 大陆地区的服务器IP，那么被工信部抽查到，就会联系通知，不做修改照样会做注销处理</li><li>此时你需要用二级域名指向 <code>阿里云</code> 大陆IP即可，比如把 <code>oss.tangruiping.com</code> 解析到 <code>阿里云</code> 服务器同时网站有少量的访问即可</li><li>注意 <code>www.tangruiping.com</code> 和 <code>tangruiping.com</code> 会被视作同一域名，也是 <code>主域名</code>；每个管局（你备案的所在省份）抽查的频率和要求也各不相同</li></ul></li><li><strong>一个域名有多个接入商如何解析</strong><ul><li>比如我的域名 <code>tangruiping.com</code> 在 <code>阿里云</code> 做了接入备案，同时在 <code>腾讯云</code>也做了接入备案，那么则必须要把 <code>tangruiping.com</code> 的 <code>子域名</code>或者 <code>二级域名</code>分别解析到 <code>阿里云</code> 服务器IP和 <code>腾讯云</code>服务器IP</li><li>比如把 <code>oss.tangruiping.com</code> 解析到 <code>阿里云</code> 服务器， <code>cos.tangruiping.com</code> 解析到腾讯云服务器IP，那主域名 <code>tangruiping.com</code> 是不是可以随便解析到国外的云主机IP呢？是的，但并不推荐这么做，因为工信部主要抽查的是 <code>主域名</code>，而不是 <code>子域名</code>，因此这样的做法还是存在会被工信部销户的风险</li><li>因此推荐的是把 <code>主域名</code>还是解析到备案接入商的服务器IP即可</li></ul></li><li><strong>一个域名有多个接入商的销户问题</strong><ul><li>假设我的域名 <code>tangruiping.com</code>在 <code>阿里云</code>和 <code>腾讯云</code>都做了接入备案，因某些原因不符， <code>腾讯云</code>撤销了我在 <code>腾讯云</code>的接入备案，那么我的域名在工信部还是没有销户的</li><li>因为我的域名在 <code>阿里云</code> 还有接入备案，如果在 <code>阿里云</code>的也被取消接入了，那么我的域名 <code>tangruiping.com</code>才算彻底在工信部注销了</li><li>又假设我只有这么一个域名，在所有接入商都被 <code>取消接入</code>了，那么我这个主体也就在工信部销户了，如果我还有域名B在 <code>阿里云</code>接入，即便我域名A在工信部注销了，我的主体也是不会被销户的，除非我所有的 <code>备案域名</code>都被各个接入的服务商都取消接入了，那么这个时候我的主体才算在工信部销户了</li><li>逻辑大概是这么滴，一个主体可以有多个 <code>备案域名</code>，一个域名可以有多个备案接入商。只有当所有接入商都取消接入你同一域名，此时你域名在工信部会被注销，那么这个域名就在工信部查不到备案信息了；当所有接入商都取消接入了你所有的备案域名，此时主体会在工信部被销户处理，那么在工信部就查不到你这个备案主体，也就是查不到你这个人了</li></ul></li></ol><h3 id="公安局备案"><a href="#公安局备案" class="headerlink" title="公安局备案"></a>公安局备案</h3><p><a href="http://www.beian.gov.cn/">公安局备案</a>可以看作同工信部备案是齐名的，两者之间的数据是不互通的，有的在工信部备案后会接到云服务商的电话需要公安局备案，有的人是自己主动去公安局备案，总之公安局备案不备案，看要求以及看你个人。</p><p>看情况今后估计会越来越多都要求公安局备案了，所以如果不怕麻烦，可以一并处理了。一般情况下，公安局备案比较简单，有些地区在网站填写好信息申请即可，有些还需要去公安局见个面什么的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 备案 </tag>
+            
+            <tag> 云计算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>说说百度云计算</title>
+      <link href="/post/talk-about-baidu-cloud-computing.html"/>
+      <url>/post/talk-about-baidu-cloud-computing.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="百度云备案体验"><a href="#百度云备案体验" class="headerlink" title="百度云备案体验"></a>百度云备案体验</h4><p>前两天百度客服打了两次电话给我。告诉我，我的证书到期了，问我要不要续费。毕竟申请的都是 <code>免费证书</code>，怎么可能续费呢？双方都心知肚明，只是借机找这个事情给我推销他们的产品罢了。说了不会续费之后，然后促销人员就接着说，那你有没有考虑一下我们百度的云主机。我说用你们百度的云主机也要 <code>接入备案</code>，挺麻烦的，而且大家的优惠力度都差不多，我就不考虑了。</p><p>去年我就打算在百度接入备案，结果百度太不给力了。广东的备案号必须要提供广东的居住证明。毕竟距离上一次备案已经是三年前的事了。所以我以为发生了翻天覆地的变化。后面我才知道每家云服务商的要求都不一样，比如在腾讯云备案，在阿里云备案就没有这样的要求。于是我就放弃了在百度的备案。</p><p>备案是有条件的，在哪一家云服务厂商备案就要在他们家买可以备案的产品，而且时间要大于三个月以上。于是我就买了百度的 <code>BCH虚拟主机</code>，打算是用来备案的。不过这个 <code>BCH主机</code>给我的体验是极其糟糕。 <code>Ftp</code>的连接总是断开，连一个文件都不能很好的上传。而且我排除了是我的网络问题也发了工单给他们技术人员，结果当然就是和其他的云服务厂商差不多都是踢皮球，说不是我们的事，要不你自己再排查一下。大概过了10天左右，我再收到他们的系统消息，说百度华南地区服务器升级了，进行了线路优化。结果再次打开 <code>Ftp</code>上传，果然没有任何问题了。</p><h4 id="与阿里云的对比"><a href="#与阿里云的对比" class="headerlink" title="与阿里云的对比"></a>与阿里云的对比</h4><p>这糟糕的印象至今让我挥之不去。产品这么不稳定就可以拿来卖。就算备案方便，我对百度云产品也已失兴趣。同样是虚拟主机，安装了一个 <code>Wordpress</code>之后就卡的要死，慢的要命。又同样提交工单，向他们咨询，结果他们却说你重新购买内存大一点的。<br>我就纳闷了，既然这一个产品，你们连市面上最主流的网站程序安装起来用着的卡卡的，那你们也好意思卖？我不知道阿里的虚拟主机共享的是多少内存，就算是 <code>128MB</code>，但是人家就没有这样的问题，用起来就比较流畅。这说明优化的并不好。而且阿里用的还是 <code>Apache</code>，百度用的是 <code>Nginx</code>。</p><p>后面又仔细一想，也许卡的原因并不是在内存上，而是在给的 <code>1MB带宽</code>上。但这更加说明了，百度根本就不会做产品。你这么低的配置，你还配1MB，有个卵用。你还不如直接每个月限流多少G比较好。因为用这么低配的 <code>虚拟主机</code>说明他的业务量并不大，所以你给他 <code>1MB带宽</code>反而是成了他体验不好的因素。阿里云则是用的限流方法，这样可以保证你的网络不会有瓶颈，而业务量不大也不会耗尽流量。而百度的做法看似很大方，实则体验并不好， <code>BCH主机</code>的数据库也是这样，这么低的配置，你给人家1GB的数据库有什么用？如果不清楚门道的，听起来好像还很厚道的样子。你还不如给 <code>128MB内存</code>加 <code>128MB</code>的数据库加月流30G的流量体验会更好。</p><p>尽管这么极低的配置，第2年续费的价格却高达200多元一年。当然这里不只是 <code>百度云</code>这样，每一个云计算服务商对新用户都特别友好，但是续费的时候价格都很贵。续费的价格差不多是首次采购的价格的10倍。（正是如此，不少用户都把家里人的身份证都拿来开了 <code>阿里云</code> <code>腾讯云</code>的账户，以新用户身份购买云计算产品）我想着也正是因为这一个因素，这两年阿里腾讯的新用户都逐渐减少了。所以百度想趁机捞一下阿里腾讯老用户，给点优惠，让他们去百度备案。</p><p>但更想说的是，你百度云虚拟主机只能购买一年，第二年以老用户分身续费，人家阿里云虚拟主机一次性可以购买3年。你们做产品不进行横向对比吗？对自家产品这么自信吗？有 <code>SEO</code>加成吗？就算有，那又怎样？</p><p>百度现在连中文搜索都做不好。李先生还到处在公共场合说，就算谷歌进入中国，也有信心再赢谷歌一次。我觉得稍微有点盲目自信了。别的人我不知道，但大部分偏向于计算机的从业人员，搜索问题比较专业的时候，几乎一致都认为谷歌搜的比百度好太多了。我自己也是越来越倚重谷歌搜索。</p><h4 id="百度云和百度网盘"><a href="#百度云和百度网盘" class="headerlink" title="百度云和百度网盘"></a>百度云和百度网盘</h4><p>还记得 <code>百度网盘</code>最初就叫 <code>百度云</code>，那个时候我就震惊了。心里在想你 <code>百度网盘</code>叫 <code>百度云</code>，那你百度今后不做 <code>云计算</code>产品了吗？做云计算产品的话，那又叫什么名字呢？尽管那时候还是2012年，同年9月，百度世界大会打出的口号好像是“百度云送你100G”，我应该是百度网盘较早的一批用户。大概是2016年10月的时候又把名字从百度云改为百度网盘。</p><p>毕竟人家阿里云是包含 <code>IaaS</code>和 <code>PaaS</code>以及少量的 <code>SaaS</code>，腾讯云也如此，唯独你百度云就是一个百度网盘，完全属于SaaS层的产品，有点说不过去嘛。真不知道百度的决策者当时是如何思考的。也许百度内部又误判了形势，以为未来是SaaS的天下，或者网盘有莫大的市场需求吧，因此他们从那时候就砸重金在网盘业务上，依稀记得百度某个技术人员说过为了支撑百度网盘业务每年烧掉20亿。一个曾与阿里腾讯同一体量的公司，如果不是决策错误，应该不会有这样的命名。更大的决策错误则是在2013年花了19亿美元收购了 <code>91手机助手</code>。也许他们认为控制了APP分发渠道就控制了移动互联网入口吧。尽管说这些有点马后炮的味道，但可以看出百度当年的财大气粗，与今百度号召节约用纸形成鲜明对比。</p><p>对比其他相同的网盘业务这一块，百度网盘，确实良心，尽管很多人不认同这一说法。网盘业务是靠烧真金白银烧到现今。相比之前360网盘业务的关闭，和今年腾讯微云给出半年期限，不交会会员费就删除超额文件，百度能死扛到今天，确实算良心产品。但网民并不买账，国内一片骂声。因为上传到网盘就不好下载了，下载速度极慢，开了会员还有流量限速，这更能说明国内的带宽业务贵，这么说我能理解，尽管体验不好，但比起删除超额文件和直接取消网盘业务要好些吧。哪怕是到了今年2019年，我猜测依旧是亏钱，因此现在的东西也逐渐不上传百度网盘了。</p><p>顺嘴在提一句上述说的带宽业务贵都是指企业带宽，商用带宽，中国是一个以商用带宽来补贴民用带宽的国家，因此家庭带宽便宜，与美国不一样，因此很多不明理的网站站长总是无脑指责这一块，说国内的云主机都是小水管（指的是带宽小），都是奸商，国外的云主机动不动就每月几个TB的额度甚至不限流，那是你没了解美国家庭的带宽费用。总之有利有弊。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 云计算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>云计算的开端和分类</title>
+      <link href="/post/the-beginning-and-classification-of-cloud-computing.html"/>
+      <url>/post/the-beginning-and-classification-of-cloud-computing.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="云计算的开端"><a href="#云计算的开端" class="headerlink" title="云计算的开端"></a>云计算的开端</h3><p>十年前，刚好是 <code>阿里云</code>的开端，也是中国云计算的开端，那时候化腾，彦宏都不看好云计算，两者都认为现在谈云计算还为时过早，但马云却说没有云就没有未来，还说自己不懂技术，但云计算对我们很重要。而且阿里的内部也是马云力挺王坚，才有今天国内云计算以阿里云为首的局面，更是与亚马逊云，微软云在同一梯队的云服务商。</p><p>上述说的是国内，整个云计算的开端应属于亚马逊云，亚马逊最开始在线上卖书，购买了大量的服务器，为了应对黑五活动，结果平常这些服务器的资源更多的是闲置，于是就想能不能把这些闲置的资源打包整合租出去，因此有了云计算的开端。一般认为，2006年亚马逊公开发布 <code>S3</code>存储服务及 <code>EC2</code>虚拟机服务，算是现代云计算的开端。</p><h3 id="云计算的分类"><a href="#云计算的分类" class="headerlink" title="云计算的分类"></a>云计算的分类</h3><h4 id="Iaas-PaaS-SaaS"><a href="#Iaas-PaaS-SaaS" class="headerlink" title="Iaas,PaaS,SaaS"></a>Iaas,PaaS,SaaS</h4><p>通常，我们把云计算服务分为三层，基础设施即服务(Iaas)，平台即服务(PaaS)，软件即服务(SaaS)三层。 <code>IaaS</code>一般指提供CPU，内存，存储，网络和云服务器等； <code>PaaS</code>则如代码托管，云编译，开发者中心之类的， <code>SaaS</code>则是普通人常用但却不为所知的，如邮箱产品，WPS+，云盘等。</p><p>我们可以简单理解为， <code>IaaS</code>则好比是一台没有安装操作系统的电脑或笔记本出售给你， <code>PaaS</code>则好比安装了 <code>Windows7</code>或 <code>Windows10</code>甚至是 <code>Linux</code>系统出售给你的电脑，但系统里面没有任何软件，而 <code>SaaS</code>则好比安装好了操作系统还把经常用的 <code>QQ，微信，office</code>等各种软件安装好了，买来直接就可以用了。</p><p>业界认为， <code>IaaS</code>体现的是云计算服务商的基础能力， <code>PaaS</code>体系的是整合度和成熟度，能解决客户业务层面的问题。而有能力做好 <code>IaaS</code>和 <code>PaaS</code> 的也不会侧重于做 <code>SaaS</code>，你总的给人家留口饭吃，而且就算你有能力做好基础设置和平台，但不代表你有能力做好SaaS，没有一家企业可以在各个领域都擅长。比如阿里云，无论是 <code>IaaS</code>还是 <code>PaaS</code>在国内都是带头大哥，但 <code>SaaS</code>领域不是阿里云一家独大的局面了，而是百家争鸣，毕竟这是一个更为细分的层面，市场份额较大的比如有 <code>金蝶云</code>和 <code>用友云</code>。</p><p>当然马云自己也说，不做SaaS，是符合阿里 <code>让天下没有难做的生意</code>的宗旨的。</p><h4 id="什么是私有云-公有云-混合云"><a href="#什么是私有云-公有云-混合云" class="headerlink" title="什么是私有云,公有云,混合云"></a>什么是私有云,公有云,混合云</h4><p>除上述所说，云计算的部署模式也可分为三类，私有云，公有云和混合云。</p><p> <code>私有云</code>顾名思义就是私有的，需要私有网络或者 <code>VPN</code>专有网络才可访问，用户对服务器有绝对的控制权，因此安全性很高，当然价格也是最贵的。 <code>公有云</code>就是面向整个互联网，任何网络都可访问，因此安全性是最差的，价格也是最便宜的。 <code>混合云</code>无论是安全性还是价格都介于前两者之间。比如企业对数据的安全性要求很高，那么可以把数据放在私有云，其他业务则放在公有云，这就是混合云了。</p><p>打个不是那么恰当的比方，私有云就好比私人小别墅，这栋楼层是归你私人所有，改造空间大，一般人不给进。公有云就如同房地产卖多层楼房，改造空间有限，而且一栋楼有上百户，一般人可以随意进出大楼。混合云就好比你既有私人别墅又有高层楼房，然后把贵重的东西放在别墅，一般物品则在高层楼房中。</p><h3 id="展望未来"><a href="#展望未来" class="headerlink" title="展望未来"></a>展望未来</h3><p>尽管云计算在国内历经了10年路程，但不可否认依旧是个开始，未来的云计算，如阿里云王坚博士所说，云服务将和水，电，空气一样，成为生命的一部分。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 云计算 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>关于本站和域名相关事宜</title>
+      <link href="/post/about-this-site-and-domain-related-matters.html"/>
+      <url>/post/about-this-site-and-domain-related-matters.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="先说域名注册"><a href="#先说域名注册" class="headerlink" title="先说域名注册"></a>先说域名注册</h4><p>本站从域名开始算起，它是一个新站点，但域名是从 <code>.cn</code> 更换到 <code>.com</code> ，无它，就是觉得 <code>.com</code> 更符合大家的印象记忆和输入习惯。</p><p>因此腾讯新网优惠价几乎算是半价入手续费域名。一口气续费了10年，这和我的 <code>.cn</code> 一样， <code>.cn</code> 当初上学时候在万网注册了10年，不过 <code>.cn</code> 真正变成可访问站点也就是一年前的事儿。中途闲置了五六年，去年开始做成了静态站点。</p><p>但以前的文章都是笔记，因此在本次更换域名的时候删除了以前所有文章，因托管于<a href="https://github.com/">Github</a>上，无法做301跳转，干脆重新开始写起，这次不光有笔记，更主要会当做一个日志站点来记录所言所想所事。</p><p>之所以选用自己的名字注册为域名，思来想去还是比较好记，不但自己好记，也方便别人记忆。这一点是经过深思熟虑，有过切身体会。记住了网站的名字也就记住了域名，反之亦然。当然也没想要让谁记住不可，此站的用途更多的是方便日后自己查阅，为此也是我选择静态网站的原因之一。</p><p>在思考要不要用自己的真实姓名作为站点名字之前也是有过犹豫，这是一个信息爆炸时代和隐私泛滥时代。只要人家想，肯花钱，即便不用真实姓名也可以把你查个底朝天。相较于其他国家，我们国家还是处于一个比较安全的社会，而自己是命再苦没怨过政府，人在背没怨过社会，倒也不担心人身安全问题。</p><h4 id="再说程序选择"><a href="#再说程序选择" class="headerlink" title="再说程序选择"></a>再说程序选择</h4><p>从程序来讲，也有近一年的历史了，其中历经颇多曲折，不免和多数站点甚为相似。最开始接触的是<a href="https://vuepress.vuejs.org/zh/">Vuepress</a>，无奈上手难度大，对于一个不懂程序的人来讲。</p><p>后又尝试了<a href="https://gohugo.io/">hugo</a>，成功搞定，而且特别喜欢它的二进制文件，上手是最简单的，再后又试了<a href="https://hexo.io/zh-cn/">hexo</a>,成功在本地安装并且可访，但总觉得不够简洁。</p><p>和大多数个人博主一样，都是停留在找主题的路上，而不重其内容，无奈<code>hugo</code>的主题还是相关文档都太少了，于己亥年春季，回到了<code>hexo</code>,因为遇见了这款主题。</p><p>但时间久了，觉得这款主题也没有当初那么好看和符合自己的要求了，感觉之前用的<code>hugo</code>的那款主题在现在看来也还不错，纯文字型的站点用上也还不错，更向往的是<code>vuepress</code>的默认主题，有一种大气简洁之风，于前几天又尝试了一下<code>vuepress</code>，这次本地成功安装并且可访，隐隐觉察这不应该是我的本意，离题越来越远，因要重其内容而轻视程序，否则无穷尽矣。而且<code>vuepress</code>的主题和相关文档比<code>hugo</code>更少，编译速度相对<code>hexo</code>也无明显优势，更别提<code>hugo</code>了。</p><p>但<code>hexo</code>的优势就是有众多的主题和插件，相当于动态网站建站程序中的<code>Wordpress</code>，所以目前本站选用了<code>hexo</code>构建</p><h4 id="为何不用Wordpress"><a href="#为何不用Wordpress" class="headerlink" title="为何不用Wordpress"></a>为何不用Wordpress</h4><p>大名鼎鼎的<a href="https://wordpress.org/">Wordpress</a>是我最早接触的<code>web</code>建站程序，那时候还<code>Wordpress</code>版本还是在3.2，现今都到5.24了。这应该也和大多数个人站长一样，起初多是从<code>Wordpress</code>开始吧。</p><p>而且<code>Wordpress</code>是需要服务器数据库做交互的，属于<strong>动态网站</strong>，与之对应的是<strong>静态网站</strong>，如上述提及的那些程序都属静态站点生成器。下面说说它们的差异性吧。</p><p>动态网站的优势是便于维护和管理，功能强拓展性好，灵活。静态网站的优势是安全稳定，加载快。不需要数据库支撑，故不存在<code>SQL注入</code>之类的安全隐患。又都预先生成好了<code>html</code>文件，故加载速度快，但牺牲了灵活性。</p><p>动态网站需要数据库，服务器，这意味着你至少得有一台虚拟主机或服务器来构建运行环境。而静态网站可托管于<code>GitHub pages</code>之类的服务上即可，亦可存放于云服务商的对象存储上，相较于动态网站的环境要求没有那么高。</p><p>反正动态也好静态也好，都有各自的优缺点，选择适合的即可。</p><h4 id="备案问题"><a href="#备案问题" class="headerlink" title="备案问题"></a>备案问题</h4><p>说到备案问题，一个是工信部备案，一个是公安局备案，一般来讲，个人非营利性网站在工信部备案了即可，但近年来的要求是越来越严格，不少省份的管局要求你工信部备案后还要去公安局备案。</p><p>当然，如果你网站的服务器或者主机不在大陆地区倒也不需关心这事儿。但非大陆地区的网络对于我们大陆地区的人来讲，不稳定，这不稳定的原因是因为有国家防火墙存在。</p><p>而国家防火墙的存在是为了安民，此话怎讲？自小平时代改革开放以来，我国发展是越来越好，如今到了近平时代，人民生活水平也翻了几番。某些国家见不得中国发展强壮起来，制造各种舆论，因此如果国家不加以管控互联网的出口流量，很容易让国内的平头百姓觉得祖国是如何如何，换言之就很容易被洗脑，因为群众的智商总是偏低的。</p><p>我没有歧视的意思，而是说在集体心理中，个人的智力差异削弱了，个性也消失了。异质淹没在同质中，无意识的特点占了上风。故此群众中的人更倾向于得到群众的认同，而非有别于他人。</p><p>所以你要问我支不支持这么搞，我是支持滴。舆论必须严加管制，因此也着实牺牲了一部分用户体验。比如有很多东西我需要谷歌才可以搜索得到，而百度就不能，甚至搜索不到。而且是越专业的问题用谷歌搜索更容易找到答案。多年前就有一句“常识问百度，专业问谷歌”的话语。</p><p>正是有了这一道墙的存在，因此国外的服务器在国内访问的时候，存在着不稳定因素。如果你的网站要获得良好的网络环境，那么必须在国内备案才可以使用阿里云，腾讯云等各种云服务商的主机。</p><p>然本站是由静态站点工具生成，如要托管于云服务商的对象存储上，那么域名也是必须要备案才可以。但这个站点域名没有备案，也就不能使用国内的云服务了。因此才托管到<code>GitHub</code>上，而<code>GitHub</code>是全球程序员的聚集之地，上面有众多代码，虽然国内访问速度稍慢，还不至于完全不能访问的问题，同时本站还有备用路线<code>coding</code>，已被腾讯收购，过去的一年中，<code>coding</code>的稳定性完全不如<code>GitHub</code>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 技术 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网站 </tag>
+            
+            <tag> 备案 </tag>
+            
+            <tag> 域名 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
   
   
 </search>
