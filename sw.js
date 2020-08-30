@@ -24,6 +24,28 @@ self.toolbox.router.get("/(.*)", self.toolbox.networkFirst, {
 /* 缓存cdn静态资源 */
 self.toolbox.router.get("/gh/(.*)", self.toolbox.fastest, {origin: /cdn\.jsdelivr\.net/,});
 
+/* Google Analytics and Valine */
+self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {origin: /(www\.google-analytics\.com|ssl\.google-analytics\.com)/,
+    cache: {
+        name: vendorCacheName,
+        maxEntries: maxEntries
+    }
+});
+self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
+    origin: /hm\.baidu\.com/,
+    cache: {
+        name: vendorCacheName,
+        maxEntries: maxEntries
+    }
+});
+self.toolbox.router.get("/(.*)", self.toolbox.cacheFirst, {
+    origin: /tab\.avoscloud\.com/,
+    cache: {
+        name: vendorCacheName,
+        maxEntries: maxEntries
+    }
+});
+
 
 /* NoCache */
 self.toolbox.router.get("/sw.js",self.toolbox.networkFirst);
