@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</loc>
+    <lastmod>2020-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.tangruiping.com/post/coding-sync-github.html</loc>
+    <lastmod>2020-09-01</lastmod>
+  </url>
+  <url>
     <loc>https://www.tangruiping.com/post/service-worker-hexo.html</loc>
     <lastmod>2020-08-30</lastmod>
   </url>
@@ -25,19 +33,11 @@
     <lastmod>2020-08-24</lastmod>
   </url>
   <url>
-    <loc>https://www.tangruiping.com/post/github-coding-ci-cd-hexo-cdn.html</loc>
-    <lastmod>2020-08-22</lastmod>
-  </url>
-  <url>
     <loc>https://www.tangruiping.com/post/valine-ip-email-privacy.html</loc>
     <lastmod>2020-08-21</lastmod>
   </url>
   <url>
     <loc>https://www.tangruiping.com/post/hexo-hugo-vuepress-gatsby.html</loc>
-    <lastmod>2020-08-17</lastmod>
-  </url>
-  <url>
-    <loc>https://www.tangruiping.com/post/coding-sync-github.html</loc>
     <lastmod>2020-08-17</lastmod>
   </url>
   <url>

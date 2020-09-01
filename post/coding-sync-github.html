@@ -383,14 +383,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-08-17
+                    2020-09-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1k
+                    1.1k
                 </div>
                 
 
@@ -441,7 +441,7 @@
 <p>这个时候我们来配置一下环境变量， <code>https://用户名:token@github.com/用户名/仓库名.git</code>，这里的用户名为你github的用户名。这段配好后，看下面图，添加到环境变量，勾选保密，这样就不会把token在构建日志中输出了，提高了安全性。</p>
 <p><img src="https://noscos.nos-eastchina1.126.net/trpic/coding-ci-config.jpg" alt="coding-ci添加环境变量"></p>
 <p>这样就算完成了。进入 <code>coding</code>中的代码仓库，用 <code>web</code>上传一个文件看看，然后你会发现后台自动进行构建，此时你打开 <code>GitHub</code>的代码仓库，刷新一下看看，如果成功的话，通过 <code>coding</code>网页上传的文件在 <code>GitHub</code>上也会出现，删除刚上传的这个文件也会发现 <code>GitHub</code>中的文件被删除了。</p>
-<h3 id="Coding-Ci免费额度"><a href="#Coding-Ci免费额度" class="headerlink" title="Coding-Ci免费额度"></a>Coding-Ci免费额度</h3><p>不过 <code>Coding</code>持续集成是有一定免费额度的，就在<code>持续集成</code>中的 <code>构建节点</code>中即可看到，每周构建次数200次，也足够用了。同样目前一个仓库是 <code>2 GiB</code>，在仓库设置中可以看到。</p>
+<h3 id="Coding-Ci免费额度"><a href="#Coding-Ci免费额度" class="headerlink" title="Coding-Ci免费额度"></a>Coding-Ci免费额度</h3><p>不过 <code>Coding</code>持续集成是有一定免费额度的，就在<code>持续集成</code>中的 <code>构建节点</code>中即可看到，每周构建次数200次，单次构建时长上限为30分钟，每月总构建时长为1000分钟，也足够用了。同样目前一个仓库是 <code>2 GiB</code>，在仓库设置中可以看到。</p>
 <p>如此一来，即可每次生成好网站文件后，还可以通过coding的网页上实现文件和文件夹的上传更新，对于非程序员来讲，有时候通过web端上传可能对新手更为友好。</p>
 <p>尽管 <code>Github</code>也能实现网页端的文件和文件夹的上传，但稳定性似乎不如 <code>Coding</code>的网页版上传，不过 <code>Github Pages</code>的服务倒是比 <code>Coding Pages</code>要稳定些，对于我这边的网络来说。</p>
 <p>在强调一点，由于 <code>coding</code>是不需要 <code>CNAME</code>文件的，如果这个时候coding中没有 <code>CNAME</code>，那么就会自动删除 <code>Github</code>的 <code>CNAME</code>，导致 <code>Github Pages</code> 无法正常访问，解决办法就是在coding代码仓库根目录也放置一个 <code>CNAME</code>文件，并且文件内容填写你的域名即可，不需要写 <code>http</code>协议。</p>
@@ -1107,7 +1107,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 						
 
             
-            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">39k</span>&nbsp;字
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">39.1k</span>&nbsp;字
             
             <br>
             &nbsp;本站毫无章法的采用了多CDN加速 多站点托管
