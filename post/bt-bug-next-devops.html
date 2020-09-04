@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>宝塔面板漏洞事件和未来运维架构 | 唐瑞平</title><meta name="description" content="事件起因昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。 21点过后打开电脑，见Q群也有人讨论这事，就想着试试看，到底是怎么回事。于是就借用知道创宇的工具，找到了几个站点，还真可以采用IP:888&#x2F;pma这样的形式直接访问phpmyadmin管理"><meta name="keywords" content="运维,安全"><meta name="author" content="唐瑞平"><meta name="copyright" content="唐瑞平"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/img/favicon.ico"><link rel="canonical" href="https://www.tangruiping.com/post/bt-bug-next-devops.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//hm.baidu.com"><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:true,&quot;main&quot;:&quot;#FFC0CB&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#FF69B4&quot;,&quot;blockquote_background_color&quot;:&quot;#FF69B4&quot;}}"><meta property="og:type" content="article"><meta property="og:title" content="宝塔面板漏洞事件和未来运维架构"><meta property="og:url" content="https://www.tangruiping.com/post/bt-bug-next-devops.html"><meta property="og:site_name" content="唐瑞平"><meta property="og:description" content="事件起因昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。 21点过后打开电脑，见Q群也有人讨论这事，就想着试试看，到底是怎么回事。于是就借用知道创宇的工具，找到了几个站点，还真可以采用IP:888&#x2F;pma这样的形式直接访问phpmyadmin管理"><meta property="og:image" content="https://noscos.nos-eastchina1.126.net/trpic/bt-bug-next-devops.jpg"><meta property="article:published_time" content="2020-08-23T16:00:00.000Z"><meta property="article:modified_time" content="2020-08-23T16:00:00.000Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c57098725b04d417968f7b139cd2b606";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '5.1.1',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: undefined,
+  copyright: {"limitCount":50,"languages":{"author":"作者: 唐瑞平","link":"链接: ","source":"来源: 唐瑞平","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: true
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
+  
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2020-08-24 00:00:00'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = '2'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 22
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 22
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><meta name="generator" content="Hexo 5.1.1"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://noscos.nos-eastchina1.126.net/libs/medias/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/post/"><div class="headline">文章</div><div class="length_num">22</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">10</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">2</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/post/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E8%B5%B7%E5%9B%A0"><span class="toc-number">1.</span> <span class="toc-text">事件起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AE%9D%E5%A1%94%E9%9D%A2%E6%9D%BF"><span class="toc-number">2.</span> <span class="toc-text">什么是宝塔面板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E5%AE%9D%E5%A1%94%E6%BC%8F%E6%B4%9E%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%9C%8B%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">对宝塔漏洞事件的看法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9D%A2%E5%90%91%E6%9C%AA%E6%9D%A5%E7%9A%84%E8%BF%90%E7%BB%B4%E6%9E%B6%E6%9E%84"><span class="toc-number">4.</span> <span class="toc-text">面向未来的运维架构</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://noscos.nos-eastchina1.126.net/trpic/bt-bug-next-devops.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">唐瑞平</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/post/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">宝塔面板漏洞事件和未来运维架构</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-23T16:00:00.000Z" title="发表于 2020-08-24 00:00:00">2020-08-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-23T16:00:00.000Z" title="更新于 2020-08-24 00:00:00">2020-08-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/post/bt-bug-next-devops.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/post/bt-bug-next-devops.html" itemprop="commentCount"></span></a></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h3 id="事件起因"><a href="#事件起因" class="headerlink" title="事件起因"></a>事件起因</h3><p>昨天在某站看到有人提到宝塔7.4.2版本更新事件导致数据库可直接访问，当时没怎么在意，毕竟自己没有在用。差不多不到2年前搭建动态网站的时候，倒是用过。比自己手动编译安装LNMP和LAMP环境要方便多了。</p>
+<p>21点过后打开电脑，见Q群也有人讨论这事，就想着试试看，到底是怎么回事。于是就借用<code>知道创宇</code>的工具，找到了几个站点，还真可以采用<code>IP:888/pma</code>这样的形式直接访问<code>phpmyadmin</code>管理的MySQL数据库。</p>
+<p>而且权限之大可以做任何操作，直接删库都OK。尽管宝塔官网采用短信的形式通知用户及时更新修复，但总有人不重视这些问题，即便是在今上午，还是有站点没有做任何修复，甚至是现在我写文章的傍晚，某些网站还可以采用上面形式可直接访问数据库。</p>
+<p>更详细的分析我也说不了，网上有些文章分析的也挺好，还从代码对比层面讲了它改动的业务逻辑。我想从另一个角度谈谈对此次事件的看法。</p>
+<h3 id="什么是宝塔面板"><a href="#什么是宝塔面板" class="headerlink" title="什么是宝塔面板"></a>什么是宝塔面板</h3><p>什么是宝塔，这里的宝塔并不是宝塔镇河妖的宝塔，而是方便快速构建程序运行环境的一种程序面板。</p>
+<p>一般来讲，一个网站需要运行环境，网站就是Website，因此离不开<code>Web服务器</code>程序，如<code>Nginx</code>，<code>Apache HTTP</code>。再看网站是由什么语言程序写的，如果是<code>PHP语言</code>写的，那么还需要<code>PHP环境</code>，而这些语言写的网站都是属于动态类型的网站，还得有个数据库，如<code>MySQL</code>。这三者具备了，得看你网站运行在什么系统上，如果是<code>Linux系统</code>，那么这一套组合就可以简称为<code>LNMP</code>或者<code>LAMP</code>，LAMP和LNMP的区别是用Apache还是Nginx而已。</p>
+<p>而宝塔面板就是快速方便的搭建一套LAMP或者LNMP环境，当然你得先在Linux系统上安装好宝塔，然后由宝塔编译安装其他三个程序并且管理它们，简单说这就是<code>Linux面板</code>的作用。</p>
+<p>而这一次的漏洞就是在管理环境出现了逻辑问题，导致数据库可直接被访问。</p>
+<h3 id="对宝塔漏洞事件的看法"><a href="#对宝塔漏洞事件的看法" class="headerlink" title="对宝塔漏洞事件的看法"></a>对宝塔漏洞事件的看法</h3><p>只要是人写的代码，就会有漏洞，只要是人，就可能出现业务逻辑的BUG。而宝塔出了这么大档子事，犯得还是这么低级的错误，要说没有这样的声音，才是奇怪。</p>
+<p>其实就算是微软，也都有人说Windows不安全，我用Linux之类的声音。不管什么事件，一旦发生，总会出现两种完全不同的声音，我想这才符合中国古代哲学的辩证思想。有阴就有阳，有人说可以，就有人说不可以。</p>
+<p>至于谁对谁错，在某种程度上，反而不是那么重要。我更关注的是如果一件事情发生，可怕的是只有一种声音。</p>
+<p>从昨天到今天，看到不少人说早就不用宝塔了，LNMP一键脚本它不香吗？也有的说，已经不用宝塔好久了，早几年就改用XX面板了。还有的说，今后再也不用宝塔了。总之，这些都算得上抵制或者嘲讽的声音吧。当然也有不少理智人说该用还得用，我倒是倾向于后者观点。</p>
+<p>原因也很简单，不是所有人都是开发者和运维工程师，时间一久，很容易忘记操作步骤和某些细节。如果要处理点什么，改点什么，可能需要临时查阅笔记或者搜索引擎。这对非程序员和运维人员来说，是很麻烦也很费时间，而且时间费了未必就能解决，解决了下次遇见可能又需要重复一次查阅。</p>
+<p>听说，这次事件中，还有几个政府网站也遭了殃。看来，帮政府管理计算机资产的人，也是图方便，另一方面很可能是水平有限。</p>
+<p>就自己检索到的几个网站来看，用来做PC站点的反而少，多是面向移动端做小程序。或许也能说明，这些小程序的运营者，还不够有实力聘请专业的运维人员，而是自己用宝塔，研究研究，非计算机专业的人也较容易上手。</p>
+<p>声音不同，是因为立场不同，看问题的角度自然就不一样。即便这次有不少人被删库，对宝塔也不会造成多大的冲击。因为方便容易远胜于安全，而且宝塔也不是一点都不安全，对于他们来说，没有宝塔，环境都搭建不来，那招人来做，流出的都是真金白银。</p>
+<p>权衡之后，自然该用还是得用。我自己之前，设立了好几套密码，过于复杂，为了安全，对于不同网站采用不同密码，安全性是提高了不少，但费脑力。稍微久点不登录的站点，就想不起来是哪一套密码了。后面采用密码管理器解决后，就再也不用记密码，所以我现在QQ密码微信密码都记不住了。你看，任何事情都有它的两面性。</p>
+<h3 id="面向未来的运维架构"><a href="#面向未来的运维架构" class="headerlink" title="面向未来的运维架构"></a>面向未来的运维架构</h3><p>目前（2020年8月）宝塔官网写的是历经200多个版本的迭代，100多项服务器管理功能，400万安装，1000+中大型企业使用。</p>
+<p>这个成绩看着是挺不错的，但我依旧不看好运维面板的未来，随着<code>Serverless架构</code>的推进，未来更是一种“无服务化”的运维模式，开发者只需对代码进行更新迭代即可，无需关注服务器的运行状况。</p>
+<p>如果说<code>Serverless</code>没能挑起这个大梁，那么必将有其他类似产品出现，这是一种趋势。如同在云计算之前，几乎所有运维都要面临机房，网络设备，硬件设备打交道。而今，随着云计算的普及，多数运维人员只需要打开阿里云，腾讯云的页面，点击鼠标即可完成对服务器的申请和配置，并不需要亲自去机房部署，只有少数面向机房运维的才会接触这些。</p>
+<p>尽管Serverless现在存在很多问题，有很多不完善，但并代表这个模式不行。因为很多软件程序的设计一开始就不是为了serverless架构而设计的，想要完全与之兼容，肯定是需要时间。</p>
+<p>另外，随着云原生的推进，相信<code>Serverless</code>在未来会有更好的展现。之前在《<a href="https://www.tangruiping.com/post/serverless-wordpress-typecho.html">Serverless云函数计算搭建Typecho和Wordpress网站</a>》中讲到，搭建个人站点的wordpress和typecho几乎没什么问题，就是伪静态方面不好解决。</p>
+<p>而且，阿里云都有一键安装<code>Wordpress</code>到<code>Serverless</code>如果把<code>HTTPS</code>问题和<code>伪静态</code>问题解决了，难道不比宝塔方便？十年前，虚拟主机还要考虑单线，双线问题，现在你还会考虑吗？同理，现在你还考虑服务器是几G几核心的问题，未来就不需再考虑了。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.tangruiping.com/about/">唐瑞平</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.tangruiping.com/post/bt-bug-next-devops.html">https://www.tangruiping.com/post/bt-bug-next-devops.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="external nofollow noopener noreferrer">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.tangruiping.com" target="_blank">唐瑞平</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BF%90%E7%BB%B4/">运维</a><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%85%A8/">安全</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/jsdelivr-failed-to-fetch-version-info-for.html"><img class="prev-cover" src="https://noscos.nos-eastchina1.126.net/trpic/jsdelivr-failed.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">jsdelivr 出现 Failed to fetch version info for  原因分析</div></div></a></div><div class="next-post pull-right"><a href="/post/blog-seo-page-view-search-engine.html"><img class="next-cover" src="https://noscos.nos-eastchina1.126.net/trpic/blog-seo-page-view-search-engine.jpg" onerror="onerror=null;src='https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">个人博客SEO流量及搜索引擎问题现状</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/real-name-system-and-website-email-account-problems.html" title="实名制及网站邮箱账户问题"><img class="cover" src="https://noscos.nos-eastchina1.126.net/trpic/Real-name-system.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-12-10</div><div class="title">实名制及网站邮箱账户问题</div></div></a></div><div><a href="/post/valine-ip-email-privacy.html" title="Hexo博客Valine评论系统IP邮箱泄露问题和解决方法"><img class="cover" src="https://noscos.nos-eastchina1.126.net/trpic/valine.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-04</div><div class="title">Hexo博客Valine评论系统IP邮箱泄露问题和解决方法</div></div></a></div></div></div><hr><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><label><input id="switch-comments-btn" type="checkbox"><span class="slider"></span></label><span class="second-comment">utterances</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By 唐瑞平</div><div class="footer_custom_text">本站毫无章法的采用多站点部署，多CDN加速</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/js/utils.js"></script><script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    window.valine = new Valine({
+      el: '#vcomment',
+      appId: 'LoTUITYwfss9wLAJyJFqRmLJ-9Nh9j0Va',
+      appKey: 'pkMs5cbGuFEv4dWYHAxCfOgB',
+      placeholder: '欢迎留言评论',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: false,
+      path: window.location.pathname,
+    });
+    if ('nick,mail') { valine.config.requiredFields= 'nick,mail'.split(',') }
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else $.getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js', initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.querySelector('#vcomment'),loadValine)
+  else setTimeout(() => loadValine(), 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/gh/rpint/rpint.github.io@latest/js/third-party/click_heart.js" async="async"></script></div></body></html>
