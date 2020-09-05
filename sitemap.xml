@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://www.tangruiping.com/gallery/index.html</loc>
+    <loc>https://www.tangruiping.com/gallery/test_shuhai/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
@@ -10,6 +10,13 @@
   
   <url>
     <loc>https://www.tangruiping.com/gallery/test_shiguang/index.html</loc>
+    
+    <lastmod>2020-09-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/gallery/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
@@ -38,13 +45,6 @@
   
   <url>
     <loc>https://www.tangruiping.com/gallery/test_august/index.html</loc>
-    
-    <lastmod>2020-09-05</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://www.tangruiping.com/gallery/test_shuhai/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
