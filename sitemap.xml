@@ -9,14 +9,21 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/gallery/april/index.html</loc>
+    <loc>https://www.tangruiping.com/gallery/test_shiguang/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/gallery/ohmygirl/index.html</loc>
+    <loc>https://www.tangruiping.com/tags/index.html</loc>
+    
+    <lastmod>2020-09-05</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/gallery/test_april/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
@@ -30,14 +37,14 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/gallery/august/index.html</loc>
+    <loc>https://www.tangruiping.com/gallery/test_august/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/gallery/shuhai/index.html</loc>
+    <loc>https://www.tangruiping.com/gallery/test_shuhai/index.html</loc>
     
     <lastmod>2020-09-05</lastmod>
     
@@ -205,13 +212,6 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/tags/index.html</loc>
-    
-    <lastmod>2019-03-06</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://www.tangruiping.com/categories/index.html</loc>
     
     <lastmod>2019-03-06</lastmod>
@@ -256,13 +256,6 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/tags/%E5%9F%9F%E5%90%8D/</loc>
-    <lastmod>2020-09-05</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://www.tangruiping.com/tags/SEO/</loc>
     <lastmod>2020-09-05</lastmod>
     <changefreq>daily</changefreq>
@@ -270,7 +263,7 @@
   </url>
   
   <url>
-    <loc>https://www.tangruiping.com/tags/%E6%89%8B%E6%9C%BA/</loc>
+    <loc>https://www.tangruiping.com/tags/%E5%9F%9F%E5%90%8D/</loc>
     <lastmod>2020-09-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -285,6 +278,13 @@
   
   <url>
     <loc>https://www.tangruiping.com/tags/%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2020-09-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.tangruiping.com/tags/%E6%89%8B%E6%9C%BA/</loc>
     <lastmod>2020-09-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

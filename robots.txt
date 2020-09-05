@@ -1,4 +1,6 @@
 User-agent: Baiduspider
 Sitemap: https://www.tangruiping.com/baidusitemap.xml
+Disallow: /gallery/test_*
 User-agent: *
 Sitemap: https://www.tangruiping.com/sitemap.xml
+Disallow: /gallery/test_*
