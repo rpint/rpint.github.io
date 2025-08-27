@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>申请SSL证书一直无法通过DNS验证的问题 | 唐瑞平</title><meta name="description" content="申请域名SSL证书不知不觉一年又过去了，一直以为申请SSL证书是极为容易的事情，没想到这次却遇见了一点小麻烦。用的是腾讯云申请免费的亚洲诚信DV SSL证书（Domain ValidationSSL），不料，24小时快过去了，还是处于待验证状态。之前也用腾讯云申请过，虽然比阿里云稍微慢点，但也不至于都快1天时间了，手动点击验证，结果是验证失败。 查看原因也告知是DNS解析全球生效需要24小时，同时"><meta name="keywords" content="网站"><meta name="author" content="唐瑞平"><meta name="copyright" content="唐瑞平"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="https://static-1252739229.file.myqcloud.com/trpic/ping-logo.png"><link rel="canonical" href="https://www.tangruiping.com/post/ssl-certificate-dns.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:false,&quot;main&quot;:&quot;#FFC0CB&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#FF69B4&quot;,&quot;blockquote_background_color&quot;:&quot;#FF69B4&quot;}}"><meta property="og:type" content="article"><meta property="og:title" content="申请SSL证书一直无法通过DNS验证的问题"><meta property="og:url" content="https://www.tangruiping.com/post/ssl-certificate-dns.html"><meta property="og:site_name" content="唐瑞平"><meta property="og:description" content="申请域名SSL证书不知不觉一年又过去了，一直以为申请SSL证书是极为容易的事情，没想到这次却遇见了一点小麻烦。用的是腾讯云申请免费的亚洲诚信DV SSL证书（Domain ValidationSSL），不料，24小时快过去了，还是处于待验证状态。之前也用腾讯云申请过，虽然比阿里云稍微慢点，但也不至于都快1天时间了，手动点击验证，结果是验证失败。 查看原因也告知是DNS解析全球生效需要24小时，同时"><meta property="og:image" content="https://static-1252739229.file.myqcloud.com/trpic/ssl-certificate-dns.jpg"><meta property="article:published_time" content="2021-07-21T16:00:00.000Z"><meta property="article:modified_time" content="2022-07-18T16:00:00.000Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="https://static-1252739229.file.myqcloud.com/rpint/css/index.css"><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-V86YQ0T4SR"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-V86YQ0T4SR');
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;6d8ec98aedec4340832af6dabc28d8e4&quot;}"></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '7.3.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: undefined,
+  copyright: {"limitCount":50,"languages":{"author":"作者: 唐瑞平","link":"链接: ","source":"来源: 唐瑞平","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://s4.zstatic.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js',
+    css: 'https://s4.zstatic.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
+  
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2022-07-19 00:00:00'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 22
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 22
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://static-1252739229.file.myqcloud.com/trpic/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/post/"><div class="headline">文章</div><div class="length_num">33</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">2</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/post/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B3%E8%AF%B7%E5%9F%9F%E5%90%8DSSL%E8%AF%81%E4%B9%A6"><span class="toc-number">1.</span> <span class="toc-text">申请域名SSL证书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA-%E4%B8%8E-ECC-%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">RSA 与 ECC 加密算法的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2022%E5%B9%B4%E5%86%8D%E9%81%87%E5%88%B0%E7%94%B3%E8%AF%B7%E8%AF%81%E4%B9%A6%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">2022年再遇到申请证书问题</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://static-1252739229.file.myqcloud.com/trpic/ssl-certificate-dns.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">唐瑞平</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/post/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">申请SSL证书一直无法通过DNS验证的问题</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-07-21T16:00:00.000Z" title="发表于 2021-07-22 00:00:00">2021-07-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-07-18T16:00:00.000Z" title="更新于 2022-07-19 00:00:00">2022-07-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h3 id="申请域名SSL证书"><a href="#申请域名SSL证书" class="headerlink" title="申请域名SSL证书"></a>申请域名SSL证书</h3><p>不知不觉一年又过去了，一直以为申请<code>SSL证书</code>是极为容易的事情，没想到这次却遇见了一点小麻烦。用的是腾讯云申请免费的亚洲诚信<code>DV SSL证书（Domain ValidationSSL）</code>，不料，24小时快过去了，还是处于待验证状态。之前也用腾讯云申请过，虽然比阿里云稍微慢点，但也不至于都快1天时间了，手动点击验证，结果是<code>验证失败</code>。</p>
+<p>查看原因也告知是<code>DNS解析</code>全球生效需要24小时，同时上面也写有1个工作日内审核。但问题是距离24小时都不到1小时了，我就不信过了1小时候它会成功，因此我不打算继续等候这几十分钟，准备放弃换阿里云申请。</p>
+<p>用阿里云申请，显示为1-15分钟内审核完毕，结果15分钟过去了依旧不见动静，还是处于<code>正在审核中</code>的状态，我预感不妙，阿里云估计也不会成功的。不服的我又撤销申请，重来了2次结果依旧。</p>
+<p>后面我也不知道搜索的是什么关键词，找到了<a target="_blank" rel="external nofollow noopener noreferrer" href="https://myssl.com/dns_check.html#ssl_verify">MySSL.com</a>这个网站，输入<code>申请的域名</code>和<code>TXT验证值</code>检测发现，竟然显示不匹配，其结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>地区</th>
+<th>是否匹配</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国</td>
+<td>不匹配 (验证失败，您的CAA配置不允许当前CA为您签发证书，请修改为：symantec.com或digicert.com)</td>
+</tr>
+<tr>
+<td>香港</td>
+<td>不匹配 (验证失败，您的CAA配置不允许当前CA为您签发证书，请修改为：symantec.com或digicert.com)</td>
+</tr>
+<tr>
+<td>美国</td>
+<td>不匹配 (验证失败，您的CAA配置不允许当前CA为您签发证书，请修改为：symantec.com或digicert.com)</td>
+</tr>
+</tbody></table>
+<p>好家伙，于是我以为是CAA在腾讯云或阿里云自动配置不当的结果（尽管心里面不认为是阿里腾讯的问题，但是没办法），自己手动申请后继续在阿里云上面申请，结果还是不行。</p>
+<p>于是我开始回顾，莫不成申请个<code>SSL证书</code>还要把域名解析到相应的服务商吗？但经验告诉我，这是没必要的，有了<code>TXT验证</code>，是不需要去处理域名<code>A记录</code>或<code>CNAME记录</code>的。</p>
+<p>于是我又寻思，莫不成最近的免费版可能有点状况？莫不成最近的申请策略改变了？莫不成我的域名变为敏感了？最后我把这些猜想都排除了，直接从域名解析上着手。</p>
+<p>域名主机记录为@的，CNAME解析到vercel上，记录为www的默认CNAME解析到了cloudflare（还有其他线路解析），我直接把这两个记录给暂停解析，没过多久，一刷新<a target="_blank" rel="external nofollow noopener noreferrer" href="https://console.cloud.tencent.com/ssl">腾讯SSL证书的申请页面</a>，竟然已经成功了。看来问题应该是出现在主机记录为@的解析到vercel上的缘故，才导致上面检测显示不匹配的问题。</p>
+<p>虽然问题得以顺利解决，但害怕明年申请的时候又给遗忘了，故此赶紧写一篇文章来记录一下。为什么去年和之前都没遇见这样的问题呢？自己回顾了一下有一下几个可能性：</p>
+<ul>
+<li>之前申请的有些都是二级域名，而这是是申请www的，但域名主机记录为@的，和域名主机记录为www的，一般会被视为同一个，或者两者共用一张SSL证书；</li>
+<li>可能是vercel特有的问题，如果把域名解析到其他云服务商，可能就不存在这样的状况，比如解析到某个服务商的CDN上；</li>
+</ul>
+<h3 id="RSA-与-ECC-加密算法的区别"><a href="#RSA-与-ECC-加密算法的区别" class="headerlink" title="RSA 与 ECC 加密算法的区别"></a>RSA 与 ECC 加密算法的区别</h3><p>前面说道还怀疑是申请策略变更了，其原因就是腾讯云支持ECC加密算法的申请了，之前腾讯云都是默认RSA的，<a target="_blank" rel="external nofollow noopener noreferrer" href="https://console.upyun.com/register/?invite=B17jnzshm">又拍云</a>支持的比腾讯云早，阿里云到目前为止（2021年7月22日），好像不支持选择ECC申请。（没去细究到底支持不）</p>
+<p>至于这两者有啥区别，看下面表格对比，我肯定优选ECC，管他浏览器的兼容性好与不好。</p>
+<table>
+<thead>
+<tr>
+<th>对比项目</th>
+<th>ECC 加密算法</th>
+<th>RSA 加密算法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>密钥长度</td>
+<td>256位</td>
+<td>2048位</td>
+</tr>
+<tr>
+<td>CPU 占用</td>
+<td>较少</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>内存占用</td>
+<td>较少</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>网络消耗</td>
+<td>较少</td>
+<td>较高</td>
+</tr>
+<tr>
+<td>加密效率</td>
+<td>较高</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>抗攻击性</td>
+<td>较强</td>
+<td>一般</td>
+</tr>
+<tr>
+<td>兼容范围</td>
+<td>新版浏览器和操作系统均支持，但存在少数不支持的平台。例如 cPanel</td>
+<td>均支持</td>
+</tr>
+</tbody></table>
+<h3 id="2022年再遇到申请证书问题"><a href="#2022年再遇到申请证书问题" class="headerlink" title="2022年再遇到申请证书问题"></a>2022年再遇到申请证书问题</h3><p>时隔一年，又再次碰见申请证书不通过问题，在腾讯云SSL证书中提示，CAA记录被Vercel给记录到<code> 0 issue &quot;letsencrypt.org&quot;</code>，因配置了不同路线解析，又因<code>letsencrypt</code>是三个月的有效期，故此在Vercel中添加了一条CAA记录，于是我就暂停了所有的解析，特在腾讯云的<code>DNDPod</code>中添加了CAA记录为<code>0 issue &quot;dnspod.cn&quot;</code>等着审核通过。</p>
+<p>万没想到都快24小时了，还是没有任何动静。又想，这一年年的时间过得也挺快，一年没有理会这些东西，自己都有些忘记站点的解析路线了，要不然就全部统一到一个路线好了？于是修改解析，想着要不再重新申请一次？昨天一天都在审核中，自己还换到阿里云去申请，结果也一样，这修改了解析后阿里云的就通过审核了，重新申请的腾讯云这边也通过了审核。难不成是自己昨天暂停了<code>www</code>和<code>@</code>的记录导致？如果是仅仅暂停<code>CNAME</code>的Vercal是不是就可以了？</p>
+<p>也无心精力也追究那么多了，如今越来越深感精力有限，故此仅做记录以便来年参考为用。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.tangruiping.com/about/">唐瑞平</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.tangruiping.com/post/ssl-certificate-dns.html">https://www.tangruiping.com/post/ssl-certificate-dns.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="external nofollow noopener noreferrer">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.tangruiping.com" target="_blank">唐瑞平</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BD%91%E7%AB%99/">网站</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/website-update-insufficient-power.html"><img class="prev-cover" src="https://static-1252739229.file.myqcloud.com/trpic/website-update-insufficient-power.jpg" onerror="onerror=null;src='https://npm.elemecdn.com/rpint@0.1.1/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">网站更新动力不足</div></div></a></div><div class="next-post pull-right"><a href="/post/beiqiao-uboot-system.html"><img class="next-cover" src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-main.jpg" onerror="onerror=null;src='https://npm.elemecdn.com/rpint@0.1.1/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">北乔U盘启动系统维护工具</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/coding-pages-website.html" title="Coding Pages 与腾讯云静态网站合并后变相为收费"><img class="cover" src="https://static-1252739229.file.myqcloud.com/trpic/coding.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-27</div><div class="title">Coding Pages 与腾讯云静态网站合并后变相为收费</div></div></a></div><div><a href="/post/github-coding-ci-cd-hexo-cdn.html" title="Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想"><img class="cover" src="https://static-1252739229.file.myqcloud.com/trpic/github-coding-ci-cd-hexo-cdn.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-31</div><div class="title">Github Coding Ci/CD自动部署Hexo，多CDN线路为网站加速思想</div></div></a></div><div><a href="/post/serverless-wordpress-typecho.html" title="Serverless云函数计算搭建Typecho和Wordpress网站"><img class="cover" src="https://static-1252739229.file.myqcloud.com/trpic/serverless-wordpress-typecho.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-01</div><div class="title">Serverless云函数计算搭建Typecho和Wordpress网站</div></div></a></div><div><a href="/post/cloudflare-cdn-github-pages.html" title="CloudFlare CDN GitHub Pages"><img class="cover" src="https://static-1252739229.file.myqcloud.com/trpic/cloudflare-ssl.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-25</div><div class="title">CloudFlare CDN GitHub Pages</div></div></a></div><div><a href="/post/coding-sync-github.html" title="Coding持续集成自动同步到GitHub"><img class="cover" src="https://static-1252739229.file.myqcloud.com/trpic/coding-sync.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-26</div><div class="title">Coding持续集成自动同步到GitHub</div></div></a></div><div><a href="/post/coding-ci-hexo.html" title="Coding持续集成自动部署Hexo博客"><img class="cover" src="https://static-1252739229.file.myqcloud.com/trpic/coding-ci-hexo.jpg"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-07-30</div><div class="title">Coding持续集成自动部署Hexo博客</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 唐瑞平</div><div class="footer_custom_text">本站毫无章法的采用多站点部署多CDN加速</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://s4.zstatic.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="https://static-1252739229.file.myqcloud.com/rpint/js/utils.js"></script><script src="https://static-1252739229.file.myqcloud.com/rpint/js/main.js"></script><script src="https://s4.zstatic.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://s4.zstatic.net/ajax/libs/instant.page/5.1.0/instantpage.js" type="module" defer></script><script src="https://static-1252739229.file.myqcloud.com/rpint/js/search/local-search.js"></script><div class="js-pjax"></div><script src="https://static-1252739229.file.myqcloud.com/rpint/js/third-party/click_heart.js" async="async"></script></div></body></html>

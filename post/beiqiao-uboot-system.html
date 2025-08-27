@@ -1,0 +1,233 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>北乔U盘启动系统维护工具 | 唐瑞平</title><meta name="description" content="北乔U盘启动预览图 U盘装机历史如今电脑装机，都已然采用U盘启动系统方式，应该没有采用光盘装机了。但在2010年之前，光盘装机才是大行其道。不过，那时候都是WindowsXP系统，就算是Ghost版的XP加起来也不到700MB，体积不大，倒也可以忍受。 随着时间的流逝，很多组装电脑没有光驱，再加上Windows7系统体积比WindowsXP大几倍，慢慢就演变为U盘装机。刚开始的时候，U盘启动系统装"><meta name="keywords" content="U盘启动,PE"><meta name="author" content="唐瑞平"><meta name="copyright" content="唐瑞平"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="shortcut icon" href="https://static-1252739229.file.myqcloud.com/trpic/ping-logo.png"><link rel="canonical" href="https://www.tangruiping.com/post/beiqiao-uboot-system.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//www.google-analytics.com" crossorigin="crossorigin"><meta name="yandex-verification" content="{&quot;theme_color&quot;:{&quot;enable&quot;:false,&quot;main&quot;:&quot;#FFC0CB&quot;,&quot;paginator&quot;:&quot;#00c4b6&quot;,&quot;button_hover&quot;:&quot;#FF7242&quot;,&quot;text_selection&quot;:&quot;#00c4b6&quot;,&quot;link_color&quot;:&quot;#99a9bf&quot;,&quot;meta_color&quot;:&quot;#858585&quot;,&quot;hr_color&quot;:&quot;#A4D8FA&quot;,&quot;code_foreground&quot;:&quot;#F47466&quot;,&quot;code_background&quot;:&quot;rgba(27, 31, 35, .05)&quot;,&quot;toc_color&quot;:&quot;#00c4b6&quot;,&quot;blockquote_padding_color&quot;:&quot;#FF69B4&quot;,&quot;blockquote_background_color&quot;:&quot;#FF69B4&quot;}}"><meta property="og:type" content="article"><meta property="og:title" content="北乔U盘启动系统维护工具"><meta property="og:url" content="https://www.tangruiping.com/post/beiqiao-uboot-system.html"><meta property="og:site_name" content="唐瑞平"><meta property="og:description" content="北乔U盘启动预览图 U盘装机历史如今电脑装机，都已然采用U盘启动系统方式，应该没有采用光盘装机了。但在2010年之前，光盘装机才是大行其道。不过，那时候都是WindowsXP系统，就算是Ghost版的XP加起来也不到700MB，体积不大，倒也可以忍受。 随着时间的流逝，很多组装电脑没有光驱，再加上Windows7系统体积比WindowsXP大几倍，慢慢就演变为U盘装机。刚开始的时候，U盘启动系统装"><meta property="og:image" content="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-main.jpg"><meta property="article:published_time" content="2021-04-29T16:00:00.000Z"><meta property="article:modified_time" content="2021-06-17T16:00:00.000Z"><meta name="twitter:card" content="summary"><link rel="stylesheet" href="https://static-1252739229.file.myqcloud.com/rpint/css/index.css"><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/5.15.4/css/all.min.css"><link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-V86YQ0T4SR"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-V86YQ0T4SR');
+</script><script defer="defer" data-pjax="data-pjax" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;6d8ec98aedec4340832af6dabc28d8e4&quot;}"></script><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  hexoversion: '7.3.0',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime: '',
+  date_suffix: undefined,
+  copyright: {"limitCount":50,"languages":{"author":"作者: 唐瑞平","link":"链接: ","source":"来源: 唐瑞平","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://s4.zstatic.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js',
+    css: 'https://s4.zstatic.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
+      }
+      localStorage.setItem(key, JSON.stringify(item))
+    },
+  
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true,
+  postUpdate: '2021-06-18 00:00:00'
+}</script><noscript><style type="text/css">
+#nav {
+  opacity: 1
+}
+.justified-gallery img {
+  opacity: 1
+}
+</style></noscript><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+  }
+}
+
+var autoChangeMode = 'false'
+var t = saveToLocal.get('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 22
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (saveToLocal.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 22
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><script>function showNotification(){if(GLOBAL_CONFIG.Snackbar){var t="light"===document.documentElement.getAttribute("data-theme")?GLOBAL_CONFIG.Snackbar.bgLight:GLOBAL_CONFIG.Snackbar.bgDark,e=GLOBAL_CONFIG.Snackbar.position;Snackbar.show({text:"已更新最新版本",backgroundColor:t,duration:5e5,pos:e,actionText:"点击刷新",actionTextColor:"#fff",onActionClick:function(t){location.reload()}})}else{var o=`top: 0; background: ${"light"===document.documentElement.getAttribute("data-theme")?"#49b1f5":"#1f1f1f"};`;document.getElementById("app-refresh").style.cssText=o}}"serviceWorker"in navigator&&(navigator.serviceWorker.controller&&navigator.serviceWorker.addEventListener("controllerchange",function(){showNotification()}),window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js")}));</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://static-1252739229.file.myqcloud.com/trpic/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/post/"><div class="headline">文章</div><div class="length_num">33</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">2</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/post/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><div id="sidebar"><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%97%E4%B9%94U%E7%9B%98%E5%90%AF%E5%8A%A8%E9%A2%84%E8%A7%88%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">北乔U盘启动预览图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#U%E7%9B%98%E8%A3%85%E6%9C%BA%E5%8E%86%E5%8F%B2"><span class="toc-number">2.</span> <span class="toc-text">U盘装机历史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%97%E4%B9%94U%E7%9B%98%E5%90%AF%E5%8A%A8%E7%B3%BB%E7%BB%9F%E7%AE%80%E4%BB%8B"><span class="toc-number">3.</span> <span class="toc-text">北乔U盘启动系统简介</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#PE%E7%B3%BB%E7%BB%9F"><span class="toc-number">3.1.</span> <span class="toc-text">PE系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DOS%E5%B7%A5%E5%85%B7"><span class="toc-number">3.2.</span> <span class="toc-text">DOS工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E7%B3%BB%E7%BB%9F%E7%99%BB%E5%BD%95"><span class="toc-number">3.3.</span> <span class="toc-text">绕过系统登录</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%97%E4%B9%94U%E7%9B%98%E5%90%AF%E5%8A%A8%E7%B3%BB%E7%BB%9F%E4%B8%8B%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">北乔U盘启动系统下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%97%E4%B9%94U%E7%9B%98%E5%90%AF%E5%8A%A8%E7%B3%BB%E7%BB%9F%E5%88%B6%E4%BD%9C"><span class="toc-number">5.</span> <span class="toc-text">北乔U盘启动系统制作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8EU%E7%9B%98%E5%90%AF%E5%8A%A8%E7%9A%84%E5%85%B6%E4%BB%96%E7%9F%A5%E8%AF%86"><span class="toc-number">6.</span> <span class="toc-text">关于U盘启动的其他知识</span></a></li></ol></div></div></div><header class="post-bg" id="page-header" style="background-image: url(https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-main.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">唐瑞平</a></span><span id="menus"><div id="search_button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/post/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">北乔U盘启动系统维护工具</div></div><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-29T16:00:00.000Z" title="发表于 2021-04-30 00:00:00">2021-04-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-06-17T16:00:00.000Z" title="更新于 2021-06-18 00:00:00">2021-06-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h3 id="北乔U盘启动预览图"><a href="#北乔U盘启动预览图" class="headerlink" title="北乔U盘启动预览图"></a>北乔U盘启动预览图</h3><p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot.gif" alt="北乔U盘启动系统预览图"></p>
+<h3 id="U盘装机历史"><a href="#U盘装机历史" class="headerlink" title="U盘装机历史"></a>U盘装机历史</h3><p>如今电脑装机，都已然采用U盘启动系统方式，应该没有采用光盘装机了。但在2010年之前，光盘装机才是大行其道。不过，那时候都是WindowsXP系统，就算是Ghost版的XP加起来也不到700MB，体积不大，倒也可以忍受。</p>
+<p>随着时间的流逝，很多组装电脑没有光驱，再加上Windows7系统体积比WindowsXP大几倍，慢慢就演变为U盘装机。刚开始的时候，U盘启动系统装机程序也是极为友好的，没有各种广告添加和修改主页，真的也就是为装机而生。</p>
+<p>大概在2012年后，各种U盘启动程序就渐渐多了起来，但大多数U盘启动系统工具都会带有一点“小名堂”，比如在制作U盘启动的时候会修改你当前的电脑浏览器默认首页，用它们的U盘启动系统进入PE系统中装机，会对目标系统添加各种推广软件，修改主页，甚至添加恶意程序劫持系统主页。</p>
+<p>一时间，很多人都以为自己下载的Ghost版系统不好，于是就采用MSDN版系统，结果依旧，才发现原来PE系统竟然如此“强大”。当然，这里不是说Ghost系统就一点问题都没有。</p>
+<p>总之，这之间的关系颇为复杂，甚至有以此为生的专业团队和公司来做这个事情，他们推广各种“品牌”的U盘系统，占据了搜索引擎的第一页面。一时半会儿，你想找个干净的U盘启动系统都是一件极为困难之事。干净的U盘启动工具不是没有，而是一般人，哪怕是一般的电脑城人员也不一定找的到。</p>
+<p>因干净的U盘启动工具的制作者，不能靠此盈利，就不可能有多余的经历去推广自己的作品，更不可能花钱在网页上做广告。只有那些动机是靠U盘启动工具的PE注入各种推广软件和修改浏览器主页的作品，才有动力去花钱做推广，花钱做网站，做SEO排名，U盘系统程序更新频繁 。</p>
+<p>当然，在非盈利的U盘启动工具的制作者中，也有小部分更新较为频繁的作品。想来是些是热心肠人，或是狂热爱好者，或是从事相关行业。而北乔U盘启动系统中用到的Win10PE就来自一位名发财的网友。</p>
+<h3 id="北乔U盘启动系统简介"><a href="#北乔U盘启动系统简介" class="headerlink" title="北乔U盘启动系统简介"></a>北乔U盘启动系统简介</h3><p>本U盘系统是为了自身习惯使用而做，是为了自用，无精力频繁更新。发布在自己网站上，可以方便做些记录。</p>
+<p>下图界面是BIOS环境下的U盘启动界面才会有的，UEFI下的是不会有此界面出现，而是默认进PE系统了，如果进不去，尝试在主板的UEFI中关掉<code>Secure Boot</code></p>
+<p>最新版的默认进入的是另一个启动界面（下文有介绍），当选择<code>其他菜单</code>才会进入到此界面；</p>
+<p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-main.jpg" alt="北乔U盘启动系统菜单图"></p>
+<p>[4] 尝试从硬盘启动</p>
+<ul>
+<li>这种启动方式会让某些Windows7的激活失效，正版和KMS激活则无此问题。不过也不用担心，激活失效一般都是临时的，当然也看你用的软激活工具而定。</li>
+<li>如果是安装Ghost版Win7，在PE系统中安装系统成功后，建议拔掉U盘后重启电脑，这样就不会影响软激活失效问题了</li>
+<li>此种启动方式在其他U盘启动系统上也有，当然亦可采用另一种引导方式启动，但也存在一些小瑕疵，各有利弊。</li>
+</ul>
+<p>[5] 运行DG分区工具</p>
+<ul>
+<li>这个是DiskGenius的DOS版，推荐进PE系统使用Windows版更好，DOS版本不推荐使用在如今的计算机硬件上</li>
+</ul>
+<p>[7] 多功能Ghost菜单</p>
+<ul>
+<li>此工具亦属于DOS环境的系统安装备份工具，但不管电脑新旧，一律推荐进PE环境安装系统，因为速度会比DOS下快很多</li>
+</ul>
+<p><strong>2021-06-14 更新</strong></p>
+<ol>
+<li>更新G4D文件和hotkey，使得字母键也可作为快捷键，如上图界面按下<code>S</code>键即可实现关机</li>
+<li>更新了北乔U盘系统文件结构</li>
+<li>因删除了Win8PE而对菜单做了微调</li>
+<li>删除了自动判断是32位UEFI环境还是64位UEFI环境，现实32位UEFI硬件太少，几乎不会碰到</li>
+<li>新增UEFI环境可选菜单，默认是以最大分辨率进PE系统，也可自行选择低分辨率</li>
+<li>修改在<code>BIOS（Legacy）</code>模式下进入<code>Windows启动管理器</code>（之前的菜单都在，选中<code>其他菜单</code>进去即可看到）</li>
+</ol>
+<p>下面是Legacy环境下的Windows启动管理器菜单（默认进此界面），考虑到多数人只是为了进PE系统装个系统，所以这样显示更方便。</p>
+<p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-BIOS-BCD.jpg" alt="北乔U盘系统Legacy下Windows启动管理器菜单图"></p>
+<p>下面是UEFI环境下的Windows启动管理器菜单<br><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-UEFI-BCD.jpg" alt="北乔U盘系统UEFI下Windows启动管理器菜单图"></p>
+<h4 id="PE系统"><a href="#PE系统" class="headerlink" title="PE系统"></a>PE系统</h4><ul>
+<li>WinXP PE</li>
+<li>Win10PE</li>
+</ul>
+<p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-WinXP-PE.jpg" alt="WinXP PE系统桌面"></p>
+<ul>
+<li>WinXP PE系统：属于WindowsXP 32位PE系统；虽然集成了超强大的磁盘控制器驱动自动加载，但毕竟是XP系统内核，太老了，因此推荐用于2012年以前的电脑使用，其优点是体积小，加载快。因老机子内存小，加载Win10内核的PE会非常慢，甚至无法正常进入PE系统。</li>
+<li>如较新的电脑用了此PE会出现什么情况？不一定能成功进入PE系统，就算进入了也不一定能找得到硬盘。特此说明这一点是因为曾经有人用此PE系统进入出现问题，就认为自己的电脑坏了。</li>
+<li>这也是习惯的使然，有些人之前用WinXP PE系统或Win2003PE系统安装系统，到如今也因为习惯而默认选用它，这点习惯要改掉。</li>
+</ul>
+<p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-Win10PE.jpg" alt="Win10PE系统桌面"></p>
+<ul>
+<li>Win10 PE系统：属于Windows10 64位PE系统；支持Refs文件系统，进PE的速度还是很快的，只要机子不是2012年前的，都推荐使用此PE维护。</li>
+<li>推荐桌面上的CGI工具安装系统，推荐今后备份系统用WIM或ESD格式，尽量不要采用GHO的<code>GHOST备份</code>，因Ghost到了12版本后，互相之间产生了很强的不兼容性，比如你用<code>GHOST12.0.0.11197</code>备份，用<code>GHOST12.0.0.11331</code>可能就不一定能正常还原了</li>
+<li>就算是用<code>GHOST12.0.0.11197</code>还原，也不允许GHO文件和还原分区在同一个物理硬盘上。这不是PE问题，这是赛门铁克的Ghost新版本问题。</li>
+<li>为什么不用老版本呢？只能说要与时俱进，老版本也有老版本的问题，不一定适合最新的硬件环境。</li>
+<li>此PE不是李培聪的微PE，是发财网友的。</li>
+</ul>
+<p>PE系统都是干净的，无广告推广，无软件推广，无程序修改等问题。</p>
+<h4 id="DOS工具"><a href="#DOS工具" class="headerlink" title="DOS工具"></a>DOS工具</h4><p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-tools.jpg" alt="北乔U盘启动系统工具菜单图"></p>
+<p>DOS工具都是有些年头了，比如MHDD、HDDREG硬盘再生器这些工具，如今固态硬盘当道，这些工具已不适用于如今的计算机设备，但凡能进PE系统的，都推荐进PE系统去处理。</p>
+<h4 id="绕过系统登录"><a href="#绕过系统登录" class="headerlink" title="绕过系统登录"></a>绕过系统登录</h4><p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-pwd.jpg" alt="北乔U盘启动系统绕过密码菜单图"></p>
+<p>这个有点黑客工具的味道，用于Windows系统设置了密码，但又想绕过系统密码进入Windows桌面，而不是直接把密码清除掉。因为把Windows登录密码清理掉了，电脑用户会发现电脑被动过。而绕过系统密码登录则不会被发现。</p>
+<p>不过，由于Windows10每年都有2次幅度不小的更新，未测试最新版Windows10是否能成功绕过，但之前用2.5版的工具是可以的，不过是Windows10本地账户，而非Windows10微软账户。总之，优先用高版本的工具去尝试，失败了接着换不同的参数去试试，参数和版本都在左下角有提示。</p>
+<h3 id="北乔U盘启动系统下载"><a href="#北乔U盘启动系统下载" class="headerlink" title="北乔U盘启动系统下载"></a>北乔U盘启动系统下载</h3><ul>
+<li><p>直链下载：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://backblaze.tangruiping.com/file/u-boot/BQ_UBOOT21.rar">北乔U盘系统21.rar</a></p>
+</li>
+<li><p><del>网盘下载：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://uboot.coding.net/s/7c59b942-64f1-451d-8598-4ffa4d1bfdf9">北乔U盘系统21.rar</a></del> </p>
+<p>SHA1: EAA7B4BF208E8EBC7C9D163B2555240CC17A4C9A</p>
+</li>
+</ul>
+<h3 id="北乔U盘启动系统制作"><a href="#北乔U盘启动系统制作" class="headerlink" title="北乔U盘启动系统制作"></a>北乔U盘启动系统制作</h3><p>下载完<code>北乔U盘系统</code>解压后运行<code>北乔U盘启动.exe</code>这个程序即可开始，但依旧需要注意如下几点；</p>
+<p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-Fail-format-.jpg" alt="制作过程中U盘被占用"></p>
+<ol>
+<li><p>制作前重新拔插一下U盘（或者打开脚本程序之前才插入U盘到电脑上），免得其他程序占用U盘使得制作失败，如上图所示；</p>
+</li>
+<li><p>制作过程会涉及到磁盘格式化等操作，杀毒软件可能会拦截，因此推荐先退出杀软后在开始制作；</p>
+</li>
+<li><p>本U盘支持传统的BIOS启动和新型的UEFI启动；新版本去掉了对32位UEFI环境的支持（现实中都是64位UEFI）。</p>
+</li>
+<li><p>本U盘系统给予2种安装方式，即<code>[全新安装]</code>和<code>[升级安装]</code>，并且本U盘安装程序会自行判断你的U盘设备是否曾经安装本U盘系统，</p>
+<ul>
+<li>本U盘系统不适合安装到<code>移动硬盘</code>设备上；</li>
+<li>本U盘系统安装到U盘会占用533MB的空间；</li>
+<li>有时候不知所以然U盘引导被破坏了，无法正常引导启动，那么可以尝试<code>r</code>选项修复看看；</li>
+</ul>
+<p><strong>全新安装</strong></p>
+<ul>
+<li>如果没有安装过，只能<code>[全新安装]</code>，没有其他选项可用，<code>[全新安装]</code>会格式化U盘，请自行先备份好U盘中的数据；</li>
+<li>全新安装后，为了增强U盘启动的兼容性，会默认把U盘数据区（可见区）<code>Fat32</code>格式转为<code>NTFS</code>格式；</li>
+<li>理论上讲，相较于<code>Fat32</code>和<code>exFat</code>格式来说，<code>NTFS</code>对U盘的耗损会稍大点，因此如果你不是经常装机，可以考虑自己手动把U盘格式化为<code>exFat</code>格式，Fat32的缺点也很明显，不能存放单个大于4GB的文件；</li>
+</ul>
+<p><strong>升级安装</strong></p>
+<ul>
+<li>如果U盘设备有安装过，则会提供<code>[全新安装]</code>和<code>[升级安装]</code>两种选项可用，推荐优先尝试<code>[升级安装]</code>，此选项只是更新U盘系统文件，而不会格式化U盘；</li>
+</ul>
+</li>
+</ol>
+<p><img src="https://static-1252739229.file.myqcloud.com/trpic/BQ_UBoot-Successful-installation.jpg" alt="北乔U盘系统制作成功示意图"></p>
+<h3 id="关于U盘启动的其他知识"><a href="#关于U盘启动的其他知识" class="headerlink" title="关于U盘启动的其他知识"></a>关于U盘启动的其他知识</h3><p><strong>常见的U盘启动所说的二分区法，三分区法有何区别？</strong></p>
+<p>北乔U盘启动系统用的是二分区法，相较于三分区，优点是较为简单简便，浪费U盘空间较少。三分区的优点则是兼容性高，对于10多年前的电脑也能很好的支持启动，但可能会存在U盘最左边的UD区访问失败最U盘右边的EFI区，为了解决这个问题，因此就需要双份空间。比如ISO文件镜像如果是900MB的话，那么至少要1800MB的空间才可。</p>
+<p>至于说哪种好，个人认为适合自己的就好，因不是电脑城或者专职维护人员，碰到古怪的机型较少，因此二分区法完全够用。一般新电脑都支持UEFI启动了，所以三分区法在日后也会显得不那么重要。</p>
+<p>在一种说法是三分区因为有UD的存在，不是那么挑U盘主控，关于这一点，可能有此事，但至今我还没遇见到，自行选择吧！如果确实是因主控的原因，那么量产、B+、U+这些方式都会影响，而UD影响可能就小很多。</p>
+<p><strong>常见的U盘启动引导有哪些？</strong></p>
+<p>从MBR主引导记录类型看，有Windows自带的NT5，NT6，Linux下有<code>GRUB2</code>，但U盘上常见是还是要属<code>GRUB4DOS</code>和<code>Fbinst</code>，而本U盘系统的主引导记录则是<code>USB-HDD+ v2</code>。当然，U盘启动引导记录远不止这几个。</p>
+<p>上面说的三分区，一般法子就是第一分区以Fbinst作为主引导的UD区，常见的磁盘管理工具如<code>Diskgenius</code>是无法识别此分区信息的；</p>
+<p>第二分区则是一个U盘存放数据的数据区，格式可以为Fat32、exFat、NTFS，为了兼容性，现在网上的各种U盘启动都会默认格式化为NTFS格式；</p>
+<p>第三分区可能为Fat32或Fat16格式，用来存放PE镜像和DOS镜像工具的，其目的是为了兼容越来越多的UEFI主板的启动方式。</p>
+<p>在过去UEFI主板还不流行之前，比如2012年之前，那时候则是UD遍天下。</p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://www.tangruiping.com/about/">唐瑞平</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.tangruiping.com/post/beiqiao-uboot-system.html">https://www.tangruiping.com/post/beiqiao-uboot-system.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="external nofollow noopener noreferrer">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.tangruiping.com" target="_blank">唐瑞平</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/U%E7%9B%98%E5%90%AF%E5%8A%A8/">U盘启动</a><a class="post-meta__tags" href="/tags/PE/">PE</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/ssl-certificate-dns.html"><img class="prev-cover" src="https://static-1252739229.file.myqcloud.com/trpic/ssl-certificate-dns.jpg" onerror="onerror=null;src='https://npm.elemecdn.com/rpint@0.1.1/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">申请SSL证书一直无法通过DNS验证的问题</div></div></a></div><div class="next-post pull-right"><a href="/post/bank-deposit-norms.html"><img class="next-cover" src="https://static-1252739229.file.myqcloud.com/trpic/bank-deposit-norms.jpg" onerror="onerror=null;src='https://npm.elemecdn.com/rpint@0.1.1/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">银行储蓄的规范和禁止异地存款的看法</div></div></a></div></nav></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 唐瑞平</div><div class="footer_custom_text">本站毫无章法的采用多站点部署多CDN加速</div></div></footer></div><section id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/wzpan/hexo-generator-search" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div><div><script src="https://s4.zstatic.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script><script src="https://static-1252739229.file.myqcloud.com/rpint/js/utils.js"></script><script src="https://static-1252739229.file.myqcloud.com/rpint/js/main.js"></script><script src="https://s4.zstatic.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script><script src="https://s4.zstatic.net/ajax/libs/instant.page/5.1.0/instantpage.js" type="module" defer></script><script src="https://static-1252739229.file.myqcloud.com/rpint/js/search/local-search.js"></script><div class="js-pjax"></div><script src="https://static-1252739229.file.myqcloud.com/rpint/js/third-party/click_heart.js" async="async"></script></div></body></html>
